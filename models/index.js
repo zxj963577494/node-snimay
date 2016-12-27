@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const config = require('config-lite');
+const autoIncrement = require('mongoose-auto-increment');
 
-mongoose.connect(config.mongodb, {
+const connection = mongoose.connect(config.mongodb, {
     server: { poolSize: 20 }
 }, function (err) {
     if (err) {
@@ -10,8 +11,12 @@ mongoose.connect(config.mongodb, {
     }
 });
 
+autoIncrement.initialize(connection);
+
 // models
 require('./website');
+require('./product');
 
 exports.WebSite = mongoose.model('WebSite');
+exports.Product = mongoose.model('Product');
 

@@ -2,7 +2,6 @@ const WebSite = require('../proxy').WebSite;
 
 exports.init = function (req, res, next) {
     WebSite.get(function (err, website) {
-            console.log(website)
             if (err) {
                 return next(err);
             }
