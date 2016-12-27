@@ -3,25 +3,12 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Home</title>
+	<title>{{website.title}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="" />
-	<meta name="keywords" content="" />
-	<meta name="author" content="" />
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
+	<meta name="description" content="{{website.description}}" />
+	<meta name="keywords" content="{{website.keywords}}" />
+	<meta name="author" content="{{website.author}}" />
 
-	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
-	<!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
-	
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css">
 	<!-- Icomoon Icon Fonts-->
@@ -55,28 +42,30 @@
 	<nav class="fh5co-nav" role="navigation">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3 col-xs-2">
-					<div id="fh5co-logo"><a href="index.html">Shop.</a></div>
+				<div class="col-md-3 col-xs-6 col-sm-2">
+					<div id="fh5co-logo"><a href="index.html">{{website.title}}.</a></div>
 				</div>
 				<div class="col-md-6 col-xs-6 text-center menu-1">
 					<ul>
 						<li class="has-dropdown">
-							<a href="product.html">Shop</a>
+							<a href="/product">产品体验</a>
 							<ul class="dropdown">
-								<li><a href="single.html">Single Shop</a></li>
+								<li><a href="#">卧房</a></li>
+								<li><a href="#">客厅</a></li>
+								<li><a href="#">餐厅</a></li>
+								<li><a href="#">书房</a></li>
+								<li><a href="#">儿童房</a></li>
 							</ul>
 						</li>
-						<li><a href="about.html">About</a></li>
-						<li class="has-dropdown">
-							<a href="services.html">Services</a>
-							<ul class="dropdown">
-								<li><a href="#">Web Design</a></li>
-								<li><a href="#">eCommerce</a></li>
-								<li><a href="#">Branding</a></li>
-								<li><a href="#">API</a></li>
-							</ul>
+						<li>
+							<a href="/sales">专题活动</a>
 						</li>
-						<li><a href="contact.html">Contact</a></li>
+						<li>
+							<a href="/contact">联系我们</a>
+						</li>
+						<li>
+							<a href="/about">关于我们</a>
+						</li>
 					</ul>
 				</div>
 				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
@@ -89,11 +78,9 @@
 						      </span>
 						    </div>
 						</li>
-						<li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
 					</ul>
 				</div>
 			</div>
-			
 		</div>
 	</nav>
 	{{{body}}}
@@ -126,8 +113,8 @@
 		<div class="container">
 			<div class="row row-pb-md">
 				<div class="col-md-4 fh5co-widget">
-					<h3>Shop.</h3>
-					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+					<h3>{{website.title}}.</h3>
+					<p>{{website.companyDesc}}</p>
 				</div>
 				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
 					<ul class="fh5co-footer-links">
@@ -163,7 +150,7 @@
 			<div class="row copyright">
 				<div class="col-md-12 text-center">
 					<p>
-						<small class="block">Copyright &copy; 2016.Company name All rights reserved.</small> 
+						<small class="block">{{website.copyright}}</small> 
 					</p>
 					<p>
 						<ul class="fh5co-social-icons">
