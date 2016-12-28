@@ -56,9 +56,10 @@ exports.getProductByType = function (type, callback) {
 };
 
 
-exports.newAndSave = function (_id, tags, title, content, price, description, sliderPics, skPic, code, count, callback) {
+exports.newAndSave = function (_id, cid, tags, title, content, price, description, sliderPics, skPic, code, count, callback) {
     var product = new Product();
     product._id = _id;
+    product.cid = cid;
     product.tags = tags;
     product.title = title;
     product.search = nodejieba.cut(sentence, true);

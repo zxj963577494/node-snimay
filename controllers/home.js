@@ -1,27 +1,30 @@
+const eventproxy = require('eventproxy');
 const WebSite = require('../proxy').WebSite;
 const Product = require('../proxy').Product;
 const Category = require('../proxy').Category;
-const uuid = require('node-uuid');
-const nodejieba = require("nodejieba");
-
 
 exports.get = function (req, res, next) {
-    WebSite.get(function (err, website) {
+    const ep = new eventproxy();
+    ep.all('website', 'category', function (website, category) {
+        res.locals = {
+            website: website,
+            category: category
+        };
+        next();
+    })
+
+    
+
+    // get WebSite
+    WebSite.get(ep.done('website'));
+
+    // get Category
+    Category.getByRank(1, 1, ep.done('category'))
+
+    ep.fail(function (err) {
         if (err) {
             return next(err);
         }
-        if (!website) {
-            //res.render404('这个用户不存在。');
-            return;
-        }
-        var sentence = "Basic贝思科系列儿童房";
-
-        var result;
-    
-        result = nodejieba.cut(sentence, true);
-        console.log(result);
-        
-        res.render('home')
     });
 }
 

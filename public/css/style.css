@@ -1145,7 +1145,7 @@ h1, h2, h3, h4, h5, h6, figure {
   margin: 0;
 }
 #fh5co-footer .fh5co-footer-links li {
-  padding: 0;
+  padding: 5px;
   margin: 0;
   list-style: none;
 }
