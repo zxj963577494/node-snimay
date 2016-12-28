@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-const uuid = require('node-uuid');
 const Schema = mongoose.Schema;
 
 const WebSiteSchema = mongoose.Schema({
-    _id: { type: String, default: uuid.v4() },
-    title: { type: String, default: '诗尼曼' },
-    description: { type: String, default: '诗尼曼' },
-    keywords: { type: String, default: '诗尼曼' },
+    _id: String,
+    title: String,
+    description: String,
+    keywords: String,
     author: { type: String, default: 'xujiang zheng' },
     copyright: String,
     address: String,

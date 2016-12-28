@@ -1,9 +1,9 @@
 var global = require('../middlewares/global');
-var website = require('../controllers/website');
+var home = require('../controllers/home');
 
 module.exports = function (app) {
     app.use(global.init);
-    app.get('/', website.get);
+    app.get('/', home.get);
     app.use('/signup', require('./signup'));
     app.use('/signin', require('./signin'));
     app.use('/signout', require('./signout'));

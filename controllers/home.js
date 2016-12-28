@@ -1,34 +1,32 @@
 const WebSite = require('../proxy').WebSite;
 const Product = require('../proxy').Product;
+const Category = require('../proxy').Category;
+const uuid = require('node-uuid');
+const nodejieba = require("nodejieba");
+
 
 exports.get = function (req, res, next) {
-    WebSite.get(function(err, website) {
+    WebSite.get(function (err, website) {
         if (err) {
             return next(err);
         }
         if (!website) {
             //res.render404('这个用户不存在。');
             return;
-        } 
+        }
+        var sentence = "Basic贝思科系列儿童房";
+
+        var result;
+    
+        result = nodejieba.cut(sentence, true);
+        console.log(result);
+        
         res.render('home')
     });
 }
 
 exports.save = function (req, res, next) {
-    // var title = "诗尼曼";
-    // var description = "诗尼曼";
-    // var keywords = "诗尼曼";
-    // var copyright = "Copyright &copy; 2016.Company name All rights reserved.";
-    // var address = "杭州市";
-    // var icp = "备案号：闽ICP备15012807号-1";
-    // var qq = "964324234";
-    // var weibo = "weibo";
-    // var tel = "13666856912";
-    // WebSite.save(title, description, keywords, copyright, address, icp, qq, weibo, tel, function(err, result) {
-    //     if (err) {
-    //         return next(err);
-    //     }
-    // });
+    var _id = uuid.v4();
     var type = 1;
     var title = '唐顿庄园-卧室';
     var content = '详细内容';
@@ -38,8 +36,22 @@ exports.save = function (req, res, next) {
     var skPic = 'http://www.snimay.com/Uploads/goods/1468656683.jpg';
     var code = '001';
     var count = '';
-    Product.newAndSave(type, title, content, price, description, sliderPics, skPic, code, count, function(err, result) {
-        return next(err);
+    Product.newAndSave(type, title, content, price, description, sliderPics, skPic, code, count, function (err, result) {
+        res.render('home')
     });
 }
+
+
+exports.addCategory = function (req, res, next) {
+    var _id = uuid.v4();
+    var title = '定制家具';
+    var reid = 0;
+    var isVisible = 1;
+    var sort = 3;
+    var rank = 1;
+    Category.newAndSave(_id, title, reid, isVisible, rank, sort, function (err, result) {
+        res.render('home')
+    });
+}
+
 

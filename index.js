@@ -8,6 +8,16 @@ const config = require('config-lite');
 const routes = require('./routes');
 const pkg = require('./package');
 
+/*
+ * 分词
+ * https://github.com/yanyiwu/nodejieba
+*/
+const nodejieba = require("nodejieba");
+
+nodejieba.load({
+  userDict: __dirname + '/dict' + '/userdict.utf8',
+});
+
 const app = express();
 
 app.engine('.hbs', exphbs({ extname: '.hbs', defaultLayout: 'main' }));

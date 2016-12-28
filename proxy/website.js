@@ -17,8 +17,9 @@ exports.get = function (callback) {
  * - err, 数据库异常
  * @param {Function} callback 回调函数
  */
-exports.save = function (title, description, keywords, copyright, address, icp, qq, weibo, tel, companyDesc, callback) {
+exports.newAndSave = function (_id, title, description, keywords, copyright, address, icp, qq, weibo, tel, companyDesc, callback) {
     var website = new WebSite();
+    product._id = _id;
     website.title = title;
     website.description = description;
     website.keywords = keywords;

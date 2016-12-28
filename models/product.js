@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
-const uuid = require('node-uuid');
 const Schema = mongoose.Schema;
-const autoIncrement = require('mongoose-auto-increment');
 
 // 产品
 const ProductSchema = mongoose.Schema({
-    type: Number, // 1.产品体验2.定制家具3.配套家具
+    _id: { type: String},
+    id: { type: Number, default: 0 },
+    tags: [],
     title: String,
+    search: [],
     price: Number,
     description: String,
     content: String,
@@ -24,9 +25,14 @@ const ProductSchema = mongoose.Schema({
     }
 });
 
-ProductSchema.plugin(autoIncrement.plugin, {
-    model: 'Product',
-    startAt: 1
+ProductSchema.pre('save', function (next) {
+    var self = this;
+    mongoose.model('Product').findByIdAndUpdate({ _id: 'caid' }, { $inc: { id: 1 } }, { "upsert": true, "new": true }, function (error, counter) {
+        if (error)
+            return next(error);
+        self.id = counter.id;
+        next();
+    });
 });
 
 mongoose.model('Product', ProductSchema);

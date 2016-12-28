@@ -16,7 +16,9 @@ autoIncrement.initialize(connection);
 // models
 require('./website');
 require('./product');
+require('./category');
 
 exports.WebSite = mongoose.model('WebSite');
 exports.Product = mongoose.model('Product');
+exports.Category = mongoose.model('Category');
 

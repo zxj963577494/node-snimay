@@ -47,7 +47,12 @@
 				</div>
 				<div class="col-md-6 col-xs-6 text-center menu-1">
 					<ul>
-						<li class="has-dropdown">
+						{{#each category}}
+						<li>
+							<a href="/{{tag}}">{{title}}</a>
+						</li>
+						{{/each}}
+						{{!--<li class="has-dropdown">
 							<a href="/product">产品体验</a>
 							<ul class="dropdown">
 								<li><a href="#">卧房</a></li>
@@ -56,13 +61,7 @@
 								<li><a href="#">书房</a></li>
 								<li><a href="#">儿童房</a></li>
 							</ul>
-						</li>
-						<li>
-							<a href="/sales">定制家具</a>
-						</li>
-						<li>
-							<a href="/sales">配套家具</a>
-						</li>
+						</li>--}}
 						<li>
 							<a href="/sales">专题活动</a>
 						</li>
