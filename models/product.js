@@ -3,11 +3,10 @@ const Schema = mongoose.Schema;
 
 // 产品
 const ProductSchema = mongoose.Schema({
-    _id: { type: String},
-    id: { type: Number, default: 0 },
+    _id: { type: Number, default: 0 },
     counterValue: { type: Number, default: 0 }, // 辅助计数器，自增
-    tags: [],
-    cid: Number,
+    tags: [{ type: Number, ref: 'Tag'}],
+    cid: { type: Number, ref: 'Category' },
     title: String,
     search: [],
     price: Number,
@@ -29,10 +28,10 @@ const ProductSchema = mongoose.Schema({
 
 ProductSchema.pre('save', function (next) {
     var self = this;
-    mongoose.model('Product').findByIdAndUpdate({ _id: 'counter' }, { $inc: { counterValue: 1 } }, { "upsert": true, "new": true }, function (error, counter) {
+    mongoose.model('Product').findByIdAndUpdate({ _id: 0 }, { $inc: { counterValue: 1 } }, { "upsert": true, "new": true }, function (error, counter) {
         if (error)
             return next(error);
-        self.id = counter.counterValue;
+        self._id = counter.counterValue;
         next();
     });
 });

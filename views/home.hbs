@@ -64,65 +64,61 @@
 
 	<div id="fh5co-services" class="fh5co-bg-section">
 		<div class="container">
+			{{#grouped_each 3 products}}
 			<div class="row">
+				{{#each this}}
 				<div class="col-md-4 col-sm-4 text-center">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<h3>卧房</h3>
-						<img src="http://www.snimay.com/Uploads/Album/20160729/original_img/201607291141291038.jpg" alt="" style="width: 100%;">
-						<h4 style="margin-top: 20px">都市梦想系列</h4>
-						<p>诗尼曼都市梦想系列卧室，都市梦想符合现代年轻一族的定制家具品味，逆袭小户型，用最简洁明快的设计、独特温馨的颜色，定制时尚简约，明亮轻快的卧室...</p>
-						<p><a href="#" class="btn btn-primary btn-outline">查看详情</a></p>
+						<h3>{{cid.title}}</h3>
+						<img src="{{skPic}}" alt="" style="width: 100%;">
+						<h4 style="margin-top: 20px">{{title}}</h4>
+						<p>{{description}}</p>
+						<p><a href="/product/{{_id}}" class="btn btn-primary btn-outline">查看详情</a></p>
 					</div>
 				</div>
-				<div class="col-md-4 col-sm-4 text-center">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<h3>客厅</h3>
-						<img src="http://www.snimay.com/Uploads/Album/20160626/original_img/201606261432239580.jpg" alt="" style="width: 100%;">
-						<h4 style="margin-top: 20px">印象极简系列</h4>
-						<p>印象极简用最简洁、最质朴的家具定制设计理念，将西方的极简文化与东方传统的居家归属感相融合，以线条色块来区分点缀，做到功能的最直白表达。</p>
-						<p><a href="#" class="btn btn-primary btn-outline">查看详情</a></p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4 text-center">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<h3>书房</h3>
-						<img src="http://www.snimay.com/Uploads/Album/20160625/original_img/201606251608541744.jpg" alt="" style="width: 100%;">
-						<h4 style="margin-top: 20px">唐顿庄园书房</h4>
-						<p>首创定制红檀木色系，采用吸塑做旧工艺，将欧洲皇家家具融入中式的静幽韵味。引进德国高端IP进口饰面，纹路清晰典雅，浅浮雕纹手感细腻，品质卓越。</p>
-						<p><a href="#" class="btn btn-primary btn-outline">查看详情</a></p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4 text-center">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<h3>卧房</h3>
-						<img src="http://www.snimay.com/Uploads/Album/20160729/original_img/201607291141291038.jpg" alt="" style="width: 100%;">
-						<h4 style="margin-top: 20px">都市梦想系列</h4>
-						<p>诗尼曼都市梦想系列卧室，都市梦想符合现代年轻一族的定制家具品味，逆袭小户型，用最简洁明快的设计、独特温馨的颜色，定制时尚简约，明亮轻快的卧室...</p>
-						<p><a href="#" class="btn btn-primary btn-outline">查看详情</a></p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4 text-center">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<h3>客厅</h3>
-						<img src="http://www.snimay.com/Uploads/Album/20160626/original_img/201606261432239580.jpg" alt="" style="width: 100%;">
-						<h4 style="margin-top: 20px">印象极简系列</h4>
-						<p>印象极简用最简洁、最质朴的家具定制设计理念，将西方的极简文化与东方传统的居家归属感相融合，以线条色块来区分点缀，做到功能的最直白表达。</p>
-						<p><a href="#" class="btn btn-primary btn-outline">查看详情</a></p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4 text-center">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<h3>书房</h3>
-						<img src="http://www.snimay.com/Uploads/Album/20160625/original_img/201606251608541744.jpg" alt="" style="width: 100%;">
-						<h4 style="margin-top: 20px">唐顿庄园书房</h4>
-						<p>首创定制红檀木色系，采用吸塑做旧工艺，将欧洲皇家家具融入中式的静幽韵味。引进德国高端IP进口饰面，纹路清晰典雅，浅浮雕纹手感细腻，品质卓越。</p>
-						<p><a href="#" class="btn btn-primary btn-outline">查看详情</a></p>
-					</div>
-				</div>
+				{{/each}}
 			</div>
+			{{/grouped_each}}
 		</div>
 	</div>
+
 	<div id="fh5co-product">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<span>Cool Stuff</span>
+					<h2>定制家具.</h2>
+					<p>诗尼曼家居，始终坚持“绿色家居,高端定制”服务理念，提供卧房，厨房，客厅，书房，餐厅，儿童房的全屋家具定制服务。</p>
+				</div>
+			</div>
+			{{#grouped_each 3 dingzhi}}
+			<div class="row">
+				{{#each this}}
+				<div class="col-md-4 text-center animate-box">
+					<div class="product">
+						<div class="product-grid">
+							<img src="{{skPic}}" alt="{{title}}" style="width: 100%;"/>
+							<div class="inner">
+								<p>
+									<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>
+								</p>
+							</div>
+						</div>
+						<div class="desc">
+							<h3>
+								<a href="single/{{_id}}">{{title}}</a>
+							</h3>
+							<span class="price">￥{{price}}</span>
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+			{{/grouped_each}}
+		</div>
+	</div>
+
+	<div id="fh5co-product" style="background: #efefef;">
 		<div class="container">
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
@@ -130,159 +126,34 @@
 					<h2>配套家具.</h2>
 					<p>诗尼曼家居，始终坚持“绿色家居,高端定制”服务理念，提供卧房，厨房，客厅，书房，餐厅，儿童房的全屋家具定制服务。</p>
 				</div>
-			</div>
+			</div>	
+			{{#grouped_each 3 peitao}}
 			<div class="row">
+				{{#each this}}
 				<div class="col-md-4 text-center animate-box">
 					<div class="product">
-						<div class="product-grid" style="background-image:url(https://img.alicdn.com/imgextra/i4/2501996125/TB2CwoxbrOJ.eBjy1XaXXbNupXa_!!2501996125.jpg_430x430q90.jpg);">
+						<div class="product-grid">
+							<img src="{{skPic}}" alt="{{title}}" style="width: 100%;"/>
 							<div class="inner">
 								<p>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
+									<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>
 								</p>
 							</div>
 						</div>
 						<div class="desc">
 							<h3>
-								<a href="single.html">现代皮艺床真皮1.5米1.8米双人床卧室婚床北欧简约大床</a>
+								<a href="single/{{_id}}">{{title}}</a>
 							</h3>
-							<span class="price">￥4386.00</span>
+							<span class="price">￥{{price}}</span>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(https://img.alicdn.com/imgextra/i4/2501996125/TB2hTfBX3hJc1FjSZFDXXbvnFXa_!!2501996125.jpg_430x430q90.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">现代简约布艺沙发大小户型客厅转角组合沙发三人位贵妃位</a></h3>
-							<span class="price">￥1939.00</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(https://img.alicdn.com/imgextra/i2/2501996125/TB2bdSsb8yN.eBjSZFgXXXmGXXa_!!2501996125.jpg_430x430q90.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">现代简约宽边雪尼尔布艺床可拆洗1.5米1.8米双人卧室婚床</a></h3>
-							<span class="price">￥3366.00</span>
-						</div>
-					</div>
-				</div>
+				{{/each}}
 			</div>
-			<div class="row">
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(https://img.alicdn.com/imgextra/i1/2501996125/TB2XamTbSiK.eBjSZFyXXaS4pXa_!!2501996125.jpg_430x430q90.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">布艺棉麻沙发麂皮绒沙发大小户型客厅组合沙发三人贵妃位</a></h3>
-							<span class="price">￥2109.00</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(https://img.alicdn.com/imgextra/i2/2501996125/TB2dl3jbr5K.eBjy0FfXXbApVXa_!!2501996125.jpg_430x430q90.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">现代简约布艺床可拆洗1.5米1.8米双人床卧室婚床储物床箱</a></h3>
-							<span class="price">￥100</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(https://img.alicdn.com/imgextra/i1/2501996125/TB284gpbfSM.eBjSZFNXXbgYpXa_!!2501996125.jpg_430x430q90.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">现代简约布艺床可拆洗1.5米1.8米双人床卧室婚床储物床箱</a></h3>
-							<span class="price">￥3960</span>
-						</div>
-					</div>
-				</div>
-			</div>
+			{{/grouped_each}}
 		</div>
 	</div>
 	
-	<div id="fh5co-testimonial" class="fh5co-bg-section">
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<span>Testimony</span>
-					<h2>Happy Clients</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<div class="row animate-box">
-						<div class="owl-carousel owl-carousel-fullwidth">
-							<div class="item">
-								<div class="testimony-slide active text-center">
-									<figure>
-										<img src="images/person1.jpg" alt="user">
-									</figure>
-									<span>Jean Doe, via <a href="#" class="twitter">Twitter</a></span>
-									<blockquote>
-										<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-									</blockquote>
-								</div>
-							</div>
-							<div class="item">
-								<div class="testimony-slide active text-center">
-									<figure>
-										<img src="images/person2.jpg" alt="user">
-									</figure>
-									<span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
-									<blockquote>
-										<p>&ldquo;Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-									</blockquote>
-								</div>
-							</div>
-							<div class="item">
-								<div class="testimony-slide active text-center">
-									<figure>
-										<img src="images/person3.jpg" alt="user">
-									</figure>
-									<span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
-									<blockquote>
-										<p>&ldquo;Far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-									</blockquote>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-
 	<div id="fh5co-counter" class="fh5co-bg fh5co-counter" style="background-image:url(images/img_bg_5.jpg);">
 		<div class="container">
 			<div class="row">

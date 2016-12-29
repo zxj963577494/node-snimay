@@ -680,7 +680,7 @@ h1, h2, h3, h4, h5, h6, figure {
   font-family: "Montserrat", Arial, sans-serif;
 }
 #fh5co-counter .feature-center {
-  padding: 40px 20px;
+  padding: 40px 10px;
   background: rgba(255, 255, 255, 0.8);
 }
 @media screen and (max-width: 768px) {
@@ -771,6 +771,13 @@ h1, h2, h3, h4, h5, h6, figure {
   line-height: 40px;
   color: #fff;
 }
+.feature-center p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    word-break: break-all;
+    overflow: hidden;
+}
 .feature-center p, .feature-center h3 {
   margin-bottom: 30px;
 }
@@ -789,7 +796,6 @@ h1, h2, h3, h4, h5, h6, figure {
   background-position: top center;
   background-repeat: no-repeat;
   position: relative;
-  height: 350px;
   margin-bottom: 20px;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
@@ -810,7 +816,8 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 .product .product-grid .inner {
   display: table;
-  height: 350px;
+  position: absolute;
+  top: 50%;
   width: 100%;
   opacity: 0;
   background: rgba(0, 0, 0, 0.3);

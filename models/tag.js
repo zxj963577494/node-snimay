@@ -3,8 +3,7 @@ const Schema = mongoose.Schema;
 
 // 分类
 const TagSchema = mongoose.Schema({
-    _id: { type: String},
-    id: { type: Number, default: 0 },
+    _id: { type: Number, default: 0 },
     counterValue: { type: Number, default: 0 }, // 辅助计数器，自增
     title: String,
     reid: Number,
@@ -25,10 +24,10 @@ const TagSchema = mongoose.Schema({
 
 TagSchema.pre('save', function (next) {
     var self = this;
-    mongoose.model('Tag').findByIdAndUpdate({ _id: 'counter' }, { $inc: { counterValue: 1 } }, { "upsert": true, "new": true }, function (error, counter) {
+    mongoose.model('Tag').findByIdAndUpdate({ _id: 0 }, { $inc: { counterValue: 1 } }, { "upsert": true, "new": true }, function (error, counter) {
         if (error)
             return next(error);
-        self.id = counter.counterValue;
+        self._id = counter.counterValue;
         next();
     });
 });

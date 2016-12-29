@@ -5,21 +5,16 @@ const Category = require('../proxy').Category;
 
 exports.get = function (req, res, next) {
     const ep = new eventproxy();
-    ep.all('website', 'category', function (website, category) {
-        res.locals = {
-            website: website,
-            category: category
-        };
-        next();
-    })
+    ep.all('products', function (products) {
+        res.render('home', {
+            products: products.filter((x) => x.cid.reid == 1),
+            dingzhi: products.filter((x) => x.cid.reid == 2),
+            peitao: products.filter((x) => x.cid.reid == 3)
+        });
+    });
 
-    
-
-    // get WebSite
-    WebSite.get(ep.done('website'));
-
-    // get Category
-    Category.getByRank(1, 1, ep.done('category'))
+    // get getProducts
+    Product.getProducts(ep.done('products'));
 
     ep.fail(function (err) {
         if (err) {
@@ -46,15 +41,20 @@ exports.save = function (req, res, next) {
 
 
 exports.addCategory = function (req, res, next) {
-    var _id = uuid.v4();
     var title = '定制家具';
     var reid = 0;
     var isVisible = 1;
     var sort = 3;
     var rank = 1;
-    Category.newAndSave(_id, title, reid, isVisible, rank, sort, function (err, result) {
+    Category.newAndSave(title, reid, isVisible, rank, sort, function (err, result) {
         res.render('home')
     });
 }
 
+exports.getIndex = function (req, res, next) {
+    Product.getProductByIndex(function (err, result) {
+        console.log(result);
+        res.render('home')
+    });
+}
 

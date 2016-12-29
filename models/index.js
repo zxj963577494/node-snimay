@@ -17,8 +17,10 @@ autoIncrement.initialize(connection);
 require('./website');
 require('./product');
 require('./category');
+require('./tag');
 
 exports.WebSite = mongoose.model('WebSite');
 exports.Product = mongoose.model('Product');
 exports.Category = mongoose.model('Category');
+exports.Tag = mongoose.model('Tag');
 

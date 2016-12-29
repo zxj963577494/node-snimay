@@ -43,9 +43,8 @@ exports.getByReid = function (reid, sort, callback) {
  * - err, 数据库异常
  * @param {Function} callback 回调函数
  */
-exports.newAndSave = function (_id, title, reid, isVisible, rank, sort, tag, callback) {
+exports.newAndSave = function (title, reid, isVisible, rank, sort, tag, callback) {
     var category = new Category();
-    category._id = _id;
     category.title = title;
     category.reid = reid;
     category.isVisible = isVisible;
