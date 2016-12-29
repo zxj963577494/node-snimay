@@ -3,6 +3,7 @@ const exphbs = require('express3-handlebars');
 const path = require('path');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const timeout = require('connect-timeout');
 const flash = require('connect-flash');
 const config = require('config-lite');
 const routes = require('./routes');
@@ -19,6 +20,8 @@ nodejieba.load({
 });
 
 const app = express();
+
+app.use(timeout('10s'));
 
 app.engine('.hbs', exphbs({
   extname: '.hbs',
