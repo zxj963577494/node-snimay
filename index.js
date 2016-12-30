@@ -21,7 +21,7 @@ nodejieba.load({
 
 const app = express();
 
-app.use(timeout('10s'));
+// app.use(timeout('10s'));
 
 app.engine('.hbs', exphbs({
   extname: '.hbs',

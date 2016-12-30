@@ -795,6 +795,7 @@ h1, h2, h3, h4, h5, h6, figure {
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
+  height: 350px;
   position: relative;
   margin-bottom: 20px;
   -webkit-transition: 0.3s;
@@ -816,8 +817,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 .product .product-grid .inner {
   display: table;
-  position: absolute;
-  top: 50%;
+  height: 350px;
   width: 100%;
   opacity: 0;
   background: rgba(0, 0, 0, 0.3);

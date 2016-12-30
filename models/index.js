@@ -11,16 +11,16 @@ const connection = mongoose.connect(config.mongodb, {
     }
 });
 
-autoIncrement.initialize(connection);
-
 // models
 require('./website');
 require('./product');
 require('./category');
 require('./tag');
+require('./banner');
 
 exports.WebSite = mongoose.model('WebSite');
 exports.Product = mongoose.model('Product');
 exports.Category = mongoose.model('Category');
 exports.Tag = mongoose.model('Tag');
+exports.Banner = mongoose.model('Banner');
 

@@ -2,19 +2,22 @@ const eventproxy = require('eventproxy');
 const WebSite = require('../proxy').WebSite;
 const Product = require('../proxy').Product;
 const Category = require('../proxy').Category;
+const Banner = require('../proxy').Banner;
 
 exports.get = function (req, res, next) {
     const ep = new eventproxy();
-    ep.all('products', function (products) {
+    ep.all('products', 'banners', function (products, banners) {
         res.render('home', {
-            products: products.filter((x) => x.cid.reid == 1),
-            dingzhi: products.filter((x) => x.cid.reid == 2),
-            peitao: products.filter((x) => x.cid.reid == 3)
+            products: products.filter((x) => x.pid === 1),
+            dingzhi: products.filter((x) => x.pid === 2),
+            peitao: products.filter((x) => x.pid === 3),
+            banners: banners
         });
     });
 
-    // get getProducts
     Product.getProducts(ep.done('products'));
+
+    Banner.getBanners(ep.done('banners'));
 
     ep.fail(function (err) {
         if (err) {
@@ -54,7 +57,13 @@ exports.addCategory = function (req, res, next) {
 exports.getIndex = function (req, res, next) {
     Product.getProductByIndex(function (err, result) {
         console.log(result);
-        res.render('home')
+        res.render('home');
     });
 }
 
+exports.addBanner = function (req, res, next) {
+    Banner.newAndSave("诗尼曼STC-6004餐桌椅组合", 0, "诗尼曼STC-6004餐桌椅组合诗尼曼STC-6004餐桌椅组合诗尼曼STC-6004餐桌椅组合诗尼曼STC-6004餐桌椅组合", "http://baidu.com", "http://image.jiaju100.com/userfiles/images/dwl/peitaojiaju/canzuoyi/STC-6004/stc6004122301.jpg", "2016-12-28", "2017-1-28", 1, 5, function (err, result) {
+        console.log(result);
+        res.render('home');
+    })
+}

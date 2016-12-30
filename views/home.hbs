@@ -1,63 +1,25 @@
 	<aside id="fh5co-hero" class="js-fullheight">
 		<div class="flexslider js-fullheight">
 			<ul class="slides">
-		   	<li style="background-image: url(images/img_bg_1.jpg);">
+			{{#each banners}}
+		   	<li style="background-image: url({{pic}});">
 		   		<div class="overlay-gradient"></div>
 		   		<div class="container">
 		   			<div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
 		   				<div class="slider-text-inner">
 		   					<div class="desc">
-		   						<span class="price">￥1698.00</span>
-		   						<h2>整体定制大衣柜衣橱 现代简约组合推拉门衣柜</h2>
-		   						<p>诗尼曼衣柜 整体定制大衣柜衣橱 现代简约组合推拉门衣柜 二门三门四门衣柜 白枫诗尼曼衣柜 整体定制大衣柜衣橱 现代简约组合推拉门衣柜 二门三门四门衣柜</p>
-			   					<p><a href="/single" class="btn btn-primary btn-outline btn-lg">查看详情</a></p>
+								   {{#if price}}
+								   <span class="price">￥{{price}}</span>
+								   {{/if}}
+								   <h2>{{title}}</h2>
+								   <p>{{description}}</p>
+			   					<p><a href="{{link}}" class="btn btn-primary btn-outline btn-lg">查看详情</a></p>
 		   					</div>
 		   				</div>
 		   			</div>
 		   		</div>
 		   	</li>
-		   	<li style="background-image: url(images/img_bg_2.jpg);">
-		   		<div class="container">
-		   			<div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
-		   				<div class="slider-text-inner">
-		   					<div class="desc">
-		   						<span class="price">￥2098.00</span>
-		   						<h2>走入式掩门大衣柜</h2>
-		   						<p>诗尼曼 衣柜 整体定制衣柜衣橱 走入式掩门大衣柜卧室订制大衣诗尼曼 衣柜 整体定制衣柜衣橱 走入式掩门大衣柜卧室订制大衣</p>
-			   					<p><a href="single.html" class="btn btn-primary btn-outline btn-lg">查看详情</a></p>
-		   					</div>
-		   				</div>
-		   			</div>
-		   		</div>
-		   	</li>
-		   	<li style="background-image: url(images/img_bg_3.jpg);">
-		   		<div class="container">
-		   			<div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
-		   				<div class="slider-text-inner">
-		   					<div class="desc">
-		   						<span class="price">￥1499.00</span>
-		   						<h2>书柜收纳柜组合</h2>
-		   						<p>诗尼曼 整体定制榻榻米儿童房衣柜卧室成套家具 书柜收纳柜组合 诗尼曼 整体定制榻榻米儿童房衣柜卧室成套家具 书柜收纳柜组合 </p>
-			   					<p><a href="single.html" class="btn btn-primary btn-outline btn-lg">查看详情</a></p>
-		   					</div>
-		   				</div>
-		   			</div>
-		   		</div>
-		   	</li>
-		   	<li style="background-image: url(images/img_bg_4.jpg);">
-		   		<div class="container">
-		   			<div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
-		   				<div class="slider-text-inner">
-		   					<div class="desc">
-		   						<span class="price">￥13445.00</span>
-		   						<h2>整体储物强收纳</h2>
-		   						<p>诗尼曼 卧室成套家具现代简约多功能榻榻米组合 整体储物强收纳 诗尼曼 卧室成套家具现代简约多功能榻榻米组合 整体储物强收纳 </p>
-			   					<p><a href="single.html" class="btn btn-primary btn-outline btn-lg">查看详情</a></p>
-		   					</div>
-		   				</div>
-		   			</div>
-		   		</div>
-		   	</li>
+			{{/each}}
 		  	</ul>
 	  	</div>
 	</aside>
@@ -96,8 +58,7 @@
 				{{#each this}}
 				<div class="col-md-4 text-center animate-box">
 					<div class="product">
-						<div class="product-grid">
-							<img src="{{skPic}}" alt="{{title}}" style="width: 100%;"/>
+						<div class="product-grid" style="background-image:url({{skPic}});">
 							<div class="inner">
 								<p>
 									<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>
@@ -132,8 +93,7 @@
 				{{#each this}}
 				<div class="col-md-4 text-center animate-box">
 					<div class="product">
-						<div class="product-grid">
-							<img src="{{skPic}}" alt="{{title}}" style="width: 100%;"/>
+						<div class="product-grid" style="background-image:url({{skPic}});">
 							<div class="inner">
 								<p>
 									<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>

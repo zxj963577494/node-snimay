@@ -6,6 +6,7 @@ const ProductSchema = mongoose.Schema({
     _id: { type: Number, default: 0 },
     counterValue: { type: Number, default: 0 }, // 辅助计数器，自增
     tags: [{ type: Number, ref: 'Tag'}],
+    pid: { type: Number, ref: 'Category' },
     cid: { type: Number, ref: 'Category' },
     title: String,
     search: [],
@@ -16,6 +17,7 @@ const ProductSchema = mongoose.Schema({
     skPic: String,
     code: String,
     count: String,
+    isVisible: Number,
     createTime: {
         type: Date,
         default: Date.now
