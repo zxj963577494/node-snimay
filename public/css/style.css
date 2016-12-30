@@ -19,7 +19,7 @@ body {
   background: #fff;
 }
 
-#page {
+#pages {
   position: relative;
   overflow-x: hidden;
   width: 100%;
@@ -28,11 +28,11 @@ body {
   -o-transition: 0.5s;
   transition: 0.5s;
 }
-.offcanvas #page {
+.offcanvas #pages {
   overflow: hidden;
   position: absolute;
 }
-.offcanvas #page:after {
+.offcanvas #pages:after {
   -webkit-transition: 2s;
   -o-transition: 2s;
   transition: 2s;
@@ -1689,6 +1689,23 @@ h1, h2, h3, h4, h5, h6, figure {
 
 .js .animate-box {
   opacity: 0;
+}
+
+.fh5co-nav-category {
+  padding: 0 0 20px
+}
+
+.fh5co-nav-category ul li {
+  padding: 10px 10px;
+}
+
+.fh5co-nav-category ul > li:first-child {
+  padding: 0 -10px 0 0; 
+  font-weight: 700;
+}
+
+.fh5co-nav-category ul li a {
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=style.css.map */

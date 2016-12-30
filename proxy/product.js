@@ -8,16 +8,17 @@ const _ = require('lodash')
  * 回调函数参数列表：
  * - err, 数据库错误
  * - count, 产品的数量
- * @param {Number} type 产品类别 0.全部1.产品体验2.定制家具3.配套家具
+ * @param {Number} pid 产品类别 0.全部1.产品体验2.定制家具3.配套家具
  * @param {Function} callback 获取消息数量
  */
-exports.getProductCount = function (cid, callback) {
-    if (cid) {
+exports.getProductCount = function (pid, callback) {
+    if (pid) {
         Product.count({
-            cid: cid
+            pid: pid,
+            isVisible: 1
         }, callback);
     } else {
-        Product.count({}, callback);
+        Product.count({isVisible: 1}, callback);
     }
 };
 
@@ -27,7 +28,7 @@ exports.getProductCount = function (cid, callback) {
  * 回调函数参数列表：
  * - err, 数据库错误
  * - product, 产品的数量
- * @param {Number} type 产品类别 0.全部1.产品体验2.定制家具3.配套家具
+ * @param {Number} id 产品类别 0.全部1.产品体验2.定制家具3.配套家具
  * @param {Function} callback 获取的产品
  */
 exports.getProductById = function (id, callback) {
@@ -72,7 +73,7 @@ exports.getProductByType = function (cid, callback) {
  * @param {Object} c_t_sort 标签和分类排序 如：{ sort: -1 }
  * @param {Object} p_sort 标签和分类排序 如：{ sort: -1 }
  */
-exports.getProducts = function (callback, {p_select, c_select, t_select, p_options, c_options, t_options, c_t_sort, p_sort} = { p_select: '_id cid code skPic description price title lastModifyTime tags', c_select: 'reid tag title', t_select: 'reid tag title', p_options: { _id: { $gt: 0 }, isVisible: 1 }, c_options: { rank: 2 }, t_options: { rank: 2 }, c_t_sort: { sort: -1 }, p_sort: { sort: '-lastModifyTime' } }) {
+exports.getProducts = function (callback, {p_select, c_select, t_select, p_options, c_options, t_options, c_t_sort, p_sort} = { p_select: '_id pid cid code skPic description price title lastModifyTime tags', c_select: 'reid tag title', t_select: 'reid tag title', p_options: { _id: { $gt: 0 }, isVisible: 1 }, c_options: { rank: 2, isVisible: 1 }, t_options: { rank: 2, isVisible: 1 }, c_t_sort: { sort: -1 }, p_sort: { sort: '-lastModifyTime' } }) {
     Product.find(p_options, p_select, p_sort).populate({ path: 'cid', match: c_options, select: c_select, options: { sort: c_t_sort } }).populate({ path: 'tags', match: t_options, select: t_select, options: { sort: c_t_sort } }).exec(callback);
 };
 

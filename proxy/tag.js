@@ -20,8 +20,8 @@ exports.get = function (ops, callback) {
  * @param {Number} sort 排序 正序：'1' 倒叙：'-1'
  * @param {Function} callback 回调函数
  */
-exports.getByRank = function (cid, sort, callback) {
-    Tag.find({cid: cid, isVisible: 1}, 'title tag', {sort: ((sort > 0 ? '' : '-') + 'sort')}, callback);
+exports.getByCid = function (cid, sort, callback) {
+    Tag.find({cid: cid, rank: 1, isVisible: 1}, '_id sid title tag', {sort: ((sort > 0 ? '' : '-') + 'sort')}).populate({path:'sid', match:{rank: 2, isVisible: 1}, select: '_id title tag',options: { sort: {sort: -1} }}).exec(callback);
 };
 
 /**

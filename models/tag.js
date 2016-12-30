@@ -12,6 +12,7 @@ const TagSchema = mongoose.Schema({
     sort: Number,
     tag: String,
     cid: Number,
+    sid: [{ type: Number, ref: 'Tag'}],
     createTime: {
         type: Date,
         default: Date.now

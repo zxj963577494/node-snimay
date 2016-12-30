@@ -12,7 +12,7 @@ const pkg = require('./package');
 /*
  * 分词
  * https://github.com/yanyiwu/nodejieba
-*/
+ */
 const nodejieba = require("nodejieba");
 
 nodejieba.load({
@@ -28,7 +28,9 @@ app.engine('.hbs', exphbs({
   defaultLayout: 'main',
   helpers: {
     grouped_each: function (every, context, options) {
-      var out = "", subcontext = [], i;
+      var out = "",
+        subcontext = [],
+        i;
       if (context && context.length > 0) {
         for (i = 0; i < context.length; i++) {
           if (i > 0 && i % every === 0) {
@@ -40,6 +42,11 @@ app.engine('.hbs', exphbs({
         out += options.fn(subcontext);
       }
       return out;
+    },
+    section: function (name, options) {
+      if (!this._sections) this._sections = {};
+      this._sections[name] = options.fn(this);
+      return null;
     }
   }
 }));
@@ -50,13 +57,13 @@ app.use(express.static(__dirname + '/public'));
 
 // session 中间件
 app.use(session({
-  name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
-  secret: config.session.secret,// 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
+  name: config.session.key, // 设置 cookie 中保存 session id 的字段名称
+  secret: config.session.secret, // 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
   cookie: {
-    maxAge: config.session.maxAge// 过期时间，过期后 cookie 中的 session id 自动删除
+    maxAge: config.session.maxAge // 过期时间，过期后 cookie 中的 session id 自动删除
   },
-  store: new MongoStore({// 将 session 存储到 mongodb
-    url: config.mongodb// mongodb 地址
+  store: new MongoStore({ // 将 session 存储到 mongodb
+    url: config.mongodb // mongodb 地址
   })
 }));
 
@@ -69,4 +76,3 @@ routes(app);
 app.listen(config.port, function (req, res) {
   console.log(`${pkg.name} started on http://localhost: ${config.port}; press Ctrl + C  to terminate.`);
 });
-
