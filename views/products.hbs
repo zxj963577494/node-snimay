@@ -11,15 +11,24 @@
 				<div class="fh5co-nav-category col-md-12 col-xs-12">
 					<ul>
 						<li>空间：</li>
+						<li>
+							<a href="/products">全部</a>
+						</li>
 						{{#each categories}}
-						<li><a href="{{_id}}">{{title}}</a></li>
+						<li>
+							<a {{#if isActive}} class="bg-success" {{/if}}  href="{{link}}">{{title}}
+							</a>
+						</li>
 						{{/each}}
 					</ul>
 					{{#each tags}}
 					<ul>
 						<li>{{title}}：</li>
+						<li>
+							<a href="/products">全部</a>
+						</li>
 						{{#each sid}}
-						<li><a href="{{_id}}">{{title}}</a></li>
+						<li><a {{#if isActive}} class="bg-success" {{/if}} href="{{link}}">{{title}}</a></li>
 						{{/each}}
 					</ul>
 					{{/each}}
@@ -42,7 +51,7 @@
 								<a href="single/{{_id}}">{{title}}</a>
 							</h3>
 							{{#if price}}
-							<span class="price">${{price}}</span>
+							<span class="price">￥{{price}}</span>
 							{{/if}}
 						</div>
 					</div>
@@ -66,7 +75,11 @@
 				bootstrapMajorVersion: 3,
 				alignment: "right",
 				numberOfPages: 5,
-				pageUrl: function (type, page, current) {                 		                return "/products?page=" + page;  
+				pageUrl: function (type, page, current) { 
+					var query = '?page=' + page;
+					query += $.query.get('cid') ? '&cid=' + $.query.get('cid') : '';
+					query += $.query.get('tid') ? '&tid=' + $.query.get('tid') : '';
+					return '/products' + query;
                 }, 
 				itemTexts: function (type, page, current) {
 					switch (type) {

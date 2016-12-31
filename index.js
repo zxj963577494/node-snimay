@@ -71,7 +71,7 @@ app.use(session({
 app.use(flash());
 
 // 路由
-routes(app);
+app.use('/', routes);
 
 app.listen(config.port, function (req, res) {
   console.log(`${pkg.name} started on http://localhost: ${config.port}; press Ctrl + C  to terminate.`);

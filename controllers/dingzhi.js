@@ -25,7 +25,7 @@ exports.get = function (req, res, next) {
 
     // 构建产品查询条件
     const options = _.assign({
-        pid: 1,
+        pid: 2,
     }, cate, tag)
 
     const pageSize = 12;
@@ -41,7 +41,7 @@ exports.get = function (req, res, next) {
                 isActive: 0
             };
             const clink = {
-                link: '/products?cid=' + x._id + '&tid=' + tid
+                link: '/dingzhi?cid=' + x._id + '&tid=' + tid
             };
             cates.push(_.assign(x, active, clink))
         }
@@ -54,14 +54,14 @@ exports.get = function (req, res, next) {
                     isActive: 0
                 };
                 const tlink = {
-                    link: '/products?cid=' + cid + '&tid=' + z._id
+                    link: '/dingzhi?cid=' + cid + '&tid=' + z._id
                 };
                 ts.sid = [];
                 ts.sid.push(_.assign(z, active, tlink));
             }
             ts.push(y)
         }
-        res.render('products', {
+        res.render('dingzhi', {
             products: products,
             categories: cates,
             tags: ts,
@@ -75,9 +75,9 @@ exports.get = function (req, res, next) {
 
     Product.getProductCount(options, ep.done('totalCount'));
 
-    Categoty.getByReid(1, 1, ep.done('categories'));
+    Categoty.getByReid(2, 1, ep.done('categories'));
 
-    Tag.getByCid(1, 1, ep.done('tags'));
+    Tag.getByCid(2, 1, ep.done('tags'));
 
     ep.fail(function (err) {
         if (err) {

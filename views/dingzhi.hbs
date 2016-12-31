@@ -1,4 +1,4 @@
-	<div id="fh5co-product">
+	<div id="fh5co-product" style="padding-bottom: 0">
 		<div class="container">
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
@@ -7,181 +7,91 @@
 					<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(images/product-1.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">Hauteville Concrete Rocking Chair</a></h3>
-							<span class="price">$350</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(images/product-2.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">Pavilion Speaker</a></h3>
-							<span class="price">$600</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(images/product-3.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">Ligomancer</a></h3>
-							<span class="price">$780</span>
-						</div>
-					</div>
+			<div class="fh5co-nav row" style="padding: 0">
+				<div class="fh5co-nav-category col-md-12 col-xs-12">
+					<ul>
+						<li>分类：</li>
+						<li>
+							<a href="/dingzhi">全部</a>
+						</li>
+						{{#each categories}}
+						<li>
+							<a {{#if isActive}} class="bg-success" {{/if}}  href="{{link}}">{{title}}
+							</a>
+						</li>
+						{{/each}}
+					</ul>
+					{{#each tags}}
+					<ul>
+						<li>{{title}}：</li>
+						<li>
+							<a href="/dingzhi">全部</a>
+						</li>
+						{{#each sid}}
+						<li><a {{#if isActive}} class="bg-success" {{/if}} href="{{link}}">{{title}}</a></li>
+						{{/each}}
+					</ul>
+					{{/each}}
 				</div>
 			</div>
+			{{#grouped_each 3 products}}
 			<div class="row">
+				{{#each this}}
 				<div class="col-md-4 text-center animate-box">
 					<div class="product">
-						<div class="product-grid" style="background-image:url(images/product-4.jpg);">
+						<div class="product-grid" style="background-image:url({{skPic}});">
 							<div class="inner">
 								<p>
-									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
+									<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>
 								</p>
 							</div>
 						</div>
 						<div class="desc">
-							<h3><a href="single.html">Alato Cabinet</a></h3>
-							<span class="price">$800</span>
+							<h3>
+								<a href="single/{{_id}}">{{title}}</a>
+							</h3>
+							{{#if price}}
+							<span class="price">￥{{price}}</span>
+							{{/if}}
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(images/product-5.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">Earing Wireless</a></h3>
-							<span class="price">$100</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(images/product-6.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">Sculptural Coffee Table</a></h3>
-							<span class="price">$960</span>
-						</div>
-					</div>
-				</div>
+				{{/each}}
 			</div>
-			<div class="row">
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(images/product-7.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">The WW Chair</a></h3>
-							<span class="price">$540</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(images/product-8.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">Himitsu Money Box</a></h3>
-							<span class="price">$55</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url(images/product-9.jpg);">
-							<div class="inner">
-								<p>
-									<a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
-									<a href="single.html" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3><a href="single.html">Ariane Prin</a></h3>
-							<span class="price">$99</span>
-						</div>
-					</div>
-				</div>
-			</div>
+			{{/grouped_each}}
 		</div>
 	</div>
 
-	<div id="fh5co-started">
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Newsletter</h2>
-					<p>Just stay tune for our latest Product. Now you can subscribe</p>
-				</div>
-			</div>
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2">
-					<form class="form-inline">
-						<div class="col-md-6 col-sm-6">
-							<div class="form-group">
-								<label for="email" class="sr-only">Email</label>
-								<input type="email" class="form-control" id="email" placeholder="Email">
-							</div>
-						</div>
-						<div class="col-md-6 col-sm-6">
-							<button type="submit" class="btn btn-default btn-block">Subscribe</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div class="text-center">
+        <ul id="pagination" class="pagination-sm"></ul>
+    </div>
+	{{#section 'pagination'}} 
+	<script>
+		$(document).ready(function () {
+			$('#pagination').bootstrapPaginator({
+				currentPage: {{currentPage}},
+				totalPages: {{totalPages}},
+				size: "normal",
+				bootstrapMajorVersion: 3,
+				alignment: "right",
+				numberOfPages: 5,
+				pageUrl: function (type, page, current) { 
+					var query = '?page=' + page;
+					query += $.query.get('cid') ? '&cid=' + $.query.get('cid') : '';
+					query += $.query.get('tid') ? '&tid=' + $.query.get('tid') : '';
+					return '/dingzhi' + query;
+                }, 
+				itemTexts: function (type, page, current) {
+					switch (type) {
+						case "first": return "首页";
+						case "prev": return "上一页";
+						case "next": return "下一页";
+						case "last": return "末页";
+						case "page": return page;
+					}
+				}
+			});
+		});
+	</script>
+	{{/section}}
+	
