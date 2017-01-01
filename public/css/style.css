@@ -893,7 +893,7 @@ h1, h2, h3, h4, h5, h6, figure {
   float: left;
   margin: 0;
   padding: 0;
-  width: 33.33%;
+  width: 100%;
   text-align: center;
   list-style: none;
   display: -moz-inline-stack;
@@ -1707,6 +1707,10 @@ h1, h2, h3, h4, h5, h6, figure {
 .fh5co-nav-category ul li a {
   font-size: 16px;
   padding: 5px 10px
+}
+
+.label-gray {
+    background-color: #ccc;
 }
 
 /*# sourceMappingURL=style.css.map */

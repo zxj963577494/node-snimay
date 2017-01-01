@@ -27,9 +27,13 @@ exports.getProductCount = function (options, callback) {
  * @param {Function} callback 获取的产品
  */
 exports.getProductById = function (id, callback) {
-    Product.findOne({
-        Id: id
-    }, callback);
+    Product.findOne({_id:id}).populate({
+        path: 'cid',
+        select: '_id tag title'
+    }).populate({
+        path: 'tags',
+        select: '_id tag title'
+    }).exec(callback);
 }
 
 

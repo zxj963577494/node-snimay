@@ -4,6 +4,7 @@ const home = require('../controllers/home');
 const products = require('../controllers/products')
 const dingzhi = require('../controllers/dingzhi')
 const peitao = require('../controllers/peitao')
+const single = require('../controllers/single')
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get('/', home.get);
 router.get('/products', products.get);
 router.get('/dingzhi', dingzhi.get);
 router.get('/peitao', peitao.get);
-router.get('/single', products.get);
+router.get('/single/:id', single.get);
 router.get('/signup', require('./signup'));
 router.get('/signin', require('./signin'));
 router.get('/signout', require('./signout'));
