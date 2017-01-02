@@ -3,6 +3,7 @@ const _ = require('lodash');
 const Product = require('../proxy').Product;
 const Categoty = require('../proxy').Category;
 const Tag = require('../proxy').Tag;
+const util = require('../util');
 
 exports.get = function (req, res, next) {
     // 获取当前页
@@ -33,38 +34,10 @@ exports.get = function (req, res, next) {
     const ep = new eventproxy();
 
     ep.all('products', 'categories', 'tags', 'totalCount', function (products, categories, tags, totalCount) {
-        var cates = [];
-        for (var x of categories) {
-            const active = x._id === cid ? {
-                isActive: 1
-            } : {
-                isActive: 0
-            };
-            const clink = {
-                link: '/dingzhi?cid=' + x._id + '&tid=' + tid
-            };
-            cates.push(_.assign(x, active, clink))
-        }
-        var ts = [];
-        for (var y of tags) {
-            for (z of y.sid) {
-                const active = z._id === tid ? {
-                    isActive: 1
-                } : {
-                    isActive: 0
-                };
-                const tlink = {
-                    link: '/dingzhi?cid=' + cid + '&tid=' + z._id
-                };
-                ts.sid = [];
-                ts.sid.push(_.assign(z, active, tlink));
-            }
-            ts.push(y)
-        }
         res.render('dingzhi', {
             products: products,
-            categories: cates,
-            tags: ts,
+            categories: util.filter_categories(categories, cid, tid),
+            tags: util.filter_tags(tags, cid, tid),
             currentPage: currentPage,
             totalPages: Math.ceil(totalCount / pageSize),
             pageSize: pageSize
