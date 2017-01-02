@@ -1,55 +1,75 @@
+{{# product}}
 <div id="fh5co-product" style="padding:3em 0">
-	{{# product}}
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1 animate-box">
-					<div class="owl-carousel owl-carousel-fullwidth product-carousel" style="margin-bottom:3em">
-						{{#each sliderPics}}
-						<div class="item">
-							<div class="active text-center">
-								<figure>
-									<img src="{{this}}" alt="{{../title}}">
-								</figure>
-							</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 animate-box">
+				<div class="owl-carousel owl-carousel-fullwidth product-carousel" style="margin-bottom:3em">
+					{{#each sliderPics}}
+					<div class="item">
+						<div class="active text-center">
+							<figure>
+								<img src="{{this}}" alt="{{../title}}">
+							</figure>
 						</div>
-						{{/each}}
 					</div>
-					<div class="row animate-box">
-						<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-							<h2>{{title}}</h2>
-							<p>
-								{{description}}
-							</p>
-							<p>
-								<h3>
-								{{#each tags}}
-									<a style="display: inline-block;" class="label label-gray" href="/products?tid={{_id}}">{{title}}</a>
-								{{/each}}
-								</h3>
-							</p>
-						</div>
+					{{/each}}
+				</div>
+				<div class="row animate-box">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+						<h2>{{title}}</h2>
+						<p>
+							{{description}}
+						</p>
+						<p>
+							<h3>
+							{{#each tags}}
+								<a style="display: inline-block;" class="label label-gray" href="/products?tid={{_id}}">{{title}}</a>
+							{{/each}}
+							</h3>
+						</p>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<div class="fh5co-tabs animate-box">
-						<ul class="fh5co-tab-nav text-center">
-							<li class="active"><a href="#" data-tab="1"><span >产品细节</span></a></li>
-						</ul>
+		</div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="fh5co-tabs animate-box">
+					<ul class="fh5co-tab-nav text-center">
+						<li class="active"><a href="#" data-tab="1"><span >产品细节</span></a></li>
+					</ul>
 
-						<!-- Tabs -->
-						<div class="fh5co-tab-content-wrap"  style="top: 0;" >
+					<!-- Tabs -->
+					<div class="fh5co-tab-content-wrap"  style="top: 0;" >
 
-							<div class="fh5co-tab-content tab-content active" data-tab-content="1">
-								<div class="col-md-10 col-md-offset-1">
-									{{content}}
-								</div>
+						<div class="fh5co-tab-content tab-content active" data-tab-content="1">
+							<div class="col-md-10 col-md-offset-1">
+								{{content}}
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		{{/product}}
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 animate-box">
+				<!-- 多说评论框 start -->
+				<div class="ds-thread" data-thread-key="{{_id}}" data-title="{{title}}" data-url="http://localhost:3000/single/{{_id}}"></div>
+				<!-- 多说评论框 end -->
+				<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+				<script type="text/javascript">
+				var duoshuoQuery = {short_name:"zhengxujiang"};
+				(function() {
+					var ds = document.createElement('script');
+					ds.type = 'text/javascript';ds.async = true;
+					ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+					ds.charset = 'UTF-8';
+					(document.getElementsByTagName('head')[0] 
+						|| document.getElementsByTagName('body')[0]).appendChild(ds);
+				})();
+				</script>
+				<!-- 多说公共JS代码 end -->
+			</div>
+		</div>
 	</div>
+</div>
+{{/product}}

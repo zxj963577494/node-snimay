@@ -7,4 +7,10 @@ router.get('/', function (req, res, next) {
     });
 });
 
+router.get('/qiniu', function (req, res, next) {
+    res.render('admin/qiniu', {
+        layout: 'admin'
+    });
+});
+
 module.exports = router;

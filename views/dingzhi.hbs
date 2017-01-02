@@ -1,97 +1,98 @@
-	<div id="fh5co-product" style="padding-bottom: 0">
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<span>Cool Stuff</span>
-					<h2>定制家具.</h2>
-					<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-				</div>
+<div id="fh5co-product" style="padding-bottom: 0">
+	<div class="container">
+		<div class="row animate-box">
+			<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+				<span>Cool Stuff</span>
+				<h2>定制家具.</h2>
+				<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
 			</div>
-			<div class="fh5co-nav row" style="padding: 0">
-				<div class="fh5co-nav-category col-md-12 col-xs-12">
-					<ul>
-						<li>分类：</li>
-						<li>
-							<a href="/dingzhi">全部</a>
-						</li>
-						{{#each categories}}
-						<li>
-							<a {{#if isActive}} class="bg-success" {{/if}}  href="{{link}}">{{title}}
-							</a>
-						</li>
-						{{/each}}
-					</ul>
-					{{#each tags}}
-					<ul>
-						<li>{{title}}：</li>
-						<li>
-							<a href="/dingzhi">全部</a>
-						</li>
-						{{#each sid}}
-						<li><a {{#if isActive}} class="bg-success" {{/if}} href="{{link}}">{{title}}</a></li>
-						{{/each}}
-					</ul>
+		</div>
+		<div class="fh5co-nav row" style="padding: 0">
+			<div class="fh5co-nav-category col-md-12 col-xs-12">
+				<ul>
+					<li>分类：</li>
+					<li>
+						<a href="/dingzhi">全部</a>
+					</li>
+					{{#each categories}}
+					<li>
+						<a {{#if isActive}} class="bg-success" {{/if}}  href="{{link}}">{{title}}
+						</a>
+					</li>
 					{{/each}}
-				</div>
-			</div>
-			{{#grouped_each 3 products}}
-			<div class="row">
-				{{#each this}}
-				<div class="col-md-4 text-center animate-box">
-					<div class="product">
-						<div class="product-grid" style="background-image:url({{skPic}});">
-							<div class="inner">
-								<p>
-									<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>
-								</p>
-							</div>
-						</div>
-						<div class="desc">
-							<h3>
-								<a href="single/{{_id}}">{{title}}</a>
-							</h3>
-							{{#if price}}
-							<span class="price">￥{{price}}</span>
-							{{/if}}
-						</div>
-					</div>
-				</div>
+				</ul>
+				{{#each tags}}
+				<ul>
+					<li>{{title}}：</li>
+					<li>
+						<a href="/dingzhi">全部</a>
+					</li>
+					{{#each sid}}
+					<li><a {{#if isActive}} class="bg-success" {{/if}} href="{{link}}">{{title}}</a></li>
+					{{/each}}
+				</ul>
 				{{/each}}
 			</div>
-			{{/grouped_each}}
 		</div>
+		{{#grouped_each 3 products}}
+		<div class="row">
+			{{#each this}}
+			<div class="col-md-4 text-center animate-box">
+				<div class="product">
+					<div class="product-grid" style="background-image:url({{skPic}});">
+						<div class="inner">
+							<p>
+								<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>
+							</p>
+						</div>
+					</div>
+					<div class="desc">
+						<h3>
+							<a href="single/{{_id}}">{{title}}</a>
+						</h3>
+						{{#if price}}
+						<span class="price">￥{{price}}</span>
+						{{/if}}
+					</div>
+				</div>
+			</div>
+			{{/each}}
+		</div>
+		{{/grouped_each}}
 	</div>
+</div>
 
-	<div class="text-center">
-        <ul id="pagination" class="pagination-sm"></ul>
-    </div>
-	{{#section 'pagination'}} 
-	<script>
-		$(document).ready(function () {
-			$('#pagination').bootstrapPaginator({
-				currentPage: {{currentPage}},
-				totalPages: {{totalPages}},
-				size: "normal",
-				bootstrapMajorVersion: 3,
-				alignment: "right",
-				numberOfPages: 5,
-				pageUrl: function (type, page, current) { 
-					var query = '?page=' + page;
-					query += $.query.get('cid') ? '&cid=' + $.query.get('cid') : '';
-					query += $.query.get('tid') ? '&tid=' + $.query.get('tid') : '';
-					return '/dingzhi' + query;
-                }, 
-				itemTexts: function (type, page, current) {
-					switch (type) {
-						case "first": return "首页";
-						case "prev": return "上一页";
-						case "next": return "下一页";
-						case "last": return "末页";
-						case "page": return page;
-					}
+<div class="text-center">
+	<ul id="pagination" class="pagination-sm"></ul>
+</div>
+{{#section 'pagination'}} 
+<script>
+	$(document).ready(function () {
+		$('#pagination').bootstrapPaginator({
+			currentPage: {{currentPage}},
+			totalPages: {{totalPages}},
+			size: "normal",
+			bootstrapMajorVersion: 3,
+			alignment: "right",
+			numberOfPages: 5,
+			pageUrl: function (type, page, current) { 
+				var query = '?page=' + page;
+				query += $.query.get('cid') ? '&cid=' + $.query.get('cid') : '';
+				query += $.query.get('tid') ? '&tid=' + $.query.get('tid') : '';
+				return '/dingzhi' + query;
+			}, 
+			itemTexts: function (type, page, current) {
+				switch (type) {
+					case "first": return "首页";
+					case "prev": return "上一页";
+					case "next": return "下一页";
+					case "last": return "末页";
+					case "page": return page;
 				}
-			});
+			}
 		});
-	</script>
-	{{/section}}
-	
+	});
+</script>
+{{/section}}
+
+
