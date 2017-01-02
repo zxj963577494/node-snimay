@@ -55,8 +55,6 @@ app.set('view engine', '.hbs');
 
 app.use(express.static(__dirname + '/public'));
 
-app.use('/admin/', express.static(__dirname + '/public'));
-
 // session 中间件
 app.use(session({
   name: config.session.key, // 设置 cookie 中保存 session id 的字段名称

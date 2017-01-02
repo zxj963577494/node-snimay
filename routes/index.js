@@ -14,6 +14,7 @@ router.get('/products', products.get);
 router.get('/dingzhi', dingzhi.get);
 router.get('/peitao', peitao.get);
 router.get('/single/:id', single.get);
+router.use('/admin', require('./admin'));
 router.get('/signup', require('./signup'));
 router.get('/signin', require('./signin'));
 router.get('/signout', require('./signout'));
