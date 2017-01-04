@@ -2,22 +2,20 @@ const autoIncrement = require('mongoose-auto-increment');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// 产品
-const ProductSchema = mongoose.Schema({
+// 搜索
+const SelectorSchema = mongoose.Schema({
     id: { type: Number, default: 0 },
-    values: [{ type: Number, ref: 'SelectorValue'}],
     categoryRef: { type: Schema.Types.ObjectId, ref: 'Category' },
     cid: Number,
     title: String,
-    search: [],
-    price: Number,
-    description: String,
-    content: String,
-    sliderPics: [],
-    skPic: String,
-    code: String,
-    part: String,
     isVisible: Number,
+    sort: Number,
+    alias: String,
+    values: [{
+        title: String,
+        isVisible: Number,
+        sort: Number,
+    }],
     createTime: {
         type: Date,
         default: Date.now
@@ -28,11 +26,11 @@ const ProductSchema = mongoose.Schema({
     }
 });
 
-ProductSchema.plugin(autoIncrement.plugin, {
-    model: 'Product', 
-    field: 'id', 
+SelectorSchema.plugin(autoIncrement.plugin, {
+    model: 'Selector',
+    field: 'id',
     startAt: 1,
     incrementBy: 1
 });
 
-mongoose.model('Product', ProductSchema);
+mongoose.model('Selector', SelectorSchema);

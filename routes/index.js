@@ -2,17 +2,18 @@ const express = require('express');
 const global = require('../middlewares/global');
 const home = require('../controllers/home');
 const products = require('../controllers/products')
-const dingzhi = require('../controllers/dingzhi')
-const peitao = require('../controllers/peitao')
+const modes = require('../controllers/modes')
+const matches = require('../controllers/matches')
 const single = require('../controllers/single')
+const test = require('../controllers/test')
 
 const router = express.Router();
 
 router.use(global.init);
 router.get('/', home.get);
 router.get('/products', products.get);
-router.get('/dingzhi', dingzhi.get);
-router.get('/peitao', peitao.get);
+router.get('/modes', modes.get);
+router.get('/matches', matches.get);
 router.get('/single/:id', single.get);
 router.use('/admin', require('./admin'));
 router.get('/signup', require('./signup'));

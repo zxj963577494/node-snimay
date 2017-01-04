@@ -16,7 +16,7 @@ exports.init = function (req, res, next) {
     WebSite.get(ep.done('website'));
 
     // get Category
-    Category.getByRank(1, 1, ep.done('category'))
+    Category.getCategories(ep.done('category'))
 
     ep.fail(function (err) {
         if (err) {

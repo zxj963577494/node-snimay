@@ -1,0 +1,7 @@
+{"_id":{"$oid":"586c5abf8fc4b61b883393de"},"model":"Category","field":"id","count":3,"__v":0}
+{"_id":{"$oid":"586c61ea32369d144fe9c324"},"model":"Banner","field":"id","count":5,"__v":0}
+{"_id":{"$oid":"586c7b7032369d144fe9c333"},"model":"SelectorKey","field":"id","count":4,"__v":0}
+{"_id":{"$oid":"586c7b9a32369d144fe9c33a"},"model":"SelectorKey","field":"id","count":23,"__v":0}
+{"_id":{"$oid":"586c832832369d144fe9c356"},"model":"Product","field":"id","count":18,"__v":0}
+{"_id":{"$oid":"586c88977535cd348d9abf33"},"model":"SelectorValue","field":"id","count":0,"__v":0}
+{"_id":{"$oid":"586ca8d332369d144fe9c6bd"},"model":"Selector","field":"id","count":4,"__v":0}

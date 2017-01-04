@@ -12,9 +12,7 @@ const _ = require('lodash')
  * @param {Function} callback 获取消息数量
  */
 exports.getProductCount = function (options, callback) {
-    Product.count(_.assign({
-        isVisible: 1
-    }, options), callback);
+    Product.count(options, callback);
 };
 
 /**
@@ -27,12 +25,12 @@ exports.getProductCount = function (options, callback) {
  * @param {Function} callback 获取的产品
  */
 exports.getProductById = function (id, callback) {
-    Product.findOne({_id:id}).populate({
+    Product.findOne({ _id: id }).populate({
         path: 'cid',
-        select: '_id tag title'
+        select: 'id alias title'
     }).populate({
-        path: 'tags',
-        select: '_id tag title'
+        path: 'values',
+        select: 'id title'
     }).exec(callback);
 }
 
@@ -46,11 +44,11 @@ exports.getProductById = function (id, callback) {
  * @param {Number} cid 产品类别 0.全部1.产品体验2.定制家具3.配套家具
  * @param {Function} callback 获取消息数量
  */
-exports.getProductByType = function (cid, callback) {
+exports.getProductByType = function (cid, options, callback) {
     if (cid) {
-        Product.find({
+        Product.find(_.assign({
             cid: cid
-        }, callback);
+        }, options), callback);
     } else {
         Product.find({}, callback);
     }
@@ -63,12 +61,12 @@ exports.getProductByType = function (cid, callback) {
  * - err, 数据库错误
  * - result, 产品列表
  * @param {Function} callback 回调函数
- * @param {String} p_select 产品查询字段 如：'_id pid cid code skPic description price title lastModifyTime tags'
- * @param {String} c_select 分类查询字段 如：'reid tag title'
- * @param {String} t_select 标签查询字段 如：'reid tag title'
- * @param {Object} p_options 产品查询条件 如：{_id: { $gt: 0 }, isVisible: 1}
- * @param {Object} c_options 分类查询条件 如：{rank: 2}
- * @param {Object} t_options 标签查询条件 如：{rank: 2}
+ * @param {String} p_select 产品查询字段 如：'id cid code skPic description price title lastModifyTime values'
+ * @param {String} c_select 分类查询字段 如：'title'
+ * @param {String} t_select 标签查询字段 如：'title'
+ * @param {Object} p_options 产品查询条件 如：{isVisible: 1}
+ * @param {Object} c_options 分类查询条件 如：{}
+ * @param {Object} t_options 标签查询条件 如：{}
  * @param {Object} c_t_sort 标签和分类排序 如：{ sort: -1 }
  * @param {Object} p_sort 标签和分类排序 如：{ sort: -1 }
  */
@@ -82,30 +80,25 @@ exports.getProducts = function (callback, {
     c_t_sort,
     p_sort
 } = {
-    p_select: '_id pid cid code skPic description price title lastModifyTime tags',
-    c_select: 'reid tag title',
-    t_select: 'reid tag title',
-    p_options: {
-        _id: {
-            $gt: 0
+        p_select: 'id cid code skPic description price title lastModifyTime values',
+        c_select: 'title',
+        t_select: 'title',
+        p_options: {
+            isVisible: 1
         },
-        isVisible: 1
-    },
-    c_options: {
-        rank: 2,
-        isVisible: 1
-    },
-    t_options: {
-        rank: 2,
-        isVisible: 1
-    },
-    c_t_sort: {
-        sort: -1
-    },
-    p_sort: {
-        sort: '-lastModifyTime'
-    }
-}) {
+        c_options: {
+            isVisible: 1
+        },
+        t_options: {
+            isVisible: 1
+        },
+        c_t_sort: {
+            sort: -1
+        },
+        p_sort: {
+            sort: '-lastModifyTime'
+        }
+    }) {
     Product.find(p_options, p_select, p_sort).populate({
         path: 'cid',
         match: c_options,
@@ -114,7 +107,7 @@ exports.getProducts = function (callback, {
             sort: c_t_sort
         }
     }).populate({
-        path: 'tags',
+        path: 'values',
         match: t_options,
         select: t_select,
         options: {
@@ -123,6 +116,41 @@ exports.getProducts = function (callback, {
     }).exec(callback);
 };
 
+/**
+ * 获取产品，并取得所属类别
+ * Callback:
+ * 回调函数参数列表：
+ * - err, 数据库错误
+ * - result, 产品列表
+ */
+exports.getProductsWithCategory = function (p_select, p_options, c_options, callback) {
+    Product.find(p_options, p_select, { sort: '-lastModifyTime' }).populate({
+        path: 'categoryRef',
+        match: c_options,
+        select: 'id title',
+        options: {
+            sort: { sort: -1 }
+        }
+    }).exec(callback)
+}
+
+/**
+ * 获取产品，并取得筛选条件
+ * Callback:
+ * 回调函数参数列表：
+ * - err, 数据库错误
+ * - result, 产品列表
+ */
+exports.getProductsWithValue = function (p_options, c_options) {
+    Product.find(p_options, 'id cid code skPic description price title lastModifyTime values', { sort: '-lastModifyTime' }).populate({
+        path: 'values',
+        match: c_options,
+        select: 'id title',
+        options: {
+            sort: { sort: -1 }
+        }
+    }).exec(callback)
+}
 
 /**
  * 分页获取产品
@@ -135,21 +163,15 @@ exports.getProducts = function (callback, {
  */
 exports.getProductsByPage = function (select, pageIndex, pageSize, options, callback) {
     var numToSkip = (pageIndex - 1) * pageSize;
-    Product.find(_.assign({
-        _id: {
-            $gt: 0
-        },
-        isVisible: 1
-    }, options), select).skip(numToSkip).limit(pageSize).exec(callback);
+    Product.find(options, select).skip(numToSkip).limit(pageSize).exec(callback);
 }
 
 
 /**
  * 新增和保存
  * 
- * @param {any} pid
  * @param {any} cid
- * @param {any} tags
+ * @param {any} values
  * @param {any} title
  * @param {any} content
  * @param {any} price
@@ -157,15 +179,14 @@ exports.getProductsByPage = function (select, pageIndex, pageSize, options, call
  * @param {any} sliderPics
  * @param {any} skPic
  * @param {any} code
- * @param {any} count
+ * @param {any} part
  * @param {any} isVisible
  * @param {any} callback
  */
-exports.newAndSave = function (pid, cid, tags, title, content, price, description, sliderPics, skPic, code, count, isVisible, callback) {
+exports.newAndSave = function (cid, values, title, content, price, description, sliderPics, skPic, code, part, isVisible, callback) {
     var product = new Product();
-    product.pid = pid;
     product.cid = cid;
-    product.tags = tags;
+    product.values = values;
     product.title = title;
     product.search = nodejieba.cut(sentence, true);
     product.content = content;
@@ -174,7 +195,7 @@ exports.newAndSave = function (pid, cid, tags, title, content, price, descriptio
     product.sliderPics = sliderPics;
     product.skPic = skPic;
     product.code = code;
-    product.count = count;
+    product.part = part;
     product.isVisible = isVisible;
 
     product.save(callback);

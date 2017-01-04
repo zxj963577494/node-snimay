@@ -2,7 +2,6 @@ const eventproxy = require('eventproxy');
 const _ = require('lodash');
 const Product = require('../proxy').Product;
 const Categoty = require('../proxy').Category;
-const Tag = require('../proxy').Tag;
 const util = require('../util');
 
 exports.get = function (req, res, next) {

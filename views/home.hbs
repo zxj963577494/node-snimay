@@ -31,11 +31,11 @@
 				{{#each this}}
 				<div class="col-md-4 col-sm-4 text-center">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<h3>{{cid.title}}</h3>
+						<h3>{{categoryRef.title}}</h3>
 						<img src="{{skPic}}" alt="" style="width: 100%;">
 						<h4 style="margin-top: 20px">{{title}}</h4>
 						<p>{{description}}</p>
-						<p><a href="/single/{{_id}}" class="btn btn-primary btn-outline">查看详情</a></p>
+						<p><a href="/single/{{id}}" class="btn btn-primary btn-outline">查看详情</a></p>
 					</div>
 				</div>
 				{{/each}}
@@ -53,7 +53,7 @@
 					<p>诗尼曼家居，始终坚持“绿色家居,高端定制”服务理念，提供卧房，厨房，客厅，书房，餐厅，儿童房的全屋家具定制服务。</p>
 				</div>
 			</div>
-			{{#grouped_each 3 dingzhi}}
+			{{#grouped_each 3 mode}}
 			<div class="row">
 				{{#each this}}
 				<div class="col-md-4 text-center animate-box">
@@ -61,13 +61,13 @@
 						<div class="product-grid" style="background-image:url({{skPic}});">
 							<div class="inner">
 								<p>
-									<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>
+									<a href="single/{{id}}" class="icon"><i class="icon-eye"></i></a>
 								</p>
 							</div>
 						</div>
 						<div class="desc">
 							<h3>
-								<a href="single/{{_id}}">{{title}}</a>
+								<a href="single/{{id}}">{{title}}</a>
 							</h3>
 							{{#if price}}
 							<span class="price">￥{{price}}</span>
@@ -90,7 +90,7 @@
 					<p>诗尼曼家居，始终坚持“绿色家居,高端定制”服务理念，提供卧房，厨房，客厅，书房，餐厅，儿童房的全屋家具定制服务。</p>
 				</div>
 			</div>	
-			{{#grouped_each 3 peitao}}
+			{{#grouped_each 3 match}}
 			<div class="row">
 				{{#each this}}
 				<div class="col-md-4 text-center animate-box">
@@ -98,13 +98,13 @@
 						<div class="product-grid" style="background-image:url({{skPic}});">
 							<div class="inner">
 								<p>
-									<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>
+									<a href="single/{{id}}" class="icon"><i class="icon-eye"></i></a>
 								</p>
 							</div>
 						</div>
 						<div class="desc">
 							<h3>
-								<a href="single/{{_id}}">{{title}}</a>
+								<a href="single/{{id}}">{{title}}</a>
 							</h3>
 							{{#if price}}
 							<span class="price">￥{{price}}</span>

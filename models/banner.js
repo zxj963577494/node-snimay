@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
 const Schema = mongoose.Schema;
 
 const BannerSchema = mongoose.Schema({
-    _id: { type: Number, default: 0 },
-    counterValue: { type: Number, default: 0 }, // 辅助计数器，自增
+    id: { type: Number, default: 0 },
     title: String,
     description: String,
     price: Number,
@@ -20,14 +20,11 @@ const BannerSchema = mongoose.Schema({
     lastModifyTime: { type: Date, default: Date.now }
 });
 
-BannerSchema.pre('save', function (next) {
-    var self = this;
-    mongoose.model('Banner').findByIdAndUpdate({ _id: '0' }, { $inc: { counterValue: 1 } }, { "upsert": true, "new": true }, function (error, counter) {
-        if (error)
-            return next(error);
-        self._id = counter.counterValue;
-        next();
-    });
+BannerSchema.plugin(autoIncrement.plugin, {
+    model: 'Banner',
+    field: 'id',
+    startAt: 1,
+    incrementBy: 1
 });
 
 mongoose.model('Banner', BannerSchema);

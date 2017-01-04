@@ -1,3 +1,4 @@
+const _ = require('lodash')
 const models = require('../models');
 const Banner = models.Banner;
 
@@ -9,8 +10,8 @@ const Banner = models.Banner;
  * - count, 产品的数量
  * @param {Function} callback 获取消息数量
  */
-exports.getBanners = function (callback) {
-    Banner.find({ isVisible: 1, startTime: { "$lte": new Date() }, endTime: { $gt: new Date() } }, {}, { sort: '-sort' }, callback);
+exports.getBanners = function (options, callback) {
+    Banner.find(_.assign({ startTime: { "$lte": new Date() }, endTime: { $gt: new Date() } }, options), {}, { sort: '-sort' }, callback);
 };
 
 /**
