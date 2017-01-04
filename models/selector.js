@@ -14,6 +14,7 @@ const SelectorSchema = mongoose.Schema({
     values: [{
         title: String,
         isVisible: Number,
+        alias: String,
         sort: Number,
     }],
     createTime: {

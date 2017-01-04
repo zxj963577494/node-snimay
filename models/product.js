@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 // 产品
 const ProductSchema = mongoose.Schema({
     id: { type: Number, default: 0 },
-    values: [{ type: Number, ref: 'SelectorValue'}],
+    values: [],
     categoryRef: { type: Schema.Types.ObjectId, ref: 'Category' },
     cid: Number,
     title: String,

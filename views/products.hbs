@@ -12,12 +12,9 @@
 					{{#each keys}}
 					<ul>
 						<li>{{title}}：</li>
-						<li>
-							<a href="/products">全部</a>
-						</li>
 						{{#each values}}
 						<li>
-							<a href="/products?{{../alias}}={{title}}">{{title}}
+							<a {{#if isActive}} class="bg-success" {{/if}} href="/products?{{../alias}}={{alias}}">{{title}}
 							</a>
 						</li>
 						{{/each}}

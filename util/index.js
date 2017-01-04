@@ -16,27 +16,31 @@ function filter_categories(categories, cid, tid) {
     return cates;
 }
 
-function filter_tags(tags, cid, tid) {
-    var ts = [];
-    for (var y of tags) {
-        for (z of y.sid) {
-            const active = z._id === tid ? {
-                isActive: 1
-            } : {
-                isActive: 0
-            };
-            const tlink = {
-                link: '/products?cid=' + cid + '&tid=' + z._id
-            };
-            ts.sid = [];
-            ts.sid.push(_.assign(z, active, tlink));
+function filter_keys(keys, params) {
+    for (var y of keys) {
+        for (var x of params) {
+            for (var k of Object.keys(x)) {
+                if (y.alias === k) {
+                    for (var z of y.values) {
+                        var active;
+                        if (z.alias === x[k]) {
+                            active = {
+                                isActive: 1
+                            }
+                        } else {
+                            active = {
+                                isActive: 0
+                            }
+                        };
+                        _.assign(z, active)
+                    }
+                }
+            }
         }
-        ts.push(y)
     }
-    return ts;
 }
 
 module.exports = {
     filter_categories,
-    filter_tags
+    filter_keys
 }
