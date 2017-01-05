@@ -21,17 +21,11 @@ exports.getProductCount = function (options, callback) {
  * 回调函数参数列表：
  * - err, 数据库错误
  * - product, 产品的数量
- * @param {Number} id 产品类别 0.全部1.产品体验2.定制家具3.配套家具
+ * @param {Number} id 
  * @param {Function} callback 获取的产品
  */
 exports.getProductById = function (id, callback) {
-    Product.findOne({ _id: id }).populate({
-        path: 'cid',
-        select: 'id alias title'
-    }).populate({
-        path: 'values',
-        select: 'id title'
-    }).exec(callback);
+    Product.findOne({ id: id }, callback);
 }
 
 

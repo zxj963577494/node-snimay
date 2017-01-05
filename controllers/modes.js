@@ -1,7 +1,7 @@
 const eventproxy = require('eventproxy');
 const _ = require('lodash');
 const Product = require('../proxy').Product;
-const Categoty = require('../proxy').Category;
+const Selector = require('../proxy').Selector;
 const util = require('../util');
 
 exports.get = function (req, res, next) {
@@ -9,52 +9,55 @@ exports.get = function (req, res, next) {
     var currentPage = parseInt(req.query.page, 10) || 1;
     currentPage = currentPage > 0 ? currentPage : 1;
 
-    // 获取类别id
-    const cid = parseInt(req.query.cid, 10) || 0;
-    const cate = cid > 3 ? {
-        cid: cid
-    } : {};
-
-    // 获取标签id
-    const tid = parseInt(req.query.tid, 10) || 0;
-    const tag = tid ? {
-        tags: {
-            $in: [_.toInteger(tid)]
-        }
-    } : {};
-
     // 构建产品查询条件
     const options = _.assign({
-        pid: 2,
-    }, cate, tag)
+        cid: 2,
+        isVisible: 1
+    })
 
     const pageSize = 12;
 
     const ep = new eventproxy();
 
-    ep.all('products', 'categories', 'tags', 'totalCount', function (products, categories, tags, totalCount) {
-        res.render('dingzhi', {
+    ep.all('products', 'keys', 'totalCount', 'pageLink', function (products, keys, totalCount, pageLink) {
+        res.render('products', {
             products: products,
-            categories: util.filter_categories(categories, cid, tid),
-            tags: util.filter_tags(tags, cid, tid),
+            keys: keys,
+            pageLink: pageLink,
             currentPage: currentPage,
             totalPages: Math.ceil(totalCount / pageSize),
             pageSize: pageSize
         });
     });
 
-    Product.getProductsByPage('_id skPic price title', currentPage, pageSize, options, ep.done('products'));
+    Selector.getByCid(2, {
+        isVisible: 1
+    }, ep.done(function (keys) {
+        var params = [];
+        var search = [];
+        keys.forEach((x) => {
+            params.push({
+                [x.alias]: req.query[x.alias]
+            })
+            _.assign(options, {
+                "where": { $in: _.uniq(_.concat(search, req.query[x.alias])) }
+            })
+        });
 
-    Product.getProductCount(options, ep.done('totalCount'));
+        const pageLink = util.pageLink(params);
+        util.addActive(keys, params);
+        util.addLink('/modes', keys, params);
+        ep.emit('pageLink', pageLink);
+        ep.emit('keys', keys);
 
-    Categoty.getByReid(2, 1, ep.done('categories'));
+        Product.getProductsByPage('id skPic price title', currentPage, pageSize, options, ep.done('products'));
 
-    Tag.getByCid(2, 1, ep.done('tags'));
+        Product.getProductCount(options, ep.done('totalCount'));
+    }));
 
     ep.fail(function (err) {
         if (err) {
             return next(err);
         }
     });
-
 }

@@ -14,7 +14,7 @@
 						<li>{{title}}：</li>
 						{{#each values}}
 						<li>
-							<a {{#if isActive}} class="bg-success" {{/if}} href="/products?{{../alias}}={{alias}}">{{title}}
+							<a {{#if isActive}} class="bg-success" {{/if}} href="{{link}}">{{title}}
 							</a>
 						</li>
 						{{/each}}
@@ -30,13 +30,13 @@
 						<div class="product-grid" style="background-image:url({{skPic}});">
 							<div class="inner">
 								<p>
-									<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>
+									<a href="single/{{id}}" class="icon"><i class="icon-eye"></i></a>
 								</p>
 							</div>
 						</div>
 						<div class="desc">
 							<h3>
-								<a href="single/{{_id}}">{{title}}</a>
+								<a href="single/{{id}}">{{title}}</a>
 							</h3>
 							{{#if price}}
 							<span class="price">￥{{price}}</span>
@@ -64,9 +64,7 @@
 				alignment: "right",
 				numberOfPages: 5,
 				pageUrl: function (type, page, current) { 
-					var query = '?page=' + page;
-					query += $.query.get('cid') ? '&cid=' + $.query.get('cid') : '';
-					query += $.query.get('tid') ? '&tid=' + $.query.get('tid') : '';
+					var query = '?page=' + page + '{{{pageLink}}}';
 					return '/products' + query;
                 }, 
 				itemTexts: function (type, page, current) {

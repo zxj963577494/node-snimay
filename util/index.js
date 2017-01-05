@@ -1,22 +1,56 @@
 const _ = require('lodash');
 
-function filter_categories(categories, cid, tid) {
-    var cates = [];
-    for (var x of categories) {
-        const active = x._id === cid ? {
-            isActive: 1
-        } : {
-            isActive: 0
-        };
-        const clink = {
-            link: '/products?cid=' + x._id + '&tid=' + tid
-        };
-        cates.push(_.assign(x, active, clink))
+function pageLink(params) {
+    var link = '';
+    for (var x of params) {
+        for (var k of Object.keys(x)) {
+            if (x[k]) {
+                link += `&${k}=${x[k]}`;
+            }
+        }
     }
-    return cates;
+    return link;
 }
 
-function filter_keys(keys, params) {
+function addLink(path, keys, params) {
+    for (var y of keys) {
+        for (const z of y.values) {
+            var link = '';
+            if (params.length > 0) {
+                for (var x of params) {
+                    for (var k of Object.keys(x)) {
+                        if (y.alias === k) {
+                            if (link) {
+                                link += `&${y.alias}=${z.alias}`
+                            }
+                            else {
+                                link += `?${y.alias}=${z.alias}`
+                            }
+                        }
+                        else {
+                            if (x[k]) {
+                                if (link) {
+                                    link += `&${k}=${x[k]}`
+                                }
+                                else {
+                                    link += `?${k}=${x[k]}`
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                link += `?${y.alias}=${z.alias}`
+            }
+            var zlink = {
+                "link": path + link
+            };
+            _.assign(z, zlink);
+        }
+    }
+}
+
+function addActive(keys, params) {
     for (var y of keys) {
         for (var x of params) {
             for (var k of Object.keys(x)) {
@@ -41,6 +75,7 @@ function filter_keys(keys, params) {
 }
 
 module.exports = {
-    filter_categories,
-    filter_keys
+    pageLink,
+    addLink,
+    addActive
 }

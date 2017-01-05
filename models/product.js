@@ -5,11 +5,12 @@ const Schema = mongoose.Schema;
 // 产品
 const ProductSchema = mongoose.Schema({
     id: { type: Number, default: 0 },
-    values: [],
     categoryRef: { type: Schema.Types.ObjectId, ref: 'Category' },
     cid: Number,
     title: String,
     search: [],
+    where: [],
+    tag: [],
     price: Number,
     description: String,
     content: String,

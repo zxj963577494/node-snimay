@@ -9,26 +9,14 @@
 			</div>
 			<div class="fh5co-nav row" style="padding: 0">
 				<div class="fh5co-nav-category col-md-12 col-xs-12">
-					<ul>
-						<li>分类：</li>
-						<li>
-							<a href="/peitao">全部</a>
-						</li>
-						{{#each categories}}
-						<li>
-							<a {{#if isActive}} class="bg-success" {{/if}}  href="{{link}}">{{title}}
-							</a>
-						</li>
-						{{/each}}
-					</ul>
-					{{#each tags}}
+					{{#each keys}}
 					<ul>
 						<li>{{title}}：</li>
+						{{#each values}}
 						<li>
-							<a href="/peitao">全部</a>
+							<a {{#if isActive}} class="bg-success" {{/if}} href="{{link}}">{{title}}
+							</a>
 						</li>
-						{{#each sid}}
-						<li><a {{#if isActive}} class="bg-success" {{/if}} href="{{link}}">{{title}}</a></li>
 						{{/each}}
 					</ul>
 					{{/each}}
@@ -42,13 +30,13 @@
 						<div class="product-grid" style="background-image:url({{skPic}});">
 							<div class="inner">
 								<p>
-									<a href="single/{{_id}}" class="icon"><i class="icon-eye"></i></a>
+									<a href="single/{{id}}" class="icon"><i class="icon-eye"></i></a>
 								</p>
 							</div>
 						</div>
 						<div class="desc">
 							<h3>
-								<a href="single/{{_id}}">{{title}}</a>
+								<a href="single/{{id}}">{{title}}</a>
 							</h3>
 							{{#if price}}
 							<span class="price">￥{{price}}</span>
@@ -76,10 +64,8 @@
 				alignment: "right",
 				numberOfPages: 5,
 				pageUrl: function (type, page, current) { 
-					var query = '?page=' + page;
-					query += $.query.get('cid') ? '&cid=' + $.query.get('cid') : '';
-					query += $.query.get('tid') ? '&tid=' + $.query.get('tid') : '';
-					return '/peitao' + query;
+					var query = '?page=' + page + '{{{pageLink}}}';
+					return '/matches' + query;
                 }, 
 				itemTexts: function (type, page, current) {
 					switch (type) {

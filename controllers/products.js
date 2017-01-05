@@ -5,8 +5,6 @@ const Selector = require('../proxy').Selector;
 const util = require('../util');
 
 exports.get = function (req, res, next) {
-    var link = '';
-
     // 获取当前页
     var currentPage = parseInt(req.query.page, 10) || 1;
     currentPage = currentPage > 0 ? currentPage : 1;
@@ -17,39 +15,44 @@ exports.get = function (req, res, next) {
         isVisible: 1
     })
 
-    link += currentPage > 1 ? ('?page=' + currentPage) : '';
-
     const pageSize = 12;
 
     const ep = new eventproxy();
 
-    ep.all('products', 'keys', 'totalCount', 'link', function (products, keys, totalCount, link) {
+    ep.all('products', 'keys', 'totalCount', 'pageLink', function (products, keys, totalCount, pageLink) {
         res.render('products', {
             products: products,
             keys: keys,
+            pageLink: pageLink,
             currentPage: currentPage,
             totalPages: Math.ceil(totalCount / pageSize),
             pageSize: pageSize
         });
     });
 
-    Product.getProductsByPage('id skPic price title', currentPage, pageSize, options, ep.done('products'));
-
-    Product.getProductCount(options, ep.done('totalCount'));
-
     Selector.getByCid(1, {
         isVisible: 1
     }, ep.done(function (keys) {
         var params = [];
+        var search = [];
         keys.forEach((x) => {
             params.push({
                 [x.alias]: req.query[x.alias]
             })
-            //link += link ? `&${x.alias}＝${req.query[x.alias]}`:`?${x.alias}=${req.query[x.alias]}`;
+            _.assign(options, {
+                "where": { $in: _.uniq(_.concat(search, req.query[x.alias])) }
+            })
         });
-        util.filter_keys(keys, params)
+
+        const pageLink = util.pageLink(params);
+        util.addActive(keys, params);
+        util.addLink('/products', keys, params);
+        ep.emit('pageLink', pageLink);
         ep.emit('keys', keys);
-        ep.emit('link', link);
+
+        Product.getProductsByPage('id skPic price title', currentPage, pageSize, options, ep.done('products'));
+
+        Product.getProductCount(options, ep.done('totalCount'));
     }));
 
     ep.fail(function (err) {

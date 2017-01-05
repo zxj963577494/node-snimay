@@ -22,8 +22,8 @@
 						</p>
 						<p>
 							<h3>
-							{{#each tags}}
-								<a style="display: inline-block;" class="label label-gray" href="/products?tid={{_id}}">{{title}}</a>
+							{{#each tag}}
+								<a style="display: inline-block;" class="label label-gray" href="/products?tag={{this}}">{{this}}</a>
 							{{/each}}
 							</h3>
 						</p>
@@ -53,7 +53,7 @@
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1 animate-box">
 				<!-- 多说评论框 start -->
-				<div class="ds-thread" data-thread-key="{{_id}}" data-title="{{title}}" data-url="http://localhost:3000/single/{{_id}}"></div>
+				<div class="ds-thread" data-thread-key="{{id}}" data-title="{{title}}" data-url="http://localhost:3000/single/{{id}}"></div>
 				<!-- 多说评论框 end -->
 				<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 				<script type="text/javascript">
