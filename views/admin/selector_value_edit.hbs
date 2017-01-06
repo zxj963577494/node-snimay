@@ -1,0 +1,60 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            编辑筛选条件
+            <small>添加产品体验筛选条件头部名称如空间、风格</small>
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">编辑筛选条件</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            {{#model}}
+            <form role="form" action='/admin/selector_value_edit' method='post'>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="title">头部名称</label>
+                        <input value="{{title}}" type="text" name="title" class="form-control" id="title" placeholder="请输入头部名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="alias">别名(英文)</label>
+                        <input value="{{alias}}" type="text" name="alias" class="form-control" id="alias" placeholder="请输入英文别名">
+                    </div>
+                    <div class="form-group">
+                        <label for="sort">排序(从大到小)</label>
+                        <input value="{{sort}}" value="1" type="number" name="sort" class="form-control" id="sort" placeholder="请输入排序">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input value="1" type="radio" name="isVisible" class="minimal-red" {{{setChecked 1 isVisible}}}>
+                            对外可见
+                        </label>
+                        <label>
+                            <input value="0" type="radio" name="isVisible" class="minimal-red" {{{setChecked 0 isVisible}}}>
+                            对外隐藏
+                        </label>
+                    </div>
+                    <input type="hidden" name="id" value="{{id}}">
+                    {{/model}}
+                    {{#_id}}
+                     <input type="hidden" name="_id" value="{{this}}">
+                    {{/_id}}
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>

@@ -1,0 +1,72 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            头部筛选条件列表
+            <small>添加产品体验筛选条件头部名称如空间、风格</small>
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">筛选条件列表</h3> <a href="/admin/selector_key_add" type="button" class="btn bg-purple">新增</a>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="keylist" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>名称</th>
+                            <th>别名</th>
+                            <th>排序</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each list}}
+                        <tr>
+                            <td>{{addOne @index}}</td>
+                            <td>{{title}}</td>
+                            <td>{{alias}}</td>
+                            <td>{{sort}}</td>
+                            <td>
+                                {{#if isVisible}} 可见 {{else}} 隐藏 {{/if}}
+                            </td>
+                            <td>
+                                <a href="/admin/selector_key_edit?_id={{_id}}">
+                                    编辑 
+                                </a> 
+                                <a href="/admin/selector_value_list?_id={{_id}}">
+                                    下一级 
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+{{#section 'pagination'}}
+<!-- DataTables -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('#keylist').DataTable({
+            "pageLength": 5,
+            "paging": false,
+            "searching": false,
+            "info": false
+        });
+    });
+</script>
+{{/section}}

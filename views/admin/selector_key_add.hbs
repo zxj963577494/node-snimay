@@ -1,0 +1,55 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            新增筛选条件标题
+            <small>新增产品体验筛选条件标题，如空间、风格等</small>
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">新增筛选条件标题</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" action='/admin/selector_key_add' method='post'>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="title">标题名称</label>
+                        <input type="text" name="title" class="form-control" id="title" placeholder="请输入标题名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="alias">别名(英文)</label>
+                        <input type="text" name="alias" class="form-control" id="alias" placeholder="请输入英文别名">
+                    </div>
+                    <div class="form-group">
+                        <label for="sort">排序(从大到小)</label>
+                        <input value="1" type="number" name="sort" class="form-control" id="sort" placeholder="请输入排序">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input value="1" type="radio" name="isVisible" class="minimal-red" checked>
+                            对外可见
+                        </label>
+                        <label>
+                            <input value="0" type="radio" name="isVisible" class="minimal-red">
+                            对外隐藏
+                        </label>
+                    </div>
+                </div>
+                <input type="hidden" value="1" name="cid">
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>

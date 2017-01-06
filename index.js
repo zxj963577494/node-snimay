@@ -8,6 +8,7 @@ const flash = require('connect-flash');
 const config = require('config-lite');
 const routes = require('./routes');
 const pkg = require('./package');
+const bodyParser = require('body-parser');
 
 /*
  * 分词
@@ -22,6 +23,8 @@ nodejieba.load({
 const app = express();
 
 // app.use(timeout('10s'));
+app.use(bodyParser.json({ limit: '1mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
 
 app.engine('.hbs', exphbs({
   extname: '.hbs',
@@ -47,6 +50,16 @@ app.engine('.hbs', exphbs({
       if (!this._sections) this._sections = {};
       this._sections[name] = options.fn(this);
       return null;
+    },
+    addOne: function (index) {
+      return index + 1;
+    },
+    setChecked: function (value, currentValue) {
+      if (value == currentValue) {
+        return "checked"
+      } else {
+        return "";
+      }
     }
   }
 }));

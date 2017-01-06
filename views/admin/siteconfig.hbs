@@ -1,0 +1,72 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            网站配置
+            <small> </small>
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">网站配置</h3>
+            </div>
+
+            <!-- /.box-header -->
+            <!-- form start -->
+            {{#website}}
+            <form role="form" action='/admin/siteconfig' method='post'>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="title">标题</label>
+                        <input value="{{title}}" name="title" type="text" class="form-control" id="title" placeholder="请输入标题">
+                    </div>
+                    <div class="form-group">
+                        <label for="keywords">关键字</label>
+                        <input value="{{keywords}}" name="keywords" type="text" class="form-control" id="keywords" placeholder="请输入关键字">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">描述</label>
+                        <input value="{{description}}" name="description" type="text" class="form-control" id="description" placeholder="请输入描述">
+                    </div>
+                    <div class="form-group">
+                        <label for="copyright">版权</label>
+                        <input value="{{copyright}}" name="copyright" value="{{title}}" type="text" class="form-control" id="copyright" placeholder="请输入版权">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">地址</label>
+                        <input value="{{address}}" name="address" type="text" class="form-control" id="address" placeholder="请输入地址">
+                    </div>
+                    <div class="form-group">
+                        <label for="icp">ICP备案号</label>
+                        <input value="{{icp}}" name="icp" type="text" class="form-control" id="icp" placeholder="请输入ICP备案号">
+                    </div>
+                    <div class="form-group">
+                        <label for="tel">联系方式</label>
+                        <input value="{{tel}}" name="tel" type="text" class="form-control" id="tel" placeholder="请输入联系方式">
+                    </div>
+                    <div class="form-group">
+                        <label for="qq">QQ</label>
+                        <input value="{{qq}}" name="qq" type="text" class="form-control" id="qq" placeholder="请输入QQ">
+                    </div>
+                    <div class="form-group">
+                        <label for="weibo">微博</label>
+                        <input value="{{weibo}}" name="weibo" type="text" class="form-control" id="weibo" placeholder="请输入微博">
+                    </div>
+                </div>
+                <input value="{{_id}}" name="_id" type="hidden">
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </form>
+            {{/website}}
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>

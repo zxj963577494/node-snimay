@@ -18,15 +18,11 @@ require('./website');
 require('./product');
 require('./category');
 require('./banner');
-require('./selectorKey');
-require('./selectorValue');
 require('./selector');
 
 exports.WebSite = mongoose.model('WebSite');
 exports.Banner = mongoose.model('Banner');
 exports.Product = mongoose.model('Product');
 exports.Category = mongoose.model('Category');
-exports.SelectorKey = mongoose.model('SelectorKey');
-exports.SelectorValue = mongoose.model('SelectorValue');
 exports.Selector = mongoose.model('Selector');
 

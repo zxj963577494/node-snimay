@@ -156,7 +156,7 @@ exports.getProductsWithValue = function (p_options, c_options) {
  * @param {any} callback
  */
 exports.getProductsByPage = function (select, pageIndex, pageSize, options, callback) {
-    var numToSkip = (pageIndex - 1) * pageSize;
+    let numToSkip = (pageIndex - 1) * pageSize;
     Product.find(options, select).skip(numToSkip).limit(pageSize).exec(callback);
 }
 

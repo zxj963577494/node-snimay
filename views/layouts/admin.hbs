@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Boxed Layout</title>
+  <title>管理后台</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -322,26 +322,38 @@
         <li class="header">MAIN NAVIGATION</li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-product-hunt"></i> <span>产品</span>
+            <i class="fa fa-product-hunt"></i> <span>产品体验</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/admin/category"><i class="fa fa-circle-o"></i> 添加产品</a></li>
-            <li><a href="/admin/category_add"><i class="fa fa-circle-o"></i> 产品列表</a></li>
+            <li><a href="/admin/product_list"><i class="fa fa-circle-o"></i> 产品列表</a></li>
+            <li><a href="/admin/selector_key_list?category=1"><i class="fa fa-circle-o"></i> 筛选条件</a></li>
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-th-list"></i> <span>类别</span>
+            <i class="fa fa-th-list"></i> <span>定制家具</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
             <li><a href="/admin/category"><i class="fa fa-circle-o"></i> 添加类别</a></li>
-            <li><a href="/admin/category_add"><i class="fa fa-circle-o"></i> 类别列表</a></li>
+            <li><a href="/admin/selector_key_list?category=2"><i class="fa fa-circle-o"></i> 筛选条件</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-th-list"></i> <span>配套家具</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/category"><i class="fa fa-circle-o"></i> 添加类别</a></li>
+            <li><a href="/admin/selector_key_list?category=3"><i class="fa fa-circle-o"></i> 筛选条件</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -357,7 +369,7 @@
           </ul>
         </li>
         <li>
-          <a href="../calendar.html">
+          <a href="/admin/siteconfig">
             <i class="fa fa-calendar"></i> <span>网站配置</span>
           </a>
         </li>
@@ -765,5 +777,6 @@
 <script src="/admin/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/admin/js/demo.js"></script>
+{{{_sections.pagination}}}
 </body>
 </html>
