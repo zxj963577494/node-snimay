@@ -23,6 +23,27 @@ exports.getCategories = function (options, callback) {
     Category.find(options, 'title alias', { sort: '-sort' }, callback);
 };
 
+exports.getCategories_Admin = function (options, callback) {
+    Category.find(options, '_id title alias isVisible sort', { sort: '-sort' }, callback);
+};
+
+exports.getById_Admin = function (_id, callback) {
+    Category.find({ _id: _id }, '_id title alias isVisible sort', { sort: '-sort' }, callback);
+};
+
+exports.update = function (_id, title, sort, isVisible, callback) {
+    Category.findOne({ _id: _id }, function (err, category) {
+        if (err || !category) {
+            return callback(err);
+        }
+        category.title = title;
+        category.sort = sort;
+        category.isVisible = isVisible;
+        category.lastModifyTime = new Date();
+        category.save(callback);
+    });
+};
+
 /**
  * 更新分类信息
  * Callback:

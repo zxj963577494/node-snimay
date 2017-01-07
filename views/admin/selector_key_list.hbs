@@ -55,14 +55,14 @@
     </section>
     <!-- /.content -->
 </div>
-{{#section 'pagination'}}
+{{#section 'dataTables'}}
 <!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script>
     $(function () {
         $('#keylist').DataTable({
-            "pageLength": 5,
+            "pageLength": 20,
             "paging": false,
             "searching": false,
             "info": false

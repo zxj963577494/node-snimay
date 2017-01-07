@@ -161,6 +161,14 @@ exports.getProductsByPage = function (select, pageIndex, pageSize, options, call
 }
 
 
+
+exports.getProducts_Admin = function (options, callback) {
+    Product.find(options, 'id categoryRef isIndex isVisible code title lastModifyTime', { sort: '-lastModifyTime' }).populate({
+        path: 'categoryRef',
+        select: 'title'
+    }).exec(callback)
+}
+
 /**
  * 新增和保存
  * 

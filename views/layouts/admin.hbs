@@ -17,7 +17,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="/admin/css/skins/_all-skins.min.css">
-
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -320,6 +321,11 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
+        <li>
+          <a href="/admin/category_list">
+            <i class="fa fa-th-list"></i> <span>分类管理</span>
+          </a>
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-product-hunt"></i> <span>产品体验</span>
@@ -777,6 +783,7 @@
 <script src="/admin/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/admin/js/demo.js"></script>
-{{{_sections.pagination}}}
+{{{_sections.dataTables}}}
+{{{_sections.wysihtml5}}}
 </body>
 </html>

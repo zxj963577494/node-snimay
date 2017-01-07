@@ -3,21 +3,19 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            筛选条件内容列表
+            分类列表
             <small></small>
         </h1>
     </section>
     <!-- Main content -->
     <section class="content">
-        {{#model}}
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">筛选条件内容列表</h3> <a href="/admin/selector_value_add?_id={{_id}}" type="button" class="btn bg-purple">新增</a>
+                <h3 class="box-title">分类列表</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-                <table id="keylist" class="table table-bordered table-hover">
+            <table id="categorylist" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>序号</th>
@@ -29,7 +27,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each values}}
+                        {{#each list}}
                         <tr>
                             <td>{{addOne @index}}</td>
                             <td>{{title}}</td>
@@ -39,7 +37,7 @@
                                 {{#if isVisible}} 可见 {{else}} 隐藏 {{/if}}
                             </td>
                             <td>
-                                <a href="/admin/selector_value_edit?_id={{../_id}}&&id={{id}}">
+                                <a href="/admin/category_edit?_id={{_id}}">
                                     编辑 
                                 </a> 
                             </td>
@@ -47,9 +45,7 @@
                         {{/each}}
                     </tbody>
                 </table>
-            </div>
         </div>
-        {{/model}}        
         <!-- /.box -->
     </section>
     <!-- /.content -->
@@ -60,7 +56,7 @@
 <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script>
     $(function () {
-        $('#keylist').DataTable({
+        $('#categorylist').DataTable({
             "pageLength": 20,
             "paging": false,
             "searching": false,

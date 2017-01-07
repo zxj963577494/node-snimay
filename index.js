@@ -9,6 +9,7 @@ const config = require('config-lite');
 const routes = require('./routes');
 const pkg = require('./package');
 const bodyParser = require('body-parser');
+const moment = require('moment');
 
 /*
  * 分词
@@ -21,6 +22,8 @@ nodejieba.load({
 });
 
 const app = express();
+
+moment.locale('zh-cn');
 
 // app.use(timeout('10s'));
 app.use(bodyParser.json({ limit: '1mb' }));
@@ -60,9 +63,13 @@ app.engine('.hbs', exphbs({
       } else {
         return "";
       }
+    },
+    formatDate: function (date, format) {
+      return moment(date).format(format);
     }
   }
 }));
+
 
 app.set('view engine', '.hbs');
 
