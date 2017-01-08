@@ -20,7 +20,7 @@ exports.get = function (req, res, next) {
     const ep = new eventproxy();
 
     ep.all('products', 'keys', 'totalCount', 'pageLink', function (products, keys, totalCount, pageLink) {
-        res.render('products', {
+        res.render('modes', {
             products: products,
             keys: keys,
             pageLink: pageLink,

@@ -48,47 +48,18 @@
                         <label for="search">筛选条件别名(以英文逗号相隔,如ws,jy)</label>
                         <input type="text" name="search" class="form-control" id="search" placeholder="请输入筛选条件别名,如ws,jy">
                     </div>
-                    <div class="form-group col-md-12">
-                        <label for="skPic">请上传封面图</label>
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img src="http://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
-
-                                    <div class="carousel-caption">
-                                    First Slide
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <img src="http://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap" alt="Second slide">
-
-                                    <div class="carousel-caption">
-                                        Second Slide
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <img src="http://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap" alt="Third slide">
-
-                                    <div class="carousel-caption">
-                                        Third Slide
-                                    </div>
+                    <div class="form-group">
+                        <label for="skPic">请上传封面图(只需要一张图片)</label><br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img style="position:relative; width: 100%" src="http://www.snimay.com/Uploads/Album/20160625/original_img/201606251608541744.jpg" alt="" >
+                                <button type="button" style="position: absolute;top: 10px;right: 30px;" class="btn btn-default btn-xs" title="Remove">
+                                     <i class="fa fa-times"></i></button>
                                 </div>
                             </div>
-                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                            <span class="fa fa-angle-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                            <span class="fa fa-angle-right"></span>
-                            </a>
                         </div>
-                        <input type="file" id="exampleInputFile">
+                        <input type="file">
                     </div>
-                    
                     <div class="form-group">
                         <label for="description">请输入描述</label>
                         <textarea id="description" placeholder="请输入描述" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>

@@ -1,5 +1,6 @@
 const express = require('express');
 const global = require('../middlewares/global');
+const flash = require('../middlewares/flash');
 const home = require('../controllers/home');
 const products = require('../controllers/products')
 const modes = require('../controllers/modes')
@@ -15,6 +16,7 @@ router.get('/products', products.get);
 router.get('/modes', modes.get);
 router.get('/matches', matches.get);
 router.get('/single/:id', single.get);
+router.use('/admin', flash.init);
 router.use('/admin', require('./admin'));
 router.get('/signup', require('./signup'));
 router.get('/signin', require('./signin'));

@@ -2,6 +2,7 @@ const express = require('express');
 const exphbs = require('express3-handlebars');
 const path = require('path');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo')(session);
 const timeout = require('connect-timeout');
 const flash = require('connect-flash');
@@ -26,8 +27,13 @@ const app = express();
 moment.locale('zh-cn');
 
 // app.use(timeout('10s'));
-app.use(bodyParser.json({ limit: '1mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }));
+app.use(bodyParser.json({
+  limit: '1mb'
+}));
+app.use(bodyParser.urlencoded({
+  extended: true,
+  limit: '1mb'
+}));
 
 app.engine('.hbs', exphbs({
   extname: '.hbs',
@@ -75,6 +81,8 @@ app.set('view engine', '.hbs');
 
 app.use(express.static(__dirname + '/public'));
 
+app.use(cookieParser(config.session.secret));
+
 // session 中间件
 app.use(session({
   name: config.session.key, // 设置 cookie 中保存 session id 的字段名称
@@ -82,12 +90,14 @@ app.use(session({
   cookie: {
     maxAge: config.session.maxAge // 过期时间，过期后 cookie 中的 session id 自动删除
   },
+  resave: false,
+  saveUninitialized: true,
   store: new MongoStore({ // 将 session 存储到 mongodb
     url: config.mongodb // mongodb 地址
   })
 }));
 
-// flash 中间价，用来显示通知
+// flash 中间件，用来显示通知
 app.use(flash());
 
 // 路由

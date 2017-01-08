@@ -5,6 +5,8 @@ const selector = require('../controllers/admin/selector');
 const category = require('../controllers/admin/category');
 const product = require('../controllers/admin/product');
 
+
+
 router.get('/', function (req, res, next) {
     res.render('admin/home', {
         layout: 'admin'

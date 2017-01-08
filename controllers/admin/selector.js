@@ -24,6 +24,7 @@ exports.postKeyAdd = function (req, res, next) {
 
     const ep = new eventproxy();
     ep.all('key', function (key) {
+        req.flash('info', {message: '添加成功'});
         res.redirect('/admin/selector_key_list');
     });
 
@@ -64,6 +65,7 @@ exports.postKeyEdit = function (req, res, next) {
 
     const ep = new eventproxy();
     ep.all('selector', function (selector) {
+        req.flash('info', {message: '修改成功'});
         res.redirect('/admin/selector_key_list');
     });
 
@@ -116,6 +118,7 @@ exports.postValueAdd = function (req, res, next) {
 
     const ep = new eventproxy();
     ep.all('key', function (key) {
+        req.flash('info', {message: '添加成功'});
         res.redirect('/admin/selector_value_list?_id=' + _id);
     });
 
@@ -162,6 +165,7 @@ exports.postValueEdit = function (req, res, next) {
 
     const ep = new eventproxy();
     ep.all('selector', function (selector) {
+        req.flash('info', {message: '修改成功'});
         res.redirect('/admin/selector_value_list?_id=' + _id);
     });
 
@@ -193,4 +197,3 @@ exports.getValueList = function (req, res, next) {
         }
     });
 }
-

@@ -3,15 +3,21 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            筛选条件内容列表
+            筛选条件内容列表 {{infos}}
             <small></small>
         </h1>
     </section>
     <!-- Main content -->
     <section class="content">
-        {{#model}}
         <!-- general form elements -->
         <div class="box box-primary">
+            {{#if infos}}
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-check"></i> {{#each infos}}{{this.message}} {{/each}}</h4>
+            </div>
+            {{/if}}
+            {{#model}}
             <div class="box-header with-border">
                 <h3 class="box-title">筛选条件内容列表</h3> <a href="/admin/selector_value_add?_id={{_id}}" type="button" class="btn bg-purple">新增</a>
             </div>
