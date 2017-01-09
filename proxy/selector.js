@@ -38,7 +38,7 @@ exports.getByCid = function (cid, options, callback) {
 
 
 exports.getByCid_Admin = function (cid, options, callback) {
-    Selector.find(_.assign({ cid: cid }, options), '_id title sort alias isVisible', { sort: '-sort' }, callback);
+    Selector.find(_.assign({ cid: cid }, options), '_id title values sort alias isVisible', { sort: '-sort' }, callback);
 };
 
 exports.getById_Admin = function (_id, callback) {

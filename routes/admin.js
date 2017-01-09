@@ -40,6 +40,9 @@ router.post('/category_edit', category.postEdit);
 router.get('/product_list', product.getList);
 router.get('/product_add', product.getAdd);
 router.post('/product_add', product.postAdd);
+router.get('/product_edit', product.getEdit);
+router.post('/product_edit', product.postEdit);
+router.get('/product_remove', product.getRemove);
 
 router.post('/fileupload', upload.single('files'), fileupload.upload);
 

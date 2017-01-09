@@ -3,7 +3,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            新增{{title}}
+            编辑{{title}}
             <small></small>
         </h1>
     </section>
@@ -12,11 +12,11 @@
         <!-- general form elements -->
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">新增{{title}}</h3>
+                <h3 class="box-title">编辑{{title}}</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action='/admin/product_add' method='post'>
+            <form role="form" action='/admin/product_edit' method='post'>
                 <div class="box-body">
                     <div class="form-group">
                         <label>所属分类</label>
@@ -26,38 +26,39 @@
                             {{/each}}
                         </select>
                     </div>
+                    {{#model}}
                     <div class="form-group">
                         <label for="title">标题</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="请输入标题">
+                        <input type="text" value="{{title}}" name="title" class="form-control" id="title" placeholder="请输入标题">
                     </div>
                     <div class="form-group">
                         <label for="code">编号</label>
-                        <input type="text" name="code" class="form-control" id="code" placeholder="请输入编号">
+                        <input type="text" value="{{code}}" name="code" class="form-control" id="code" placeholder="请输入编号">
                     </div>
                     {{#iff cid 'eq' 2}}
                     <div class="form-group">
                         <label for="part">套件</label>
-                        <input type="text" name="part" class="form-control" id="part" placeholder="请输入套件">
+                        <input type="text" value="{{../part}}" name="part" class="form-control" id="part" placeholder="请输入套件">
                     </div>
                     {{/iff}}
                     {{#iff cid 'gt' 1}}
                     <div class="form-group">
                         <label for="price">价格</label>
-                        <input type="number" name="price" class="form-control" id="price" placeholder="请输入价格">
+                        <input type="number" value="{{../price}}" name="price" class="form-control" id="price" placeholder="请输入价格">
                     </div>
                     {{/iff}}
                     <div class="form-group">
                         <label for="tag">标签(以英文逗号相隔,如欧式,简约)</label>
-                        <input type="text" name="tag" class="form-control" id="tag" placeholder="请输入标签,如欧式,简约">
+                        <input type="text" value="{{tag}}" name="tag" class="form-control" id="tag" placeholder="请输入标签,如欧式,简约">
                     </div>
                     <div class="form-group">
                         <label for="search">搜索关键字(以英文逗号相隔,如卧室,最便宜)</label>
-                        <input type="text" name="search" class="form-control" id="search" placeholder="请输入搜索关键字,如卧室,最便宜">
+                        <input type="text" value="{{search}}" name="search" class="form-control" id="search" placeholder="请输入搜索关键字,如卧室,最便宜">
                     </div>
                     <div class="form-group">
                         <label>请选择筛选条件</label>
                         <select name="where" class="form-control select2" multiple="multiple" data-placeholder="请选择筛选条件">
-                            {{#each selector}}
+                            {{#each ../selector}}
                             <optgroup label="{{title}}">
                                 {{#each values}}
                                 <option value="{{alias}}">{{title}}</option>
@@ -72,10 +73,17 @@
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
                         <div id="files" class="files">
-                            
+                            <div>
+                                <a target="_blank" id="skPic-a" href="{{skPic}}">
+                                <p>
+                                    <img id="skPic-img"  width="300px" height="200px" src="{{skPic}}" alt="">
+                                    <br>
+                                </p>
+                                </a>
+                            </div>
                         </div>
                         <input id="fileupload" type="file" name="files">
-                        <input type="hidden" id="skPic" name="skPic">
+                        <input type="hidden" value="{{skPic}}" id="skPic" name="skPic">
                          <!-- The global progress bar -->
                     </div>
                     <div class="form-group">
@@ -84,40 +92,51 @@
                             <div class="progress-bar progress-bar-success"></div>
                         </div>
                         <div id="s_files" class="files">
-                            
+                            {{#each sliderPics}}
+                            <div>
+                                <a target="_blank" href="{{this}}">
+                                <p>
+                                    <img width="300px" height="200px" src="{{this}}" alt="">
+                                    <br>
+                                </p>
+                                </a>
+                            </div>
+                            {{/each}}
                         </div>
                         <input id="s_fileupload" type="file" name="files" multiple>
-                        <input type="hidden" id="sliderPics" name="sliderPics">
+                        <input type="hidden" value="{{toString sliderPics}}" id="sliderPics" name="sliderPics">
                          <!-- The global progress bar -->
                     </div>
                     <div class="form-group">
                         <label for="description">请输入描述</label>
-                        <textarea id="description" name="description" placeholder="请输入描述" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        <textarea  id="description" name="description" placeholder="请输入描述" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{description}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="content">请输入产品细节</label>
-                        <textarea class="textarea" name="content" id="content" placeholder="请输入产品细节" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        <textarea class="textarea" name="content" id="content" placeholder="请输入产品细节" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{{content}}}</textarea>
                     </div>
                     <div class="form-group">
                         <label>
-                            <input value="1" type="radio" name="isVisible" class="minimal-red" checked>
+                            <input value="1" {{setChecked 0 isVisible}} type="radio" name="isVisible" class="minimal-red" checked>
                             对外可见
                         </label>
                         <label>
-                            <input value="0" type="radio" name="isVisible" class="minimal-red">
+                            <input value="0" {{setChecked 0 isVisible}} type="radio" name="isVisible" class="minimal-red">
                             对外隐藏
                         </label>
                     </div>
                     <div class="form-group">
                         <label>
-                            <input value="1" type="radio" name="isIndex" class="minimal-red" checked>
+                            <input value="1" {{setChecked 0 isVisible}} type="radio" name="isIndex" class="minimal-red" checked>
                             首页可见
                         </label>
                         <label>
-                            <input value="0" type="radio" name="isIndex" class="minimal-red">
+                            <input value="0" {{setChecked 0 isVisible}} type="radio" name="isIndex" class="minimal-red">
                             首页不可见
                         </label>
                     </div>
+                    <input type="hidden" name="_id" value="{{_id}}">
+                    {{/model}}
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
@@ -158,6 +177,9 @@ $(function () {
     //bootstrap WYSIHTML5 - text editor
     $(".textarea").wysihtml5();
     $(".select2").select2();
+    {{#model}}
+    $(".select2").val({{{toSelect2 where}}}).trigger('change');
+    {{/model}}
     var url = '/admin/fileupload',
         uploadButton = $('<a/>')
         .addClass('btn btn-primary')
@@ -233,6 +255,9 @@ $(function () {
                         .prop('href', file.url);
                     $(data.context.children()[index])
                         .wrap(link);
+                    $("#files").find("div").eq(1).remove();
+                    $('#skPic-a').attr('href',file.url);
+                    $('#skPic-img').attr('src',file.url)
                     $('#skPic').val(file.url);
                 } else if (file.error) {
                     var error = $('<span class="text-danger"/>').text(file.error);

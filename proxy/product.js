@@ -25,7 +25,9 @@ exports.getProductCount = function (options, callback) {
  * @param {Function} callback 获取的产品
  */
 exports.getProductById = function (id, callback) {
-    Product.findOne({ id: id }, callback);
+    Product.findOne({
+        id: id
+    }, callback);
 }
 
 
@@ -74,25 +76,25 @@ exports.getProducts = function (callback, {
     c_t_sort,
     p_sort
 } = {
-        p_select: 'id cid code skPic description price title lastModifyTime values',
-        c_select: 'title',
-        t_select: 'title',
-        p_options: {
-            isVisible: 1
-        },
-        c_options: {
-            isVisible: 1
-        },
-        t_options: {
-            isVisible: 1
-        },
-        c_t_sort: {
-            sort: -1
-        },
-        p_sort: {
-            sort: '-lastModifyTime'
-        }
-    }) {
+    p_select: 'id cid code skPic description price title lastModifyTime values',
+    c_select: 'title',
+    t_select: 'title',
+    p_options: {
+        isVisible: 1
+    },
+    c_options: {
+        isVisible: 1
+    },
+    t_options: {
+        isVisible: 1
+    },
+    c_t_sort: {
+        sort: -1
+    },
+    p_sort: {
+        sort: '-lastModifyTime'
+    }
+}) {
     Product.find(p_options, p_select, p_sort).populate({
         path: 'cid',
         match: c_options,
@@ -118,12 +120,16 @@ exports.getProducts = function (callback, {
  * - result, 产品列表
  */
 exports.getProductsWithCategory = function (p_select, p_options, c_options, callback) {
-    Product.find(p_options, p_select, { sort: '-lastModifyTime' }).populate({
+    Product.find(p_options, p_select, {
+        sort: '-lastModifyTime'
+    }).populate({
         path: 'categoryRef',
         match: c_options,
         select: 'id title',
         options: {
-            sort: { sort: -1 }
+            sort: {
+                sort: -1
+            }
         }
     }).exec(callback)
 }
@@ -136,12 +142,16 @@ exports.getProductsWithCategory = function (p_select, p_options, c_options, call
  * - result, 产品列表
  */
 exports.getProductsWithValue = function (p_options, c_options) {
-    Product.find(p_options, 'id cid code skPic description price title lastModifyTime values', { sort: '-lastModifyTime' }).populate({
+    Product.find(p_options, 'id cid code skPic description price title lastModifyTime values', {
+        sort: '-lastModifyTime'
+    }).populate({
         path: 'values',
         match: c_options,
         select: 'id title',
         options: {
-            sort: { sort: -1 }
+            sort: {
+                sort: -1
+            }
         }
     }).exec(callback)
 }
@@ -163,11 +173,47 @@ exports.getProductsByPage = function (select, pageIndex, pageSize, options, call
 
 
 exports.getProducts_Admin = function (options, callback) {
-    Product.find(options, 'id categoryRef isIndex isVisible code title lastModifyTime', { sort: '-lastModifyTime' }).populate({
+    Product.find(options, 'id categoryRef isIndex isVisible code title lastModifyTime', {
+        sort: '-lastModifyTime'
+    }).populate({
         path: 'categoryRef',
         select: 'title'
     }).exec(callback)
 }
+
+exports.getById_Admin = function (_id, callback) {
+    Product.find({
+        _id: _id
+    }).exec(callback)
+}
+
+exports.update = function (_id, cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, tag, where, search, callback) {
+    Product.findOne({
+        _id: _id
+    }, function (err, product) {
+        if (err || !product) {
+            return callback(err);
+        }
+        product.cid = cid;
+        product.categoryRef = categoryRef;
+        product.title = title;
+        // product.search = nodejieba.cut(sentence, true);
+        product.content = content;
+        product.price = price;
+        product.description = description;
+        product.sliderPics = sliderPics;
+        product.skPic = skPic;
+        product.code = code;
+        product.part = part;
+        product.search = search;
+        product.tag = tag;
+        product.where = where;
+        product.isVisible = isVisible;
+        product.save(callback);
+        product.lastModifyTime = new Date();
+        product.save(callback);
+    });
+};
 
 /**
  * 新增和保存
@@ -191,3 +237,9 @@ exports.newAndSave = function (cid, categoryRef, title, content, price, descript
     product.isVisible = isVisible;
     product.save(callback);
 };
+
+exports.remove = function (_id, callback) {
+    Product.remove({
+        _id: _id
+    }, callback)
+}

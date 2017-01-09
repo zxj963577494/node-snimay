@@ -1,6 +1,7 @@
 const eventproxy = require('eventproxy');
 const Category = require('../../proxy').Category;
 const Product = require('../../proxy').Product;
+const Selector = require('../../proxy').Selector;
 const _ = require('lodash');
 
 exports.getList = function (req, res, next) {
@@ -14,7 +15,9 @@ exports.getList = function (req, res, next) {
             layout: 'admin'
         });
     });
-    Product.getProducts_Admin({cid:cid}, ep.done('list'));
+    Product.getProducts_Admin({
+        cid: cid
+    }, ep.done('list'));
     ep.fail(function (err) {
         if (err) {
             return next(err);
@@ -25,17 +28,19 @@ exports.getList = function (req, res, next) {
 exports.getAdd = function (req, res, next) {
     const ep = new eventproxy();
     let cid = req.query.category || 1;
-    ep.all('category', function (category) {
+    ep.all('category', 'selector', function (category, selector) {
         res.render('admin/product_add', {
             cid: cid,
-            category: category.filter((x)=>{
+            category: category.filter((x) => {
                 return x.id == cid
             }),
             title: (cid == 1 ? '产品体验' : cid == 2 ? '定制家具' : '配套家具'),
+            selector: selector,
             layout: 'admin'
         });
     });
     Category.getCategories_Admin({}, ep.done('category'));
+    Selector.getByCid_Admin(cid, {}, ep.done('selector'));
     ep.fail(function (err) {
         if (err) {
             return next(err);
@@ -53,17 +58,19 @@ exports.postAdd = function (req, res, next) {
     const code = req.body.code;
     const part = req.body.part;
     const skPic = req.body.skPic;
-    const sliderPics = req.body.sliderPic.split(',');
+    const sliderPics = req.body.sliderPics.split(',');
     const content = req.body.content;
-    const search = _.uniq(req.body.search.split(','));
-    const where = _.uniq(req.body.where.split(',').push('all'));
-    const tag = _.uniq(req.body.tag.split(','));
+    const search = _.uniq(req.body.search ? req.body.search.split(',') : '');
+    const where = _.uniq(req.body.where ? req.body.where.concat(['all']) : new Array().concat(['all']));
+    const tag = _.uniq(req.body.tag ? req.body.tag.split(',') : '');
     const description = req.body.description;
     const price = req.body.price;
 
     const ep = new eventproxy();
     ep.all('product', function (product) {
-        req.flash('info', { message: '添加成功' });
+        req.flash('info', {
+            message: '添加成功'
+        });
         res.redirect('/admin/product_list');
     });
 
@@ -76,20 +83,25 @@ exports.postAdd = function (req, res, next) {
     });
 }
 
-
 exports.getEdit = function (req, res, next) {
     const _id = req.query._id;
-
+    const cid = req.query.category || 1;
     const ep = new eventproxy();
-    ep.all('model', function (model) {
-        res.render('admin/category_edit', {
+    ep.all('model', 'category', 'selector', function (model, category, selector) {
+        res.render('admin/product_edit', {
+            cid: cid,
+            category: category.filter((x) => {
+                return x.id == cid
+            }),
             model: model,
+            selector: selector,
+            title: (cid == 1 ? '产品体验' : cid == 2 ? '定制家具' : '配套家具'),
             layout: 'admin'
         });
     });
-
-    Category.getById_Admin(_id, ep.done('model'));
-
+    Category.getCategories_Admin({}, ep.done('category'));
+    Product.getById_Admin(_id, ep.done('model'));
+    Selector.getByCid_Admin(cid, {}, ep.done('selector'));
     ep.fail(function (err) {
         if (err) {
             return next(err);
@@ -99,20 +111,46 @@ exports.getEdit = function (req, res, next) {
 
 exports.postEdit = function (req, res, next) {
     const _id = req.body._id;
+    const categorys = req.body.categorys;
+    const categoryRef = categorys.split(',')[0];
+    const cid = categorys.split(',')[1];
     const title = req.body.title;
-    const sort = req.body.sort;
+    const isIndex = req.body.isIndex;
     const isVisible = req.body.isVisible;
+    const code = req.body.code;
+    const part = req.body.part;
+    const skPic = req.body.skPic;
+    const sliderPics = req.body.sliderPics.split(',');
+    const content = req.body.content;
+    const search = _.uniq(req.body.search ? req.body.search.split(',') : '');
+    const where = _.uniq(req.body.where ? req.body.where.concat(['all']) : new Array().concat(['all']));
+    const tag = _.uniq(req.body.tag ? req.body.tag.split(',') : '');
+    const description = req.body.description;
+    const price = req.body.price;
 
     const ep = new eventproxy();
-    ep.all('category', function (category) {
-        res.redirect('/admin/category_list');
+    ep.all('model', function (model) {
+        req.flash('info', {
+            message: '编辑成功'
+        });
+        res.redirect('/admin/product_list');
     });
 
-    Category.update(_id, title, sort, isVisible, ep.done('category'));
+    Product.update(_id, cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, tag, where, search, ep.done('model'));
 
     ep.fail(function (err) {
         if (err) {
             return next(err);
         }
     });
+}
+
+exports.getRemove = function (req, res, next) {
+    const _id = req.query._id;
+    Product.remove(_id, function (model) {
+        req.flash('info', {
+            message: '删除成功'
+        });
+        res.redirect('/admin/product_list');
+    })
 }

@@ -35,12 +35,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{isIndex}}
                         {{#each list}}
                         <tr>
                             <td>{{addOne @index}}</td>
                             <td>{{categoryRef.title}}</td>
                             <td>{{code}}</td>
-                            <td>{{isIndex}}<a href="/single/{{id}}">{{title}}</a></td>
+                            <td><a href="/single/{{id}}">{{title}}</a></td>
                             <td>
                                 {{#if isVisible}} 
                                 <code>可见</code> {{else}} 隐藏 {{/if}} {{#if isIndex}}
@@ -48,8 +49,12 @@
                             </td>
                             <td>{{formatDate lastModifyTime "ll"}}</td>
                             <td>
-                                <a href="/admin/product_edit?_id={{_id}}">
+                                <a href="/admin/product_edit?_id={{_id}}&cid={{../cid}}">
                                     编辑 
+                                </a>
+                                &nbsp;&nbsp;
+                                 <a href="/admin/product_remove?_id={{_id}}">
+                                    删除 
                                 </a>
                             </td>
                         </tr>
