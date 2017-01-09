@@ -171,26 +171,13 @@ exports.getProducts_Admin = function (options, callback) {
 
 /**
  * 新增和保存
- * 
- * @param {any} cid
- * @param {any} values
- * @param {any} title
- * @param {any} content
- * @param {any} price
- * @param {any} description
- * @param {any} sliderPics
- * @param {any} skPic
- * @param {any} code
- * @param {any} part
- * @param {any} isVisible
- * @param {any} callback
  */
-exports.newAndSave = function (cid, values, title, content, price, description, sliderPics, skPic, code, part, isVisible, callback) {
+exports.newAndSave = function (cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, tag, where, search, callback) {
     var product = new Product();
     product.cid = cid;
-    product.values = values;
+    product.categoryRef = categoryRef;
     product.title = title;
-    product.search = nodejieba.cut(sentence, true);
+    // product.search = nodejieba.cut(sentence, true);
     product.content = content;
     product.price = price;
     product.description = description;
@@ -198,7 +185,9 @@ exports.newAndSave = function (cid, values, title, content, price, description, 
     product.skPic = skPic;
     product.code = code;
     product.part = part;
+    product.search = search;
+    product.tag = tag;
+    product.where = where;
     product.isVisible = isVisible;
-
     product.save(callback);
 };

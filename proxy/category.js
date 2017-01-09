@@ -24,7 +24,7 @@ exports.getCategories = function (options, callback) {
 };
 
 exports.getCategories_Admin = function (options, callback) {
-    Category.find(options, '_id title alias isVisible sort', { sort: '-sort' }, callback);
+    Category.find(options, '_id id title alias isVisible sort', { sort: '-sort' }, callback);
 };
 
 exports.getById_Admin = function (_id, callback) {

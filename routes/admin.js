@@ -4,8 +4,8 @@ const siteconfig = require('../controllers/admin/siteconfig');
 const selector = require('../controllers/admin/selector');
 const category = require('../controllers/admin/category');
 const product = require('../controllers/admin/product');
-
-
+const fileupload = require('../controllers/admin/fileupload');
+const upload = require('../util/multerUtil');
 
 router.get('/', function (req, res, next) {
     res.render('admin/home', {
@@ -40,5 +40,7 @@ router.post('/category_edit', category.postEdit);
 router.get('/product_list', product.getList);
 router.get('/product_add', product.getAdd);
 router.post('/product_add', product.postAdd);
+
+router.post('/fileupload', upload.single('files'), fileupload.upload);
 
 module.exports = router;

@@ -12,6 +12,7 @@ const pkg = require('./package');
 const bodyParser = require('body-parser');
 const moment = require('moment');
 
+
 /*
  * 分词
  * https://github.com/yanyiwu/nodejieba
@@ -72,6 +73,50 @@ app.engine('.hbs', exphbs({
     },
     formatDate: function (date, format) {
       return moment(date).format(format);
+    },
+    if_eq: function (a, b, ops) {
+      if(a == b) {
+        return opts.fn(this);
+      }
+      else{
+        return opts.inverse(this);
+      }
+    },
+    iff: function (a, operator, b, opts) {
+      let bool = false;
+      switch(operator) {
+        case 'eq':
+            bool = a == b;
+            break;
+        case 'ne':
+            bool = a != b;
+            break;
+        case 'gt':
+            bool = a > b;
+            break;
+        case 'lt':
+            bool = a < b;
+            break;
+        case 'lte':
+            bool = a <= b;
+            break;
+        case 'gte':
+            bool = a >= b;
+            break;
+        case 'and':
+            bool = a && b;
+            break;
+        case 'or':
+            bool = a || b;
+            break;
+        default:
+            throw "Unknown operator " + operator;
+      }
+      if (bool) {
+          return opts.fn(this);
+      } else {
+          return opts.inverse(this);
+      }
     }
   }
 }));
