@@ -1,6 +1,7 @@
 const express = require('express');
 const global = require('../middlewares/global');
 const flash = require('../middlewares/flash');
+const csrf = require('../middlewares/csrf');
 const home = require('../controllers/home');
 const products = require('../controllers/products')
 const modes = require('../controllers/modes')
@@ -11,12 +12,13 @@ const test = require('../controllers/test')
 const router = express.Router();
 
 router.use(global.init);
+router.use(flash.init);
+router.use(csrf.init);
 router.get('/', home.get);
 router.get('/products', products.get);
 router.get('/modes', modes.get);
 router.get('/matches', matches.get);
 router.get('/single/:id', single.get);
-router.use('/admin', flash.init);
 router.use('/admin', require('./admin'));
 router.get('/signup', require('./signup'));
 router.get('/signin', require('./signin'));

@@ -16,11 +16,12 @@ exports.get = function (callback) {
  * 更新网站配置信息
  * @param {Function} callback 回调函数
  */
-exports.update = function (_id, title, keywords, description, copyright, address, icp, tel, qq, weibo, callback) {
+exports.update = function (_id, host, title, keywords, description, copyright, address, icp, tel, qq, weibo, callback) {
     WebSite.findOne({ _id: _id }, function (err, website) {
         if (err || !website) {
             return callback(err);
         }
+        website.host = host;
         website.title = title;
         website.keywords = keywords;
         website.description = description;
@@ -42,8 +43,9 @@ exports.update = function (_id, title, keywords, description, copyright, address
  * - err, 数据库异常
  * @param {Function} callback 回调函数
  */
-exports.newAndSave = function (title, keywords, description, copyright, address, icp, tel, qq, weibo, callback) {
+exports.newAndSave = function (host, title, keywords, description, copyright, address, icp, tel, qq, weibo, callback) {
     var website = new WebSite();
+    website.host = host;
     website.title = title;
     website.description = description;
     website.keywords = keywords;

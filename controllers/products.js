@@ -12,7 +12,7 @@ exports.get = function (req, res, next) {
     // 构建产品查询条件
     const options = _.assign({
         cid: 1,
-        isVisible: 1
+        isVisible: 1,
     })
 
     const pageSize = 12;

@@ -5,7 +5,7 @@ const Selector = require('../../proxy').Selector;
 const _ = require('lodash');
 
 exports.getList = function (req, res, next) {
-    let cid = req.query.category || 1;
+    let cid = req.query.cid || 1;
     const ep = new eventproxy();
     ep.all('list', function (list) {
         res.render('admin/product_list', {
@@ -85,7 +85,7 @@ exports.postAdd = function (req, res, next) {
 
 exports.getEdit = function (req, res, next) {
     const _id = req.query._id;
-    const cid = req.query.category || 1;
+    const cid = req.query.cid || 1;
     const ep = new eventproxy();
     ep.all('model', 'category', 'selector', function (model, category, selector) {
         res.render('admin/product_edit', {

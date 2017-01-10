@@ -21,6 +21,7 @@ exports.get = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     const _id = req.body._id;
+    const host = req.body.host;
     const title = req.body.title;
     const keywords = req.body.keywords;
     const description = req.body.description;
@@ -33,13 +34,11 @@ exports.update = function (req, res, next) {
 
     const ep = new eventproxy();
     ep.all('website', function (website) {
-        res.render('admin/siteconfig', {
-            website: website,
-            layout: 'admin'
-        });
+        req.flash('info', {message: '编辑成功'});
+        res.redirect('/admin/siteconfig');
     });
 
-    WebSite.update(_id, title, keywords, description, copyright, address, icp, tel, qq, weibo, ep.done('website'));
+    WebSite.update(_id, host, title, keywords, description, copyright, address, icp, tel, qq, weibo, ep.done('website'));
 
     ep.fail(function (err) {
         if (err) {
@@ -49,6 +48,7 @@ exports.update = function (req, res, next) {
 }
 
 exports.add = function (req, res, next) {
+    const host = req.body.host;
     const title = req.body.title;
     const keywords = req.body.keywords;
     const description = req.body.description;
@@ -67,7 +67,7 @@ exports.add = function (req, res, next) {
         });
     });
 
-    WebSite.newAndSave(title, keywords, description, copyright, address, icp, tel, qq, weibo, ep.done('website'));
+    WebSite.newAndSave(host, title, keywords, description, copyright, address, icp, tel, qq, weibo, ep.done('website'));
 
     ep.fail(function (err) {
         if (err) {

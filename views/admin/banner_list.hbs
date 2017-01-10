@@ -3,8 +3,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            头部筛选条件列表
-            <small>添加产品体验筛选条件头部名称如空间、风格</small>
+            Banner列表
+            <small></small>
         </h1>
     </section>
     <!-- Main content -->
@@ -18,17 +18,18 @@
             </div>
             {{/if}}
             <div class="box-header with-border">
-                <h3 class="box-title">筛选条件列表</h3> <a href="/admin/selector_key_add" type="button" class="btn bg-purple">新增</a>
+                <h3 class="box-title">Banner列表</h3> <a href="/admin/banner_add" type="button" class="btn bg-purple">新增</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table id="keylist" class="table table-bordered table-hover">
+                <table id="list" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>序号</th>
                             <th>名称</th>
-                            <th>别名</th>
                             <th>排序</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
                             <th>状态</th>
                             <th>操作</th>
                         </tr>
@@ -38,17 +39,19 @@
                         <tr>
                             <td>{{addOne @index}}</td>
                             <td>{{title}}</td>
-                            <td>{{alias}}</td>
                             <td>{{sort}}</td>
+                            <td>{{formatDate startTime "ll"}}</td>
+                            <td>{{formatDate endTime "ll"}}</td>
                             <td>
-                                {{#if isVisible}} 可见 {{else}} 隐藏 {{/if}}
+                                {{#if isVisible}} <code>可见</code> {{else}} 隐藏 {{/if}}
                             </td>
                             <td>
-                                <a href="/admin/selector_key_edit?_id={{_id}}">
+                                <a href="/admin/banner_edit?_id={{_id}}">
                                     编辑 
-                                </a> 
-                                <a href="/admin/selector_value_list?_id={{_id}}">
-                                    下一级 
+                                </a>
+                                &nbsp;&nbsp;
+                                <a href="/admin/banner_remove?_id={{_id}}">
+                                    删除
                                 </a>
                             </td>
                         </tr>
@@ -68,10 +71,14 @@
 <script>
     $(function () {
         $('#keylist').DataTable({
-            "pageLength": 20,
-            "paging": false,
+            "responsive": true,
+            "pageLength": 10,
+            "paging": true,
             "searching": false,
-            "info": false
+            "info": true,
+            "language":{
+                "url":"/language/dataTables.chinese.lang"
+            }
         });
     });
 </script>

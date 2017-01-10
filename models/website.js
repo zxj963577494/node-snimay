@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const WebSiteSchema = mongoose.Schema({
+    host: String,
     title: String,
     description: String,
     keywords: String,

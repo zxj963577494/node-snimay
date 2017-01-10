@@ -209,7 +209,6 @@ exports.update = function (_id, cid, categoryRef, title, content, price, descrip
         product.tag = tag;
         product.where = where;
         product.isVisible = isVisible;
-        product.save(callback);
         product.lastModifyTime = new Date();
         product.save(callback);
     });

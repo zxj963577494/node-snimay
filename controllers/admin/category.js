@@ -45,6 +45,9 @@ exports.postEdit = function (req, res, next) {
 
     const ep = new eventproxy();
     ep.all('category', function (category) {
+        req.flash('info', {
+            message: '编辑成功'
+        });
         res.redirect('/admin/category_list');
     });
 

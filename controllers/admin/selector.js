@@ -79,7 +79,7 @@ exports.postKeyEdit = function (req, res, next) {
 }
 
 exports.getKeyList = function (req, res, next) {
-    let category = req.query.category || 1;
+    let category = req.query.cid || 1;
     const ep = new eventproxy();
     ep.all('list', function (list) {
         res.render('admin/selector_key_list', {

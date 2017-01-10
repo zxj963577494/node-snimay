@@ -11,7 +11,8 @@ const routes = require('./routes');
 const pkg = require('./package');
 const bodyParser = require('body-parser');
 const moment = require('moment');
-
+const csrf = require('csurf');
+const upload = require('./util/multerUtil');
 
 /*
  * 分词
@@ -26,6 +27,8 @@ nodejieba.load({
 const app = express();
 
 moment.locale('zh-cn');
+
+app.disable('x-powered-by');
 
 // app.use(timeout('10s'));
 app.use(bodyParser.json({
@@ -125,7 +128,6 @@ app.engine('.hbs', exphbs({
   }
 }));
 
-
 app.set('view engine', '.hbs');
 
 app.use(express.static(__dirname + '/public'));
@@ -145,6 +147,10 @@ app.use(session({
     url: config.mongodb // mongodb 地址
   })
 }));
+
+app.use(upload.single('files'));
+
+app.use(csrf());
 
 // flash 中间件，用来显示通知
 app.use(flash());

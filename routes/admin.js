@@ -4,6 +4,7 @@ const siteconfig = require('../controllers/admin/siteconfig');
 const selector = require('../controllers/admin/selector');
 const category = require('../controllers/admin/category');
 const product = require('../controllers/admin/product');
+const banner = require('../controllers/admin/banner');
 const fileupload = require('../controllers/admin/fileupload');
 const upload = require('../util/multerUtil');
 
@@ -44,6 +45,13 @@ router.get('/product_edit', product.getEdit);
 router.post('/product_edit', product.postEdit);
 router.get('/product_remove', product.getRemove);
 
-router.post('/fileupload', upload.single('files'), fileupload.upload);
+router.get('/banner_list', banner.getList);
+router.get('/banner_add', banner.getAdd);
+router.post('/banner_add', banner.postAdd);
+router.get('/banner_edit', banner.getEdit);
+router.post('/banner_edit', banner.postEdit);
+router.get('/banner_remove', banner.getRemove);
+
+router.post('/fileupload', fileupload.upload);
 
 module.exports = router;
