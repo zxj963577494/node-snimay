@@ -19,10 +19,13 @@ require('./product');
 require('./category');
 require('./banner');
 require('./selector');
+require('./consult');
 
 exports.WebSite = mongoose.model('WebSite');
 exports.Banner = mongoose.model('Banner');
 exports.Product = mongoose.model('Product');
 exports.Category = mongoose.model('Category');
 exports.Selector = mongoose.model('Selector');
+exports.Consult = mongoose.model('Consult');
+
 

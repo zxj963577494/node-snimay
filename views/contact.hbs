@@ -1,61 +1,93 @@
-<div id="fh5co-contact">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-5 col-md-push-1 animate-box">
-					
-					<div class="fh5co-contact-info">
-						<h3>Contact Information</h3>
-						<ul>
-							<li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li>
-							<li class="phone"><a href="tel://1234567920">+ 1235 2355 98</a></li>
-							<li class="email"><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-							<li class="url"><a href="http://"></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<h3>Get In Touch</h3>
-					<form action="#">
-						<div class="row form-group">
-							<div class="col-md-6">
-								<!-- <label for="fname">First Name</label> -->
-								<input type="text" id="fname" class="form-control" placeholder="Your firstname">
-							</div>
-							<div class="col-md-6">
-								<!-- <label for="lname">Last Name</label> -->
-								<input type="text" id="lname" class="form-control" placeholder="Your lastname">
-							</div>
-						</div>
+<div id="fh5co-contact"> 
+   <div class="container"> 
+    <div class="row"> 
+     <div class="col-md-12 animate-box"> 
+      <div class="fh5co-contact-info"> 
+       <h3>联系方式</h3> 
+       <ul> 
+        <li class="address">{{website.address}}</li> 
+        <li class="phone"><a href="tel://{{website.tel}}">{{website.tel}}</a></li> 
+        <li class="email"><a href="mailto:{{website.mail}}">{{website.mail}}</a></li> 
+        <li class="url"><a href="{{website.host}}">{{website.host}}</a></li> 
+       </ul> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <div id="map" class="animate-box" data-animate-effect="fadeIn">
 
-						<div class="row form-group">
-							<div class="col-md-12">
-								<!-- <label for="email">Email</label> -->
-								<input type="text" id="email" class="form-control" placeholder="Your email address">
-							</div>
-						</div>
+  </div>
+{{#section 'footer'}} 
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak={{map.ak}}"></script>
+<script type="text/javascript">
+// 百度地图API功能
+var mp = new BMap.Map("map");
+mp.centerAndZoom(new BMap.Point({{map.point}}), 18);
+mp.enableScrollWheelZoom();
+// 复杂的自定义覆盖物
+function ComplexCustomOverlay(point, text, mouseoverText) {
+    this._point = point;
+    this._text = text;
+    this._overText = mouseoverText;
+}
+ComplexCustomOverlay.prototype = new BMap.Overlay();
+ComplexCustomOverlay.prototype.initialize = function(map) {
+    this._map = map;
+    var div = this._div = document.createElement("div");
+    div.style.position = "absolute";
+    div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
+    div.style.backgroundColor = "#EE5D5B";
+    div.style.border = "1px solid #BC3B3A";
+    div.style.color = "white";
+    div.style.height = "25px";
+    div.style.padding = "2px";
+    div.style.whiteSpace = "nowrap";
+    div.style.MozUserSelect = "none";
+    div.style.fontSize = "12px"
+    var span = this._span = document.createElement("span");
+    div.appendChild(span);
+    span.appendChild(document.createTextNode(this._text));
+    var that = this;
 
-						<div class="row form-group">
-							<div class="col-md-12">
-								<!-- <label for="subject">Subject</label> -->
-								<input type="text" id="subject" class="form-control" placeholder="Your subject of this message">
-							</div>
-						</div>
+    var arrow = this._arrow = document.createElement("div");
+    arrow.style.background = "url(http://map.baidu.com/fwmap/upload/r/map/fwmap/static/house/images/label.png) no-repeat";
+    arrow.style.position = "absolute";
+    arrow.style.width = "14px";
+    arrow.style.height = "10px";
+    arrow.style.top = "22px";
+    arrow.style.left = "10px";
+    arrow.style.overflow = "hidden";
+    div.appendChild(arrow);
 
-						<div class="row form-group">
-							<div class="col-md-12">
-								<!-- <label for="message">Message</label> -->
-								<textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Say something about us"></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<input type="submit" value="Send Message" class="btn btn-primary">
-						</div>
+    div.onmouseover = function() {
+        this.style.backgroundColor = "#6BADCA";
+        this.style.borderColor = "#0000ff";
+        this.getElementsByTagName("span")[0].innerHTML = that._overText;
+        arrow.style.backgroundPosition = "0px -20px";
+    }
 
-					</form>		
-				</div>
-			</div>
-			
-		</div>
-	</div>
+    div.onmouseout = function() {
+        this.style.backgroundColor = "#EE5D5B";
+        this.style.borderColor = "#BC3B3A";
+        this.getElementsByTagName("span")[0].innerHTML = that._text;
+        arrow.style.backgroundPosition = "0px 0px";
+    }
 
-	<div id="map" class="animate-box" data-animate-effect="fadeIn"></div>
+    mp.getPanes().labelPane.appendChild(div);
+
+    return div;
+}
+ComplexCustomOverlay.prototype.draw = function() {
+    var map = this._map;
+    var pixel = map.pointToOverlayPixel(this._point);
+    this._div.style.left = pixel.x - parseInt(this._arrow.style.left) + "px";
+    this._div.style.top = pixel.y - 30 + "px";
+}
+
+var myCompOverlay = new ComplexCustomOverlay(new BMap.Point({{map.point}}), "{{map.mapText}}", "{{map.mapMouseoverTxt}}");
+
+mp.addOverlay(myCompOverlay);
+</script>
+
+{{/section}}

@@ -11,7 +11,7 @@ const Banner = models.Banner;
  * @param {Function} callback 获取消息数量
  */
 exports.getBanners = function (options, callback) {
-    Banner.find(_.assign({ startTime: { "$lte": new Date() }, endTime: { $gt: new Date() } }, options), {}, { sort: '-sort' }, callback);
+    Banner.find(Object.assign({ startTime: { "$lte": new Date() }, endTime: { $gt: new Date() } }, options), {}, { sort: '-sort' }, callback);
 };
 
 exports.getBanners_Admin = function (callback) {

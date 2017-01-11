@@ -16,7 +16,7 @@ exports.get = function (callback) {
  * 更新网站配置信息
  * @param {Function} callback 回调函数
  */
-exports.update = function (_id, host, title, keywords, description, copyright, address, icp, tel, qq, weibo, callback) {
+exports.update = function (_id, host, title, keywords, description, copyright, address, icp, tel, qq, weibo, mail, callback) {
     WebSite.findOne({ _id: _id }, function (err, website) {
         if (err || !website) {
             return callback(err);
@@ -32,6 +32,7 @@ exports.update = function (_id, host, title, keywords, description, copyright, a
         website.tel = tel;
         website.qq = qq;
         website.weibo = weibo;
+        website.mail = mail;
         website.lastModifyTime = new Date();
         website.save(callback);
     });
@@ -43,7 +44,7 @@ exports.update = function (_id, host, title, keywords, description, copyright, a
  * - err, 数据库异常
  * @param {Function} callback 回调函数
  */
-exports.newAndSave = function (host, title, keywords, description, copyright, address, icp, tel, qq, weibo, callback) {
+exports.newAndSave = function (host, title, keywords, description, copyright, address, icp, tel, qq, weibo, mail, callback) {
     var website = new WebSite();
     website.host = host;
     website.title = title;
@@ -55,6 +56,7 @@ exports.newAndSave = function (host, title, keywords, description, copyright, ad
     website.qq = qq;
     website.weibo = weibo;
     website.tel = tel;
+    website.mail = mail;
 
     website.save(callback);
 };

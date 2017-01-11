@@ -13,7 +13,6 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const csrf = require('csurf');
 const upload = require('./util/multerUtil');
-
 /*
  * 分词
  * https://github.com/yanyiwu/nodejieba

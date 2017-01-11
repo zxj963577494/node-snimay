@@ -42,7 +42,7 @@ exports.getProductById = function (id, callback) {
  */
 exports.getProductByType = function (cid, options, callback) {
     if (cid) {
-        Product.find(_.assign({
+        Product.find(Object.assign({
             cid: cid
         }, options), callback);
     } else {

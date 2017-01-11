@@ -1,0 +1,73 @@
+	<div id="fh5co-product" style="padding-bottom: 0">
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<span>Cool Stuff</span>
+					<h2>搜索结果.</h2>
+					<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+				</div>
+			</div>
+			{{#grouped_each 3 products}}
+			<div class="row">
+				{{#each this}}
+				<div class="col-md-4 text-center animate-box">
+					<div class="product">
+						<div class="product-grid" style="background-image:url({{skPic}});">
+							<div class="inner">
+								<p>
+									<a href="single/{{id}}" class="icon"><i class="icon-eye"></i></a>
+								</p>
+							</div>
+						</div>
+						<div class="desc">
+							<h3>
+								<a href="single/{{id}}">{{title}}</a>
+							</h3>
+							{{#if price}}
+							<span class="price">￥{{price}}</span>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+			{{/grouped_each}}
+		</div>
+	</div>
+
+	<div class="text-center">
+        <ul id="pagination" class="pagination-sm"></ul>
+    </div>
+	{{#section 'footer'}} 
+	<!-- bootstrap-paginator -->
+	<script src="/js/bootstrap-paginator.min.js"></script>
+
+	<script>
+		$(document).ready(function () {
+			$('#pagination').bootstrapPaginator({
+				currentPage: {{currentPage}},
+				totalPages: {{totalPages}},
+				size: "normal",
+				bootstrapMajorVersion: 3,
+				alignment: "right",
+				numberOfPages: 5,
+				pageUrl: function (type, page, current) { 
+					var search = $.query.get('search') ? '&search=' + $.query.get('search') : '';
+					var tag = $.query.get('tag') ? '&tag=' + $.query.get('tag') : '';
+					var query = '?page=' + page + search + tag;
+					return '/result' + query;
+                },
+				itemTexts: function (type, page, current) {
+					switch (type) {
+						case "first": return "首页";
+						case "prev": return "上一页";
+						case "next": return "下一页";
+						case "last": return "末页";
+						case "page": return page;
+					}
+				}
+			});
+		});
+	</script>
+	{{/section}}
+	

@@ -5,17 +5,12 @@ const selector = require('../controllers/admin/selector');
 const category = require('../controllers/admin/category');
 const product = require('../controllers/admin/product');
 const banner = require('../controllers/admin/banner');
+const consult = require('../controllers/admin/consult');
 const fileupload = require('../controllers/admin/fileupload');
 const upload = require('../util/multerUtil');
 
 router.get('/', function (req, res, next) {
     res.render('admin/home', {
-        layout: 'admin'
-    });
-});
-
-router.get('/qiniu', function (req, res, next) {
-    res.render('admin/qiniu', {
         layout: 'admin'
     });
 });
@@ -51,6 +46,11 @@ router.post('/banner_add', banner.postAdd);
 router.get('/banner_edit', banner.getEdit);
 router.post('/banner_edit', banner.postEdit);
 router.get('/banner_remove', banner.getRemove);
+
+router.get('/consult_list', consult.getList);
+router.get('/consult_edit', consult.getEdit);
+router.post('/consult_edit', consult.postEdit);
+router.get('/consult_remove', consult.getRemove);
 
 router.post('/fileupload', fileupload.upload);
 

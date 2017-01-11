@@ -10,7 +10,7 @@ exports.get = function (req, res, next) {
     currentPage = currentPage > 0 ? currentPage : 1;
 
     // 构建产品查询条件
-    const options = _.assign({
+    const options = Object.assign({
         cid: 2,
         isVisible: 1
     })
@@ -33,17 +33,22 @@ exports.get = function (req, res, next) {
     Selector.getByCid(2, {
         isVisible: 1
     }, ep.done(function (keys) {
-        var params = [];
-        var search = [];
+        let params = [];
+        let search = [];
         keys.forEach((x) => {
             params.push({
-                [x.alias]: req.query[x.alias]
+                [x.alias]: req.query[x.alias] ? req.query[x.alias] : 'all'
             })
-            _.assign(options, {
-                "where": { $in: _.uniq(_.concat(search, req.query[x.alias])) }
-            })
+            search.push(req.query[x.alias] ? req.query[x.alias] : 'all')
         });
-
+        let where = _.uniq(search).filter((x) => {
+            return x !== 'all'
+        });
+        if (where.length > 0) {
+            Object.assign(options, {
+                "where": { $in: where }
+            })
+        }
         const pageLink = util.pageLink(params);
         util.addActive(keys, params);
         util.addLink('/modes', keys, params);

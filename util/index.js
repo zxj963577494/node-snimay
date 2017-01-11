@@ -4,9 +4,7 @@ function pageLink(params) {
     var link = '';
     for (var x of params) {
         for (var k of Object.keys(x)) {
-            if (x[k]) {
-                link += `&${k}=${x[k]}`;
-            }
+            link += `&${k}=${x[k]}`;
         }
     }
     return link;
@@ -45,18 +43,18 @@ function addLink(path, keys, params) {
             var zlink = {
                 "link": path + link
             };
-            _.assign(z, zlink);
+            Object.assign(z, zlink);
         }
     }
 }
 
 function addActive(keys, params) {
-    for (var y of keys) {
-        for (var x of params) {
-            for (var k of Object.keys(x)) {
+    for (let y of keys) {
+        for (let x of params) {
+            for (let k of Object.keys(x)) {
                 if (y.alias === k) {
-                    for (var z of y.values) {
-                        var active;
+                    for (let z of y.values) {
+                        let active;
                         if (z.alias === x[k]) {
                             active = {
                                 isActive: 1
@@ -66,7 +64,7 @@ function addActive(keys, params) {
                                 isActive: 0
                             }
                         };
-                        _.assign(z, active)
+                        Object.assign(z, active)
                     }
                 }
             }
