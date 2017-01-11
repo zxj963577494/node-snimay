@@ -5,7 +5,8 @@ const Category = require('../proxy').Category;
 exports.init = function (req, res, next) {
     const ep = new eventproxy();
     ep.all('website', 'category', function (website, category) {
-        res.locals.admin = website;
+        res.locals.website = website;
+        res.locals.category = category;
         next();
     })
 
