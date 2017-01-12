@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <title>登录</title>
+    <link rel="stylesheet" href="/admin/css/login2.css">
+    <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--[if IE]>
+		<script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+    <div class="cont">
+        <div class="demo">
+            <div class="login">
+                <div class="login__check">
+                    <img src="/admin/img/logo.png" alt="">
+                </div>
+                <form action="signin" method="POST" class="login__form">
+                    <div class="login__row">
+                        <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+                            <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+                        </svg>
+                        <input type="text" name="name" class="login__input name" placeholder="Username" />
+                    </div>
+                    <div class="login__row">
+                        <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+                            <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+                        </svg>
+                        <input type="password" name="password" class="login__input pass" placeholder="Password" />
+                    </div>
+                    <input type='hidden' name="_csrf" value="{{csrf}}" />
+                    <button class="login__submit">登 录</button>
+                    {{#if errors}}
+                    <p style="color: #dd4b39; font-size: 16px;">{{#each errors}}{{this.message}}{{/each}}</p>
+                    {{/if}}
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src='/admin/js/pages/login2.js?t=1'></script>
+    <!-- jQuery 2.2.3 -->
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var animating = false, submitPhase1 = 1100, submitPhase2 = 400, logoutPhase1 = 800, $login = $('.login'), $app = $('.app');
+            function ripple(elem, e) {
+                $('.ripple').remove();
+                var elTop = elem.offset().top, elLeft = elem.offset().left, x = e.pageX - elLeft, y = e.pageY - elTop;
+                var $ripple = $('<div class=\'ripple\'></div>');
+                $ripple.css({
+                    top: y,
+                    left: x
+                });
+                elem.append($ripple);
+            }
+            ;
+            $('.login__form').on('submit', function (e) {
+                if (animating)
+                    return false;
+                animating = true;
+                var that = $(".login__submit");
+                ripple($(that), e);
+                $(that).addClass('processing');
+                setTimeout(function () {
+                    animating = false;
+                    that.removeClass('processing');
+                }, submitPhase1);
+            });
+        });
+    </script>
+</body>
+
+</html>

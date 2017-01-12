@@ -64,6 +64,6 @@ exports.getRemove = function (req, res, next) {
         req.flash('info', {
             message: '删除成功'
         });
-        res.redirect('/admin/banner_list');
+        res.redirect('/admin/consult_list');
     })
 }

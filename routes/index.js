@@ -29,10 +29,7 @@ router.get('/contact', contact.get);
 router.get('/single/:id', single.get);
 router.use(admin.init);
 router.use('/admin', require('./admin'));
-router.get('/signup', require('./signup'));
-router.get('/signin', require('./signin'));
-router.get('/signout', require('./signout'));
-router.get('/posts', require('./posts'));
+router.use('/signin', require('./signin'));
 
 router.use(function (req, res, next) {
     res.status(404);

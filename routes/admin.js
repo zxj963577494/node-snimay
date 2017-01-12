@@ -6,8 +6,15 @@ const category = require('../controllers/admin/category');
 const product = require('../controllers/admin/product');
 const banner = require('../controllers/admin/banner');
 const consult = require('../controllers/admin/consult');
+const user = require('../controllers/admin/user');
+const signout = require('../controllers/admin/signout');
 const fileupload = require('../controllers/admin/fileupload');
 const upload = require('../util/multerUtil');
+const auth = require('../middlewares/auth');
+
+router.use(auth.authUser);
+
+router.use(auth.userRequired);
 
 router.get('/', function (req, res, next) {
     res.render('admin/home', {
@@ -51,6 +58,15 @@ router.get('/consult_list', consult.getList);
 router.get('/consult_edit', consult.getEdit);
 router.post('/consult_edit', consult.postEdit);
 router.get('/consult_remove', consult.getRemove);
+
+router.get('/user_list', user.getList);
+router.get('/user_edit', user.getEdit);
+router.post('/user_edit', user.postEdit);
+router.get('/user_add', user.getAdd);
+router.post('/user_add', user.postAdd);
+router.get('/user_remove', user.getRemove);
+
+router.get('/signout', signout.signout);
 
 router.post('/fileupload', fileupload.upload);
 

@@ -1,0 +1,81 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            管理员列表
+            <small></small>
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            {{#if infos}}
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-check"></i> {{#each infos}}{{this.message}} {{/each}}</h4>
+            </div>
+            {{/if}}
+            <div class="box-header with-border">
+                <h3 class="box-title">管理员列表</h3> <a href="/admin/user_add" type="button" class="btn bg-purple">新增</a>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="list" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>用户名</th>
+                            <th>邮箱</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each list}}
+                        <tr>
+                            <td>{{addOne @index}}</td>
+                            <td>{{name}}</td>
+                            <td>{{email}}</td>
+                            <td>
+                                {{#if isEnable}} <code>启用</code> {{else}} 禁用 {{/if}}
+                            </td>
+                            <td>
+                                <a href="/admin/user_edit?_id={{_id}}">
+                                    编辑 
+                                </a>
+                                &nbsp;&nbsp;
+                                <a href="/admin/user_remove?_id={{_id}}">
+                                    删除
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+{{#section 'fonter'}}
+<!-- DataTables -->
+<script src="//cdn.bootcss.com/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.bootcss.com/datatables/1.10.13/js/dataTables.bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('#keylist').DataTable({
+            "responsive": true,
+            "pageLength": 10,
+            "paging": true,
+            "searching": false,
+            "info": true,
+            "language":{
+                "url":"/language/dataTables.chinese.lang"
+            }
+        });
+    });
+</script>
+{{/section}}

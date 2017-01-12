@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +17,7 @@
   <link rel="stylesheet" href="/admin/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="/admin/css/skins/_all-skins.min.css">
-  {{{_sections.header}}}
+  <link rel="stylesheet" href="/admin/css/skins/_all-skins.min.css"> {{{_sections.header}}}
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -26,375 +26,338 @@
   <![endif]-->
 </head>
 <!-- ADD THE CLASS layout-boxed TO GET A BOXED LAYOUT -->
+
 <body class="hold-transition skin-blue layout-boxed sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
+  <!-- Site wrapper -->
+  <div class="wrapper">
 
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="/admin" class="logo">
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>管理后台  </b></span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
+    <header class="main-header">
+      <!-- Logo -->
+      <a href="/admin" class="logo">
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>管理后台  </b></span>
       </a>
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
 
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="/admin/consult_list" class="dropdown-toggle">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">{{admin.notReadCount}}</span>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- Notifications: style can be found in dropdown.less -->
+            <li class="dropdown notifications-menu">
+              <a href="/admin/consult_list" class="dropdown-toggle">
+                <i class="fa fa-bell-o"></i>
+                <span class="label label-warning">{{admin.notReadCount}}</span>
+              </a>
+            </li>
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="hidden-xs">{{user.name}}</span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="/admin/user_list" class="btn btn-default btn-flat">管理</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="/admin/signout" class="btn btn-default btn-flat">退出</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <!-- Control Sidebar Toggle Button -->
+            <li>
+              <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+          <li class="header">MAIN NAVIGATION</li>
+          <li>
+            <a href="/admin/category_list">
+              <i class="fa fa-th-list"></i> <span>分类管理</span>
             </a>
           </li>
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/admin/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">龙果一号</span>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-product-hunt"></i> <span>产品体验</span>
+              <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
             </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="/admin/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                <p>
-                  龙果一号 - 超级管理员
-                  <small>2016-09 加入</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">下属</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">销售额</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">朋友</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">简介</a>
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">退出</a>
-                </div>
-              </li>
+            <ul class="treeview-menu">
+              <li><a href="/admin/product_list?cid=1"><i class="fa fa-circle-o"></i> 产品列表</a></li>
+              <li><a href="/admin/selector_key_list?cid=1"><i class="fa fa-circle-o"></i> 筛选条件</a></li>
             </ul>
           </li>
-          <!-- Control Sidebar Toggle Button -->
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-product-hunt"></i> <span>定制家具</span>
+              <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/admin/product_list?cid=2"><i class="fa fa-circle-o"></i> 家具列表</a></li>
+              <li><a href="/admin/selector_key_list?cid=2"><i class="fa fa-circle-o"></i> 筛选条件</a></li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-product-hunt"></i> <span>配套家具</span>
+              <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/admin/product_list?cid=3"><i class="fa fa-circle-o"></i> 家具列表</a></li>
+              <li><a href="/admin/selector_key_list?cid=3"><i class="fa fa-circle-o"></i> 筛选条件</a></li>
+            </ul>
+          </li>
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="/admin/consult_list">
+              <i class="fa fa-comment"></i> <span>用户咨询</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/banner_list">
+              <i class="fa fa-file-photo-o"></i> <span>Banner</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/user_list">
+              <i class="fa fa-user"></i> <span>管理员</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/siteconfig">
+              <i class="fa fa-edit"></i> <span>网站配置</span>
+            </a>
           </li>
         </ul>
-      </div>
-    </nav>
-  </header>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
 
-  <!-- =============================================== -->
-
-  <!-- Left side column. contains the sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
-        <li>
-          <a href="/admin/category_list">
-            <i class="fa fa-th-list"></i> <span>分类管理</span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-product-hunt"></i> <span>产品体验</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="/admin/product_list?cid=1"><i class="fa fa-circle-o"></i> 产品列表</a></li>
-            <li><a href="/admin/selector_key_list?cid=1"><i class="fa fa-circle-o"></i> 筛选条件</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-th-list"></i> <span>定制家具</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="/admin/product_list?cid=2"><i class="fa fa-circle-o"></i> 家具列表</a></li>
-            <li><a href="/admin/selector_key_list?cid=2"><i class="fa fa-circle-o"></i> 筛选条件</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-th-list"></i> <span>配套家具</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="/admin/product_list?cid=3"><i class="fa fa-circle-o"></i> 家具列表</a></li>
-            <li><a href="/admin/selector_key_list?cid=3"><i class="fa fa-circle-o"></i> 筛选条件</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-tags"></i> <span>标签</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="/admin/category"><i class="fa fa-circle-o"></i> 添加标签</a></li>
-            <li><a href="/admin/category_add"><i class="fa fa-circle-o"></i> 标签列表</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="/admin/consult_list">
-            <i class="fa fa-calendar"></i> <span>用户咨询</span>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/banner_list">
-            <i class="fa fa-calendar"></i> <span>Banner</span>
-          </a>
-        </li>
-        <li>
-          <a href="/admin/siteconfig">
-            <i class="fa fa-calendar"></i> <span>网站配置</span>
-          </a>
-        </li>
-        <li>
-          <a href="../calendar.html">
-            <i class="fa fa-calendar"></i> <span>说说评论</span>
-          </a>
-        </li>
-      </ul>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
-
-  <!-- =============================================== -->
+    <!-- =============================================== -->
 
     {{{body}}}
-    
-  <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.3.6
-    </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-    reserved.
-  </footer>
+    <!-- /.content-wrapper -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">最近的活动</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">我的生日</h4>
-
-                <p>四月二十四</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-user bg-yellow"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">更新我的资料</h4>
-
-                <p>新手机号码 (+86)1234567890</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">添加邮箱地址</h4>
-
-                <p>abc@roncoo.com</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">写个256字的描述</h4>
-
-                <p>执行时间5秒</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-        <h3 class="control-sidebar-heading">任务进度</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                自定义模板的设计
-                <span class="label label-danger pull-right">70%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                更新简历
-                <span class="label label-success pull-right">95%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                获取积分
-                <span class="label label-warning pull-right">50%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                后端框架
-                <span class="label label-primary pull-right">68%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
+    <footer class="main-footer">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 2.3.6
       </div>
-      <!-- /.tab-pane -->
+      <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+    </footer>
 
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">一般设置</h3>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Create the tabs -->
+      <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <!-- Home tab content -->
+        <div class="tab-pane" id="control-sidebar-home-tab">
+          <h3 class="control-sidebar-heading">最近的活动</h3>
+          <ul class="control-sidebar-menu">
+            <li>
+              <a href="javascript:void(0)">
+                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
+                <div class="menu-info">
+                  <h4 class="control-sidebar-subheading">我的生日</h4>
+
+                  <p>四月二十四</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)">
+                <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                <div class="menu-info">
+                  <h4 class="control-sidebar-subheading">更新我的资料</h4>
+
+                  <p>新手机号码 (+86)1234567890</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)">
+                <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                <div class="menu-info">
+                  <h4 class="control-sidebar-subheading">添加邮箱地址</h4>
+
+                  <p>abc@roncoo.com</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)">
+                <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                <div class="menu-info">
+                  <h4 class="control-sidebar-subheading">写个256字的描述</h4>
+
+                  <p>执行时间5秒</p>
+                </div>
+              </a>
+            </li>
+          </ul>
+          <!-- /.control-sidebar-menu -->
+
+          <h3 class="control-sidebar-heading">任务进度</h3>
+          <ul class="control-sidebar-menu">
+            <li>
+              <a href="javascript:void(0)">
+                <h4 class="control-sidebar-subheading">
+                  自定义模板的设计
+                  <span class="label label-danger pull-right">70%</span>
+                </h4>
+
+                <div class="progress progress-xxs">
+                  <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+</div>
+</a>
+</li>
+<li>
+  <a href="javascript:void(0)">
+    <h4 class="control-sidebar-subheading">
+      更新简历
+      <span class="label label-success pull-right">95%</span>
+    </h4>
+
+    <div class="progress progress-xxs">
+      <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+</div>
+</a>
+</li>
+<li>
+  <a href="javascript:void(0)">
+    <h4 class="control-sidebar-subheading">
+      获取积分
+      <span class="label label-warning pull-right">50%</span>
+    </h4>
+
+    <div class="progress progress-xxs">
+      <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+</div>
+</a>
+</li>
+<li>
+  <a href="javascript:void(0)">
+    <h4 class="control-sidebar-subheading">
+      后端框架
+      <span class="label label-primary pull-right">68%</span>
+    </h4>
+
+    <div class="progress progress-xxs">
+      <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+</div>
+</a>
+</li>
+</ul>
+<!-- /.control-sidebar-menu -->
+
+</div>
+<!-- /.tab-pane -->
+
+<!-- Settings tab content -->
+<div class="tab-pane" id="control-sidebar-settings-tab">
+  <form method="post">
+    <h3 class="control-sidebar-heading">一般设置</h3>
+
+    <div class="form-group">
+      <label class="control-sidebar-subheading">
               面板的使用报告
               <input type="checkbox" class="pull-right" checked>
             </label>
 
-            <p>
-              有关此常规设置选项的一些信息
-            </p>
-          </div>
-          <!-- /.form-group -->
+      <p>
+        有关此常规设置选项的一些信息
+      </p>
+    </div>
+    <!-- /.form-group -->
 
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
+    <div class="form-group">
+      <label class="control-sidebar-subheading">
               允许邮件重定向
               <input type="checkbox" class="pull-right" checked>
             </label>
 
-            <p>
-              其他可用的选项集
-            </p>
-          </div>
-          <!-- /.form-group -->
+      <p>
+        其他可用的选项集
+      </p>
+    </div>
+    <!-- /.form-group -->
 
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
+    <div class="form-group">
+      <label class="control-sidebar-subheading">
               在帖子中公开作者姓名
               <input type="checkbox" class="pull-right" checked>
             </label>
 
-            <p>
-              允许用户在博客帖子中显示自己的名字
-            </p>
-          </div>
-          <!-- /.form-group -->
+      <p>
+        允许用户在博客帖子中显示自己的名字
+      </p>
+    </div>
+    <!-- /.form-group -->
 
-          <h3 class="control-sidebar-heading">聊天设置</h3>
+    <h3 class="control-sidebar-heading">聊天设置</h3>
 
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
+    <div class="form-group">
+      <label class="control-sidebar-subheading">
               显示我是否在线
               <input type="checkbox" class="pull-right" checked>
             </label>
-          </div>
-          <!-- /.form-group -->
+    </div>
+    <!-- /.form-group -->
 
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
+    <div class="form-group">
+      <label class="control-sidebar-subheading">
               关闭通知
               <input type="checkbox" class="pull-right">
             </label>
-          </div>
-          <!-- /.form-group -->
+    </div>
+    <!-- /.form-group -->
 
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
+    <div class="form-group">
+      <label class="control-sidebar-subheading">
               删除的聊天记录
               <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
             </label>
-          </div>
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
     </div>
-  </aside>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
+    <!-- /.form-group -->
+  </form>
+</div>
+<!-- /.tab-pane -->
+</div>
+</aside>
+<!-- /.control-sidebar -->
+<!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
+<div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 
@@ -412,4 +375,5 @@
 <script src="/admin/js/demo.js"></script>
 {{{_sections.fonter}}}
 </body>
+
 </html>

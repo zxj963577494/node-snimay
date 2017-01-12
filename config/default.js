@@ -5,6 +5,7 @@ module.exports = {
     key: 'snimay',
     maxAge: 2592000000
   },
+  cookie: 'snimay',
   qiniu: {
     ACCESS_KEY: 'oCHYMgnqR8-3VQtmNkiJIpqunOZcScuSKqIkS3ls',
     SECRET_KEY: 'bVYf_V0gRv64Sa679XJCfPATFStQPACvVjsxQR83',
