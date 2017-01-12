@@ -1,6 +1,6 @@
 const _ = require('lodash')
-const models = require('../models');
-const Category = models.Category;
+const models = require('../models')
+const Category = models.Category
 
 /**
  * 获取所有分类
@@ -10,8 +10,8 @@ const Category = models.Category;
  * @param {Function} callback 回调函数
  */
 exports.get = function (options, callback) {
-    Category.find(options, callback);
-};
+  Category.find(options, callback)
+}
 
 /**
  * 根据分类级别获取分类
@@ -20,29 +20,29 @@ exports.get = function (options, callback) {
  * @param {Function} callback 回调函数
  */
 exports.getCategories = function (options, callback) {
-    Category.find(options, 'title alias', { sort: '-sort' }, callback);
-};
+  Category.find(options, 'title alias', { sort: '-sort' }, callback)
+}
 
 exports.getCategories_Admin = function (options, callback) {
-    Category.find(options, '_id id title alias isVisible sort', { sort: '-sort' }, callback);
-};
+  Category.find(options, '_id id title alias isVisible sort', { sort: '-sort' }, callback)
+}
 
 exports.getById_Admin = function (_id, callback) {
-    Category.find({ _id: _id }, '_id title alias isVisible sort', { sort: '-sort' }, callback);
-};
+  Category.find({ _id: _id }, '_id title alias isVisible sort', { sort: '-sort' }, callback)
+}
 
 exports.update = function (_id, title, sort, isVisible, callback) {
-    Category.findOne({ _id: _id }, function (err, category) {
-        if (err || !category) {
-            return callback(err);
-        }
-        category.title = title;
-        category.sort = sort;
-        category.isVisible = isVisible;
-        category.lastModifyTime = new Date();
-        category.save(callback);
-    });
-};
+  Category.findOne({ _id: _id }, function (err, category) {
+    if (err || !category) {
+      return callback(err)
+    }
+    category.title = title
+    category.sort = sort
+    category.isVisible = isVisible
+    category.lastModifyTime = new Date()
+    category.save(callback)
+  })
+}
 
 /**
  * 更新分类信息
@@ -51,11 +51,11 @@ exports.update = function (_id, title, sort, isVisible, callback) {
  * @param {Function} callback 回调函数
  */
 exports.newAndSave = function (title, alias, isVisible, sort, callback) {
-    var category = new Category();
-    category.title = title;
-    category.alias = alias;
-    category.isVisible = isVisible;
-    category.sort = sort;
+  var category = new Category()
+  category.title = title
+  category.alias = alias
+  category.isVisible = isVisible
+  category.sort = sort
 
-    category.save(callback);
-};
+  category.save(callback)
+}

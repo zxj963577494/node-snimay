@@ -1,30 +1,29 @@
-const mongoose = require('mongoose');
-const autoIncrement = require('mongoose-auto-increment');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const autoIncrement = require('mongoose-auto-increment')
 
 // 分类
 const CategorySchema = mongoose.Schema({
-    id: { type: Number, default: 0 },
-    title: String,
-    isVisible: Number,
-    sort: Number,
-    alias: String,
-    keys: [],
-    createTime: {
-        type: Date,
-        default: Date.now
-    },
-    lastModifyTime: {
-        type: Date,
-        default: Date.now
-    }
-});
+  id: { type: Number, default: 0 },
+  title: String,
+  isVisible: Number,
+  sort: Number,
+  alias: String,
+  keys: [],
+  createTime: {
+    type: Date,
+    default: Date.now
+  },
+  lastModifyTime: {
+    type: Date,
+    default: Date.now
+  }
+})
 
 CategorySchema.plugin(autoIncrement.plugin, {
-    model: 'Category', 
-    field: 'id', 
-    startAt: 1,
-    incrementBy: 1
-});
+  model: 'Category',
+  field: 'id',
+  startAt: 1,
+  incrementBy: 1
+})
 
-mongoose.model('Category', CategorySchema);
+mongoose.model('Category', CategorySchema)

@@ -1,137 +1,138 @@
-const express = require('express');
-const exphbs = require('express3-handlebars');
-const path = require('path');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const MongoStore = require('connect-mongo')(session);
-const timeout = require('connect-timeout');
-const flash = require('connect-flash');
-const config = require('config-lite');
-const routes = require('./routes');
-const pkg = require('./package');
-const bodyParser = require('body-parser');
-const moment = require('moment');
-const csrf = require('csurf');
-const upload = require('./util/multerUtil');
+const express = require('express')
+const exphbs = require('express3-handlebars')
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
+const MongoStore = require('connect-mongo')(session)
+const timeout = require('connect-timeout')
+const path = require('path')
+const flash = require('connect-flash')
+const config = require('config-lite')
+const routes = require('./routes')
+const pkg = require('./package')
+const bodyParser = require('body-parser')
+const moment = require('moment')
+const csrf = require('csurf')
+const upload = require('./util/multerUtil')
 /*
  * 分词
  * https://github.com/yanyiwu/nodejieba
  */
-const nodejieba = require("nodejieba");
+const nodejieba = require('nodejieba')
 
 nodejieba.load({
-  userDict: __dirname + '/dict' + '/userdict.utf8',
-});
+  userDict: path.join(__dirname, 'dict', 'userdict.utf8')
+})
 
-const app = express();
+const app = express()
 
-moment.locale('zh-cn');
+moment.locale('zh-cn')
 
-app.disable('x-powered-by');
+app.disable('x-powered-by')
 
-// app.use(timeout('10s'));
+app.use(timeout('10s'))
+
 app.use(bodyParser.json({
   limit: '1mb'
-}));
+}))
+
 app.use(bodyParser.urlencoded({
   extended: true,
   limit: '1mb'
-}));
+}))
 
 app.engine('.hbs', exphbs({
   extname: '.hbs',
   defaultLayout: 'main',
   helpers: {
     grouped_each: function (every, context, options) {
-      var out = "",
-        subcontext = [],
-        i;
+      let out = ''
+      let subcontext = []
       if (context && context.length > 0) {
-        for (i = 0; i < context.length; i++) {
+        for (let i = 0; i < context.length; i++) {
           if (i > 0 && i % every === 0) {
-            out += options.fn(subcontext);
-            subcontext = [];
+            out += options.fn(subcontext)
+            subcontext = []
           }
-          subcontext.push(context[i]);
+          subcontext.push(context[i])
         }
-        out += options.fn(subcontext);
+        out += options.fn(subcontext)
       }
-      return out;
+      return out
     },
     section: function (name, options) {
-      if (!this._sections) this._sections = {};
-      this._sections[name] = options.fn(this);
-      return null;
+      if (!this._sections) this._sections = {}
+      this._sections[name] = options.fn(this)
+      return null
     },
     addOne: function (index) {
-      return index + 1;
+      return index + 1
     },
     setChecked: function (value, currentValue) {
-      if (value == currentValue) {
-        return "checked"
+      if (value === currentValue) {
+        return 'checked'
       } else {
-        return "";
+        return ''
       }
     },
     formatDate: function (date, format) {
-      return moment(date).format(format);
+      return moment(date).format(format)
     },
     iff: function (a, operator, b, opts) {
-      let bool = false;
+      let bool = false
       switch (operator) {
         case 'eq':
-          bool = a == b;
-          break;
+          bool = a === b
+          break
         case 'ne':
-          bool = a != b;
-          break;
+          bool = a !== b
+          break
         case 'gt':
-          bool = a > b;
-          break;
+          bool = a > b
+          break
         case 'lt':
-          bool = a < b;
-          break;
+          bool = a < b
+          break
         case 'lte':
-          bool = a <= b;
-          break;
+          bool = a <= b
+          break
         case 'gte':
-          bool = a >= b;
-          break;
+          bool = a >= b
+          break
         case 'and':
-          bool = a && b;
-          break;
+          bool = a && b
+          break
         case 'or':
-          bool = a || b;
-          break;
+          bool = a || b
+          break
         default:
-          throw "Unknown operator " + operator;
+          throw new Error('Unknown operator ' + operator)
       }
       if (bool) {
-        return opts.fn(this);
+        return opts.fn(this)
       } else {
-        return opts.inverse(this);
+        return opts.inverse(this)
       }
     },
     toSelect2: function (a) {
-      var str = '[';
+      var str = '['
       a.forEach((x) => {
-        if (x != 'all') {
-          str += str.length > 2 ? (',"' + x + '"') : '"' + x + '"';
+        if (x !== 'all') {
+          str += str.length > 2 ? (',"' + x + '"') : '"' + x + '"'
         }
       })
-      return str + ']';
+      return str + ']'
     },
     toString: function (a) {
-      return a.join(',');
-    }    
+      return a.join(',')
+    }
   }
-}));
+}))
 
-app.set('view engine', '.hbs');
+app.set('view engine', '.hbs')
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(cookieParser(config.session.secret));
+app.use(cookieParser(config.session.secret))
 
 // session 中间件
 app.use(session({
@@ -145,18 +146,18 @@ app.use(session({
   store: new MongoStore({ // 将 session 存储到 mongodb
     url: config.mongodb // mongodb 地址
   })
-}));
+}))
 
-app.use(upload.single('files'));
+app.use(upload.single('files'))
 
-app.use(csrf());
+app.use(csrf())
 
 // flash 中间件，用来显示通知
-app.use(flash());
+app.use(flash())
 
 // 路由
-app.use('/', routes);
+app.use('/', routes)
 
 app.listen(config.port, function (req, res) {
-  console.log(`${pkg.name} started on http://localhost: ${config.port}; press Ctrl + C  to terminate.`);
-});
+  console.log(`${pkg.name} started on http://localhost: ${config.port} press Ctrl + C  to terminate.`);
+})
