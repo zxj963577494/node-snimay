@@ -27,7 +27,7 @@ exports.getList = function (req, res, next) {
 
 exports.getAdd = function (req, res, next) {
     const ep = new eventproxy();
-    let cid = req.query.category || 1;
+    let cid = req.query.cid || 1;
     ep.all('category', 'selector', function (category, selector) {
         res.render('admin/product_add', {
             cid: cid,

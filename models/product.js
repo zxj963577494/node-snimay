@@ -19,6 +19,7 @@ const ProductSchema = mongoose.Schema({
     code: String,
     part: String,
     isVisible: Number,
+    isIndex: Number,
     createTime: {
         type: Date,
         default: Date.now

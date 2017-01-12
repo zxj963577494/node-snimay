@@ -3,43 +3,188 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Boxed Layout
-      <small>Blank example to the boxed layout</small>
+      主页
+      <small></small>
     </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Layout</a></li>
-      <li class="active">Boxed</li>
-    </ol>
   </section>
   <!-- Main content -->
   <section class="content">
-    <div class="callout callout-info">
-      <h4>Tip!</h4>
-
-      <p>Add the layout-boxed class to the body tag to get this layout. The boxed layout is helpful when working on large screens
-        because it prevents the site from stretching very wide.</p>
-    </div>
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Title</h3>
-
-        <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fa fa-minus"></i></button>
-          <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fa fa-times"></i></button>
-        </div>
+        <h3 class="box-title">用户咨询列表</h3>
       </div>
+      <!-- /.box-header -->
       <div class="box-body">
-        Start creating your amazing application!
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>姓名</th>
+              <th>联系电话</th>
+              <th>添加时间</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each consultlist}}
+            <tr>
+              <td>{{addOne @index}}</td>
+              <td>{{name}}</td>
+              <td>{{tel}}</td>
+              <td>{{formatDate endTime "YYYY-MM-DD HH:mm:ss"}}</td>
+              <td>
+                {{#if isRead}} 已回访 {{else}} <code>未回访</code> {{/if}}
+              </td>
+              <td>
+                <a href="/admin/consult_edit?_id={{_id}}">
+                                    编辑 
+                                </a> &nbsp;&nbsp;
+                <a href="/admin/consult_remove?_id={{_id}}">
+                                    删除
+                                </a>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
       </div>
-      <!-- /.box-body -->
-      <div class="box-footer">
-        Footer
+    </div>
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">产品体验</h3> <a href="/admin/product_add?cid=1" type="button" class="btn bg-purple">新增</a>
       </div>
-      <!-- /.box-footer-->
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>所属分类</th>
+              <th>编号</th>
+              <th>标题</th>
+              <th>状态</th>
+              <th>最后更新时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each productlist}}
+            <tr>
+              <td>{{addOne @index}}</td>
+              <td>{{categoryRef.title}}</td>
+              <td>{{code}}</td>
+              <td><a href="/single/{{id}}">{{title}}</a></td>
+              <td>
+                {{#if isVisible}}
+                <code>可见</code> {{else}} 隐藏 {{/if}} {{#if isIndex}}
+                <code>首页</code> {{else}} 首页 {{/if}}
+              </td>
+              <td>{{formatDate lastModifyTime "ll"}}</td>
+              <td>
+                <a href="/admin/product_edit?_id={{_id}}&cid={{cid}}">
+                                    编辑 
+                                </a> &nbsp;&nbsp;
+                <a href="/admin/product_remove?_id={{_id}}">
+                                    删除 
+                                </a>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">定制家具</h3> <a href="/admin/product_add?cid=2" type="button" class="btn bg-purple">新增</a>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table id="keylist" class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>所属分类</th>
+              <th>编号</th>
+              <th>标题</th>
+              <th>状态</th>
+              <th>最后更新时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each modelist}}
+            <tr>
+              <td>{{addOne @index}}</td>
+              <td>{{categoryRef.title}}</td>
+              <td>{{code}}</td>
+              <td><a href="/single/{{id}}">{{title}}</a></td>
+              <td>
+                {{#if isVisible}}
+                <code>可见</code> {{else}} 隐藏 {{/if}} {{#if isIndex}}
+                <code>首页</code> {{else}} 首页 {{/if}}
+              </td>
+              <td>{{formatDate lastModifyTime "ll"}}</td>
+              <td>
+                <a href="/admin/product_edit?_id={{_id}}&cid={{cid}}">
+                                    编辑 
+                                </a> &nbsp;&nbsp;
+                <a href="/admin/product_remove?_id={{_id}}">
+                                    删除 
+                                </a>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">配套家具</h3> <a href="/admin/product_add?cid=3" type="button" class="btn bg-purple">新增</a>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>所属分类</th>
+              <th>编号</th>
+              <th>标题</th>
+              <th>状态</th>
+              <th>最后更新时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each matchlist}}
+            <tr>
+              <td>{{addOne @index}}</td>
+              <td>{{categoryRef.title}}</td>
+              <td>{{code}}</td>
+              <td><a href="/single/{{id}}">{{title}}</a></td>
+              <td>
+                {{#if isVisible}}
+                <code>可见</code> {{else}} 隐藏 {{/if}} {{#if isIndex}}
+                <code>首页</code> {{else}} 首页 {{/if}}
+              </td>
+              <td>{{formatDate lastModifyTime "ll"}}</td>
+              <td>
+                <a href="/admin/product_edit?_id={{_id}}&cid={{cid}}">
+                                    编辑 
+                                </a> &nbsp;&nbsp;
+                <a href="/admin/product_remove?_id={{_id}}">
+                                    删除 
+                                </a>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
     <!-- /.box -->
   </section>

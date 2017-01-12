@@ -7,6 +7,7 @@ const product = require('../controllers/admin/product');
 const banner = require('../controllers/admin/banner');
 const consult = require('../controllers/admin/consult');
 const user = require('../controllers/admin/user');
+const home = require('../controllers/admin/home');
 const signout = require('../controllers/admin/signout');
 const fileupload = require('../controllers/admin/fileupload');
 const upload = require('../util/multerUtil');
@@ -16,11 +17,8 @@ router.use(auth.authUser);
 
 router.use(auth.userRequired);
 
-router.get('/', function (req, res, next) {
-    res.render('admin/home', {
-        layout: 'admin'
-    });
-});
+router.get('/', home.get);
+router.get('/home', home.get);
 
 router.get('/siteconfig', siteconfig.get);
 router.post('/siteconfig', siteconfig.update);

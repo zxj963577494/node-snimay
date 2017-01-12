@@ -15,6 +15,10 @@ exports.getConsults = function (callback) {
     Consult.find({}, '_id name tel isRead remark', { sort: '-createTime' }, callback);
 };
 
+exports.getConsultsLimit = function (limit, callback) {
+    Consult.find({}, '_id name tel isRead remark', { sort: '-createTime' }).limit(limit).exec(callback);
+};
+
 /**
  * 获取未回访的数量
  */

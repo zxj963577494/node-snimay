@@ -76,25 +76,25 @@ exports.getProducts = function (callback, {
     c_t_sort,
     p_sort
 } = {
-    p_select: 'id cid code skPic description price title lastModifyTime values',
-    c_select: 'title',
-    t_select: 'title',
-    p_options: {
-        isVisible: 1
-    },
-    c_options: {
-        isVisible: 1
-    },
-    t_options: {
-        isVisible: 1
-    },
-    c_t_sort: {
-        sort: -1
-    },
-    p_sort: {
-        sort: '-lastModifyTime'
-    }
-}) {
+        p_select: 'id cid code skPic description price title lastModifyTime values',
+        c_select: 'title',
+        t_select: 'title',
+        p_options: {
+            isVisible: 1
+        },
+        c_options: {
+            isVisible: 1
+        },
+        t_options: {
+            isVisible: 1
+        },
+        c_t_sort: {
+            sort: -1
+        },
+        p_sort: {
+            sort: '-lastModifyTime'
+        }
+    }) {
     Product.find(p_options, p_select, p_sort).populate({
         path: 'cid',
         match: c_options,
@@ -133,6 +133,7 @@ exports.getProductsWithCategory = function (p_select, p_options, c_options, call
         }
     }).exec(callback)
 }
+
 
 /**
  * 获取产品，并取得筛选条件
@@ -179,6 +180,15 @@ exports.getProducts_Admin = function (options, callback) {
         path: 'categoryRef',
         select: 'title'
     }).exec(callback)
+}
+
+exports.getProductsLimit = function (opts, limit, callback) {
+    Product.find(opts, 'id categoryRef isIndex isVisible code title lastModifyTime', {
+        sort: '-lastModifyTime'
+    }).populate({
+        path: 'categoryRef',
+        select: 'title'
+    }).limit(limit).exec(callback)
 }
 
 exports.getById_Admin = function (_id, callback) {
