@@ -1,5 +1,5 @@
 const eventproxy = require('eventproxy')
-const User = require('../../proxy').User
+const UserProxy = require('../../proxy').User
 const tools = require('../../util/tools')
 
 exports.getList = function (req, res, next) {
@@ -11,7 +11,7 @@ exports.getList = function (req, res, next) {
     })
   })
 
-  User.getUsers(ep.done('list'))
+  UserProxy.getUsers(ep.done('list'))
 
   ep.fail(function (err) {
     if (err) {
@@ -41,7 +41,7 @@ exports.postAdd = function (req, res, next) {
   })
 
   tools.bhash(password, ep.done(function (passhash) {
-    User.newAndSave(name, email, isEnable, passhash, ep.done('model'))
+    UserProxy.newAndSave(name, email, isEnable, passhash, ep.done('model'))
   }))
 
   ep.fail(function (err) {
@@ -60,7 +60,7 @@ exports.getEdit = function (req, res, next) {
       layout: 'admin'
     })
   })
-  User.getById(_id, ep.done('model'))
+  UserProxy.getById(_id, ep.done('model'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -82,10 +82,10 @@ exports.postEdit = function (req, res, next) {
   })
   if (password) {
     tools.bhash(password, ep.done(function (passhash) {
-      User.update(_id, name, email, isEnable, passhash, ep.done('model'))
+      UserProxy.update(_id, name, email, isEnable, passhash, ep.done('model'))
     }))
   } else {
-    User.update(_id, name, email, isEnable, password, ep.done('model'))
+    UserProxy.update(_id, name, email, isEnable, password, ep.done('model'))
   }
   ep.fail(function (err) {
     if (err) {
@@ -96,7 +96,7 @@ exports.postEdit = function (req, res, next) {
 
 exports.getRemove = function (req, res, next) {
   const _id = req.query._id
-  User.remove(_id, function (model) {
+  UserProxy.remove(_id, function (model) {
     req.flash('info', {
       message: '删除成功'
     })

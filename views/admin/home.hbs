@@ -33,7 +33,7 @@
               <td>{{addOne @index}}</td>
               <td>{{name}}</td>
               <td>{{tel}}</td>
-              <td>{{formatDate endTime "YYYY-MM-DD HH:mm:ss"}}</td>
+              <td>{{date endTime "YYYY-MM-DD HH:mm:ss"}}</td>
               <td>
                 {{#if isRead}} 已回访 {{else}} <code>未回访</code> {{/if}}
               </td>
@@ -81,7 +81,7 @@
                 <code>可见</code> {{else}} 隐藏 {{/if}} {{#if isIndex}}
                 <code>首页</code> {{else}} 首页 {{/if}}
               </td>
-              <td>{{formatDate lastModifyTime "ll"}}</td>
+              <td>{{date lastModifyTime "ll"}}</td>
               <td>
                 <a href="/admin/product_edit?_id={{_id}}&cid={{cid}}">
                                     编辑 
@@ -126,7 +126,7 @@
                 <code>可见</code> {{else}} 隐藏 {{/if}} {{#if isIndex}}
                 <code>首页</code> {{else}} 首页 {{/if}}
               </td>
-              <td>{{formatDate lastModifyTime "ll"}}</td>
+              <td>{{date lastModifyTime "ll"}}</td>
               <td>
                 <a href="/admin/product_edit?_id={{_id}}&cid={{cid}}">
                                     编辑 
@@ -171,7 +171,7 @@
                 <code>可见</code> {{else}} 隐藏 {{/if}} {{#if isIndex}}
                 <code>首页</code> {{else}} 首页 {{/if}}
               </td>
-              <td>{{formatDate lastModifyTime "ll"}}</td>
+              <td>{{date lastModifyTime "ll"}}</td>
               <td>
                 <a href="/admin/product_edit?_id={{_id}}&cid={{cid}}">
                                     编辑 

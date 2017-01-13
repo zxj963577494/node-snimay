@@ -1,6 +1,5 @@
-const _ = require('lodash')
 const models = require('../models')
-const Selector = models.Selector
+const SelectorModel = models.Selector
 
 /**
  * 获取所有分类
@@ -10,7 +9,7 @@ const Selector = models.Selector
  * @param {Function} callback 回调函数
  */
 exports.getAll = function (options, callback) {
-  Selector.find(options, callback)
+  SelectorModel.find(options, callback)
 }
 
 /**
@@ -20,7 +19,7 @@ exports.getAll = function (options, callback) {
  * @param {Function} callback 回调函数
  */
 exports.getSelectors = function (options, callback) {
-  Selector.find(options, 'id title values alias', { sort: '-sort' }, callback)
+  SelectorModel.find(options, 'id title values alias', { sort: '-sort' }, callback)
 }
 
 /**
@@ -32,19 +31,19 @@ exports.getSelectors = function (options, callback) {
  * @param {Function} callback 回调函数
  */
 exports.getByCid = function (cid, options, callback) {
-  Selector.find(Object.assign({ cid: cid }, options), 'id title values alias', { sort: '-sort' }, callback)
+  SelectorModel.find(Object.assign({ cid: cid }, options), 'id title values alias', { sort: '-sort' }, callback)
 }
 
 exports.getByCid_Admin = function (cid, options, callback) {
-  Selector.find(Object.assign({ cid: cid }, options), '_id title values sort alias isVisible', { sort: '-sort' }, callback)
+  SelectorModel.find(Object.assign({ cid: cid }, options), '_id title values sort alias isVisible', { sort: '-sort' }, callback)
 }
 
 exports.getById_Admin = function (_id, callback) {
-  Selector.findOne({ _id: _id }, '_id title values sort alias isVisible', { 'values.sort': '-sort' }, callback)
+  SelectorModel.findOne({ _id: _id }, '_id title values sort alias isVisible', { 'values.sort': '-sort' }, callback)
 }
 
 exports.update = function (_id, title, alias, sort, isVisible, callback) {
-  Selector.findOne({ _id: _id }, function (err, selector) {
+  SelectorModel.findOne({ _id: _id }, function (err, selector) {
     if (err || !selector) {
       return callback(err)
     }
@@ -58,7 +57,7 @@ exports.update = function (_id, title, alias, sort, isVisible, callback) {
 }
 
 exports.updateValues = function (_id, value, callback) {
-  Selector.findOne({ _id: _id }, function (err, selector) {
+  SelectorModel.findOne({ _id: _id }, function (err, selector) {
     if (err || !selector) {
       return callback(err)
     }
@@ -69,7 +68,7 @@ exports.updateValues = function (_id, value, callback) {
 }
 
 exports.updateValueModel = function (_id, id, title, alias, sort, isVisible, callback) {
-  Selector.findOne({ _id: _id }, function (err, selector) {
+  SelectorModel.findOne({ _id: _id }, function (err, selector) {
     if (err || !selector) {
       return callback(err)
     }
@@ -93,7 +92,7 @@ exports.updateValueModel = function (_id, id, title, alias, sort, isVisible, cal
  * @param {Function} callback 回调函数
  */
 exports.newAndSave = function (title, alias, cid, isVisible, sort, values, callback) {
-  var selector = new Selector()
+  var selector = new SelectorModel()
   selector.cid = cid
   selector.title = title
   selector.alias = alias

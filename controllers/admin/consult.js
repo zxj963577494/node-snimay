@@ -1,5 +1,5 @@
 const eventproxy = require('eventproxy')
-const Consult = require('../../proxy').Consult
+const ConsultProxy = require('../../proxy').Consult
 
 exports.getList = function (req, res, next) {
   const ep = new eventproxy()
@@ -10,7 +10,7 @@ exports.getList = function (req, res, next) {
     })
   })
 
-  Consult.getConsults(ep.done('list'))
+  ConsultProxy.getConsults(ep.done('list'))
 
   ep.fail(function (err) {
     if (err) {
@@ -28,7 +28,7 @@ exports.getEdit = function (req, res, next) {
       layout: 'admin'
     })
   })
-  Consult.getById(_id, ep.done('model'))
+  ConsultProxy.getById(_id, ep.done('model'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -49,7 +49,7 @@ exports.postEdit = function (req, res, next) {
     res.redirect('/admin/consult_list')
   })
 
-  Consult.update(_id, name, tel, isRead, remark, ep.done('model'))
+  ConsultProxy.update(_id, name, tel, isRead, remark, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {
@@ -60,7 +60,7 @@ exports.postEdit = function (req, res, next) {
 
 exports.getRemove = function (req, res, next) {
   const _id = req.query._id
-  Consult.remove(_id, function (model) {
+  ConsultProxy.remove(_id, function (model) {
     req.flash('info', {
       message: '删除成功'
     })

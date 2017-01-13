@@ -1,5 +1,5 @@
 const eventproxy = require('eventproxy')
-const Category = require('../../proxy').Category
+const CategoryProxy = require('../../proxy').Category
 
 exports.getList = function (req, res, next) {
   const ep = new eventproxy()
@@ -9,7 +9,7 @@ exports.getList = function (req, res, next) {
       layout: 'admin'
     })
   })
-  Category.getCategories_Admin({}, ep.done('list'))
+  CategoryProxy.getCategories_Admin({}, ep.done('list'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -28,7 +28,7 @@ exports.getEdit = function (req, res, next) {
     })
   })
 
-  Category.getById_Admin(_id, ep.done('model'))
+  CategoryProxy.getById_Admin(_id, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {
@@ -51,7 +51,7 @@ exports.postEdit = function (req, res, next) {
     res.redirect('/admin/category_list')
   })
 
-  Category.update(_id, title, sort, isVisible, ep.done('category'))
+  CategoryProxy.update(_id, title, sort, isVisible, ep.done('category'))
 
   ep.fail(function (err) {
     if (err) {

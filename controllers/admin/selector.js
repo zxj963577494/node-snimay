@@ -1,5 +1,5 @@
 const eventproxy = require('eventproxy')
-const Selector = require('../../proxy').Selector
+const SelectorProxy = require('../../proxy').Selector
 const uuid = require('node-uuid')
 
 exports.getKeyAdd = function (req, res, next) {
@@ -28,7 +28,7 @@ exports.postKeyAdd = function (req, res, next) {
     res.redirect('/admin/selector_key_list')
   })
 
-  Selector.newAndSave(title, alias, cid, isVisible, sort, values, ep.done('key'))
+  SelectorProxy.newAndSave(title, alias, cid, isVisible, sort, values, ep.done('key'))
 
   ep.fail(function (err) {
     if (err) {
@@ -48,7 +48,7 @@ exports.getKeyEdit = function (req, res, next) {
     })
   })
 
-  Selector.getById_Admin(_id, ep.done('key'))
+  SelectorProxy.getById_Admin(_id, ep.done('key'))
 
   ep.fail(function (err) {
     if (err) {
@@ -69,7 +69,7 @@ exports.postKeyEdit = function (req, res, next) {
     res.redirect('/admin/selector_key_list')
   })
 
-  Selector.update(_id, title, alias, sort, isVisible, ep.done('selector'))
+  SelectorProxy.update(_id, title, alias, sort, isVisible, ep.done('selector'))
 
   ep.fail(function (err) {
     if (err) {
@@ -87,7 +87,7 @@ exports.getKeyList = function (req, res, next) {
       layout: 'admin'
     })
   })
-  Selector.getByCid_Admin(category, {}, ep.done('list'))
+  SelectorProxy.getByCid_Admin(category, {}, ep.done('list'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -122,7 +122,7 @@ exports.postValueAdd = function (req, res, next) {
     res.redirect('/admin/selector_value_list?_id=' + _id)
   })
 
-  Selector.updateValues(_id, value, ep.done('key'))
+  SelectorProxy.updateValues(_id, value, ep.done('key'))
 
   ep.fail(function (err) {
     if (err) {
@@ -138,7 +138,7 @@ exports.getValueEdit = function (req, res, next) {
   const ep = new eventproxy()
   ep.all('model', function (model) {
     var m = model.values.filter((x) => {
-      return x.id == id
+      return x.id === id
     })
     res.render('admin/selector_value_edit', {
       _id: _id,
@@ -147,7 +147,7 @@ exports.getValueEdit = function (req, res, next) {
     })
   })
 
-  Selector.getById_Admin(_id, ep.done('model'))
+  SelectorProxy.getById_Admin(_id, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {
@@ -169,7 +169,7 @@ exports.postValueEdit = function (req, res, next) {
     res.redirect('/admin/selector_value_list?_id=' + _id)
   })
 
-  Selector.updateValueModel(_id, id, title, alias, sort, isVisible, ep.done('selector'))
+  SelectorProxy.updateValueModel(_id, id, title, alias, sort, isVisible, ep.done('selector'))
 
   ep.fail(function (err) {
     if (err) {
@@ -189,7 +189,7 @@ exports.getValueList = function (req, res, next) {
     })
   })
 
-  Selector.getById_Admin(_id, ep.done('model'))
+  SelectorProxy.getById_Admin(_id, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {

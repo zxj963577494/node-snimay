@@ -18,7 +18,7 @@
   <div id="map" class="animate-box" data-animate-effect="fadeIn">
 
   </div>
-{{#section 'footer'}} 
+{{#contentFor 'footer'}} 
 <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak={{map.ak}}"></script>
 <script type="text/javascript">
 // 百度地图API功能
@@ -90,4 +90,4 @@ var myCompOverlay = new ComplexCustomOverlay(new BMap.Point({{map.point}}), "{{m
 mp.addOverlay(myCompOverlay);
 </script>
 
-{{/section}}
+{{/contentFor}}

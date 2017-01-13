@@ -1,5 +1,5 @@
 const eventproxy = require('eventproxy')
-const WebSite = require('../../proxy').WebSite
+const WebSiteProxy = require('../../proxy').WebSite
 
 exports.get = function (req, res, next) {
   const ep = new eventproxy()
@@ -10,7 +10,7 @@ exports.get = function (req, res, next) {
     })
   })
 
-  WebSite.get(ep.done('website'))
+  WebSiteProxy.get(ep.done('website'))
 
   ep.fail(function (err) {
     if (err) {
@@ -39,7 +39,7 @@ exports.update = function (req, res, next) {
     res.redirect('/admin/siteconfig')
   })
 
-  WebSite.update(_id, host, title, keywords, description, copyright, address, icp, tel, qq, weibo, mail, ep.done('website'))
+  WebSiteProxy.update(_id, host, title, keywords, description, copyright, address, icp, tel, qq, weibo, mail, ep.done('website'))
 
   ep.fail(function (err) {
     if (err) {

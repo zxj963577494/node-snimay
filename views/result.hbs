@@ -7,7 +7,7 @@
 					<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
 				</div>
 			</div>
-			{{#grouped_each 3 products}}
+			{{#groupedEach 3 products}}
 			<div class="row">
 				{{#each this}}
 				<div class="col-md-4 text-center animate-box">
@@ -31,14 +31,14 @@
 				</div>
 				{{/each}}
 			</div>
-			{{/grouped_each}}
+			{{/groupedEach}}
 		</div>
 	</div>
 
 	<div class="text-center">
         <ul id="pagination" class="pagination-sm"></ul>
     </div>
-	{{#section 'footer'}} 
+	{{#contentFor 'footer'}} 
 	<!-- bootstrap-paginator -->
 	<script src="/js/bootstrap-paginator.min.js"></script>
 
@@ -69,5 +69,5 @@
 			});
 		});
 	</script>
-	{{/section}}
+	{{/contentFor}}
 	

@@ -1,7 +1,7 @@
 const eventproxy = require('eventproxy')
-const Category = require('../../proxy').Category
-const Product = require('../../proxy').Product
-const Selector = require('../../proxy').Selector
+const CategoryProxy = require('../../proxy').Category
+const ProductProxy = require('../../proxy').Product
+const SelectorProxy = require('../../proxy').Selector
 const _ = require('lodash')
 
 exports.getList = function (req, res, next) {
@@ -10,12 +10,12 @@ exports.getList = function (req, res, next) {
   ep.all('list', function (list) {
     res.render('admin/product_list', {
       cid: cid,
-      title: cid == 1 ? '产品体验' : cid == 2 ? '定制家具' : '配套家具',
+      title: cid === 1 ? '产品体验' : cid === 2 ? '定制家具' : '配套家具',
       list: list,
       layout: 'admin'
     })
   })
-  Product.getProducts_Admin({
+  ProductProxy.getProducts_Admin({
     cid: cid
   }, ep.done('list'))
   ep.fail(function (err) {
@@ -32,15 +32,15 @@ exports.getAdd = function (req, res, next) {
     res.render('admin/product_add', {
       cid: cid,
       category: category.filter((x) => {
-          return x.id == cid
-        }),
-      title: (cid == 1 ? '产品体验' : cid == 2 ? '定制家具' : '配套家具'),
+        return x.id === cid
+      }),
+      title: (cid === 1 ? '产品体验' : cid === 2 ? '定制家具' : '配套家具'),
       selector: selector,
       layout: 'admin'
     })
   })
-  Category.getCategories_Admin({}, ep.done('category'))
-  Selector.getByCid_Admin(cid, {}, ep.done('selector'))
+  CategoryProxy.getCategories_Admin({}, ep.done('category'))
+  SelectorProxy.getByCid_Admin(cid, {}, ep.done('selector'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -74,7 +74,7 @@ exports.postAdd = function (req, res, next) {
     res.redirect('/admin/product_list')
   })
 
-  Product.newAndSave(cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, tag, where, search, ep.done('product'))
+  ProductProxy.newAndSave(cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, isIndex, tag, where, search, ep.done('product'))
 
   ep.fail(function (err) {
     if (err) {
@@ -91,17 +91,17 @@ exports.getEdit = function (req, res, next) {
     res.render('admin/product_edit', {
       cid: cid,
       category: category.filter((x) => {
-          return x.id == cid
-        }),
+        return x.id === cid
+      }),
       model: model,
       selector: selector,
-      title: (cid == 1 ? '产品体验' : cid == 2 ? '定制家具' : '配套家具'),
+      title: (cid === 1 ? '产品体验' : cid === 2 ? '定制家具' : '配套家具'),
       layout: 'admin'
     })
   })
-  Category.getCategories_Admin({}, ep.done('category'))
-  Product.getById_Admin(_id, ep.done('model'))
-  Selector.getByCid_Admin(cid, {}, ep.done('selector'))
+  CategoryProxy.getCategories_Admin({}, ep.done('category'))
+  ProductProxy.getById_Admin(_id, ep.done('model'))
+  SelectorProxy.getByCid_Admin(cid, {}, ep.done('selector'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -136,7 +136,7 @@ exports.postEdit = function (req, res, next) {
     res.redirect('/admin/product_list')
   })
 
-  Product.update(_id, cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, tag, where, search, ep.done('model'))
+  ProductProxy.update(_id, cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, isIndex, tag, where, search, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {
@@ -147,7 +147,7 @@ exports.postEdit = function (req, res, next) {
 
 exports.getRemove = function (req, res, next) {
   const _id = req.query._id
-  Product.remove(_id, function (model) {
+  ProductProxy.remove(_id, function (model) {
     req.flash('info', {
       message: '删除成功'
     })

@@ -1,5 +1,5 @@
 const models = require('../models')
-const WebSite = models.WebSite
+const WebSiteModel = models.WebSite
 
 /**
  * 获取网站配置信息
@@ -8,7 +8,7 @@ const WebSite = models.WebSite
  * @param {Function} callback 回调函数
  */
 exports.get = function (callback) {
-  WebSite.findOne({}, callback)
+  WebSiteModel.findOne({}, callback)
 }
 
 /**
@@ -16,7 +16,7 @@ exports.get = function (callback) {
  * @param {Function} callback 回调函数
  */
 exports.update = function (_id, host, title, keywords, description, copyright, address, icp, tel, qq, weibo, mail, callback) {
-  WebSite.findOne({ _id: _id }, function (err, website) {
+  WebSiteModel.findOne({ _id: _id }, function (err, website) {
     if (err || !website) {
       return callback(err)
     }
@@ -44,7 +44,7 @@ exports.update = function (_id, host, title, keywords, description, copyright, a
  * @param {Function} callback 回调函数
  */
 exports.newAndSave = function (host, title, keywords, description, copyright, address, icp, tel, qq, weibo, mail, callback) {
-  var website = new WebSite()
+  var website = new WebSiteModel()
   website.host = host
   website.title = title
   website.description = description

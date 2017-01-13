@@ -1,6 +1,6 @@
 const uuid = require('node-uuid')
 const models = require('../models')
-const User = models.User
+const UserModel = models.User
 
 /**
  * 获取用户
@@ -9,24 +9,24 @@ const User = models.User
  * @param {Function} callback 回调函数
  */
 exports.get = function (opts, callback) {
-  User.findOne(opts, callback)
+  UserModel.findOne(opts, callback)
 }
 
 exports.getUsers = function (callback) {
-  User.find({}, '_id name email isEnable createTime', { sort: '-createTime' }, callback)
+  UserModel.find({}, '_id name email isEnable createTime', { sort: '-createTime' }, callback)
 }
 
 /**
  * 根据Id获取Banner
  */
 exports.getById = function (_id, callback) {
-  User.findOne({
+  UserModel.findOne({
     _id: _id
   }, callback)
 }
 
 exports.getByUserId = function (userid, callback) {
-  User.findOne({
+  UserModel.findOne({
     userid: userid
   }, 'name', callback)
 }
@@ -36,7 +36,7 @@ exports.getByUserId = function (userid, callback) {
  * @param {Function} callback 回调函数
  */
 exports.update = function (_id, name, email, isEnable, password, callback) {
-  User.findOne({ _id: _id }, function (err, user) {
+  UserModel.findOne({ _id: _id }, function (err, user) {
     if (err || !user) {
       return callback(err)
     }
@@ -58,7 +58,7 @@ exports.update = function (_id, name, email, isEnable, password, callback) {
  * @param {Function} callback 回调函数
  */
 exports.newAndSave = function (name, email, isEnable, password, callback) {
-  let user = new User()
+  let user = new UserModel()
   user.userid = uuid.v4()
   user.name = name
   user.email = email
@@ -69,7 +69,7 @@ exports.newAndSave = function (name, email, isEnable, password, callback) {
 }
 
 exports.remove = function (_id, callback) {
-  User.remove({
+  UserModel.remove({
     _id: _id
   }, callback)
 }

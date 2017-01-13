@@ -1,8 +1,8 @@
 const eventproxy = require('eventproxy')
-const Banner = require('../../proxy').Banner
-const _ = require('lodash')
+const validator = require('validator')
+const BannerProxy = require('../../proxy').Banner
 
-exports.getList = function (req, res, next) {
+function getList (req, res, next) {
   const ep = new eventproxy()
   ep.all('list', function (list) {
     res.render('admin/banner_list', {
@@ -10,7 +10,7 @@ exports.getList = function (req, res, next) {
       layout: 'admin'
     })
   })
-  Banner.getBanners_Admin(ep.done('list'))
+  BannerProxy.getBanners_Admin(ep.done('list'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -18,13 +18,13 @@ exports.getList = function (req, res, next) {
   })
 }
 
-exports.getAdd = function (req, res, next) {
+function getAdd (req, res, next) {
   res.render('admin/banner_add', {
     layout: 'admin'
   })
 }
 
-exports.postAdd = function (req, res, next) {
+function postAdd (req, res, next) {
   const title = req.body.title
   const sort = req.body.sort
   const isVisible = req.body.isVisible
@@ -43,7 +43,19 @@ exports.postAdd = function (req, res, next) {
     res.redirect('/admin/banner_list')
   })
 
-  Banner.newAndSave(title, sort, isVisible, endTime, startTime, pic, link, description, price, ep.done('model'))
+  const bannerParams = {
+    title,
+    sort,
+    isVisible,
+    endTime,
+    startTime,
+    pic,
+    link,
+    description,
+    price
+  }
+
+  BannerProxy.newAndSave(bannerParams, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {
@@ -52,7 +64,7 @@ exports.postAdd = function (req, res, next) {
   })
 }
 
-exports.getEdit = function (req, res, next) {
+function getEdit (req, res, next) {
   const _id = req.query._id
   const ep = new eventproxy()
   ep.all('model', function (model) {
@@ -61,7 +73,7 @@ exports.getEdit = function (req, res, next) {
       layout: 'admin'
     })
   })
-  Banner.getBannerById(_id, ep.done('model'))
+  BannerProxy.getBannerById(_id, ep.done('model'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -69,7 +81,7 @@ exports.getEdit = function (req, res, next) {
   })
 }
 
-exports.postEdit = function (req, res, next) {
+function postEdit (req, res, next) {
   const _id = req.body._id
   const title = req.body.title
   const sort = req.body.sort
@@ -89,7 +101,7 @@ exports.postEdit = function (req, res, next) {
     res.redirect('/admin/banner_list')
   })
 
-  Banner.update(_id, title, sort, isVisible, endTime, startTime, pic, link, description, price, ep.done('model'))
+  BannerProxy.update(_id, title, sort, isVisible, endTime, startTime, pic, link, description, price, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {
@@ -98,12 +110,21 @@ exports.postEdit = function (req, res, next) {
   })
 }
 
-exports.getRemove = function (req, res, next) {
+function getRemove (req, res, next) {
   const _id = req.query._id
-  Banner.remove(_id, function (model) {
+  BannerProxy.remove(_id, function (model) {
     req.flash('info', {
       message: '删除成功'
     })
     res.redirect('/admin/banner_list')
   })
+}
+
+module.exports = {
+  getList,
+  getAdd,
+  postAdd,
+  getEdit,
+  postEdit,
+  getRemove
 }

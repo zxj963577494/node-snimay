@@ -1,7 +1,7 @@
 const eventproxy = require('eventproxy')
-const Product = require('../proxy').Product
-const Banner = require('../proxy').Banner
-const Consult = require('../proxy').Consult
+const ProductProxy = require('../proxy').Product
+const BannerProxy = require('../proxy').Banner
+const ConsultProxy = require('../proxy').Consult
 
 exports.get = function (req, res, next) {
   const ep = new eventproxy()
@@ -14,9 +14,9 @@ exports.get = function (req, res, next) {
     })
   })
 
-  Product.getProductsWithCategory('id categoryRef skPic description price title', { isVisible: 1, isIndex: 1 }, { isVisible: 1 }, ep.done('products'))
+  ProductProxy.getProductsWithCategory('id categoryRef skPic description price title', { isVisible: 1, isIndex: 1 }, { isVisible: 1 }, ep.done('products'))
 
-  Banner.getBanners({ isVisible: 1 }, ep.done('banners'))
+  BannerProxy.getBanners({ isVisible: 1 }, ep.done('banners'))
 
   ep.fail(function (err) {
     if (err) {
@@ -37,7 +37,7 @@ exports.postConsulrAdd = function (req, res, next) {
     res.redirect('back')
   })
 
-  Consult.newAndSave(name, tel, isRead, remark, ep.done('model'))
+  ConsultProxy.newAndSave(name, tel, isRead, remark, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {

@@ -1,6 +1,7 @@
 const eventproxy = require('eventproxy')
-const Consult = require('../../proxy').Consult
-const Product = require('../../proxy').Product
+const ConsultProxy = require('../../proxy').Consult
+const ProductProxy = require('../../proxy').Product
+
 
 exports.get = function (req, res, next) {
   const ep = new eventproxy()
@@ -14,10 +15,10 @@ exports.get = function (req, res, next) {
     })
   })
 
-  Consult.getConsultsLimit(10, ep.done('consultlist'))
-  Product.getProductsLimit({ cid: 1 }, 10, ep.done('productlist'))
-  Product.getProductsLimit({ cid: 2 }, 10, ep.done('modelist'))
-  Product.getProductsLimit({ cid: 3 }, 10, ep.done('matchlist'))
+  ConsultProxy.getConsultsLimit(10, ep.done('consultlist'))
+  ProductProxy.getProductsLimit({ cid: 1 }, 10, ep.done('productlist'))
+  ProductProxy.getProductsLimit({ cid: 2 }, 10, ep.done('modelist'))
+  ProductProxy.getProductsLimit({ cid: 3 }, 10, ep.done('matchlist'))
 
   ep.fail(function (err) {
     if (err) {

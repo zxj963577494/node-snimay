@@ -1,5 +1,5 @@
 const eventproxy = require('eventproxy')
-const Product = require('../proxy').Product
+const ProductProxy = require('../proxy').Product
 
 exports.get = function (req, res, next) {
   const id = req.params.id
@@ -12,7 +12,7 @@ exports.get = function (req, res, next) {
     })
   })
 
-  Product.getProductById(id, ep.done('product'))
+  ProductProxy.getProductById(id, ep.done('product'))
 
   ep.fail(function (err) {
     if (err) {

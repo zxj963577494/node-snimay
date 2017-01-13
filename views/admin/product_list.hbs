@@ -47,7 +47,7 @@
                                 <code>可见</code> {{else}} 隐藏 {{/if}} {{#if isIndex}}
                                 <code>首页</code> {{else}} 首页 {{/if}}
                             </td>
-                            <td>{{formatDate lastModifyTime "ll"}}</td>
+                            <td>{{date lastModifyTime "ll"}}</td>
                             <td>
                                 <a href="/admin/product_edit?_id={{_id}}&cid={{../cid}}">
                                     编辑 
@@ -67,7 +67,7 @@
     </section>
     <!-- /.content -->
 </div>
-{{#section 'fonter'}}
+{{#contentFor 'fonter'}}
 <!-- DataTables -->
 <script src="//cdn.bootcss.com/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.bootcss.com/datatables/1.10.13/js/dataTables.bootstrap.min.js"></script>
@@ -85,4 +85,4 @@
         });
     });
 </script>
-{{/section}}
+{{/contentFor}}

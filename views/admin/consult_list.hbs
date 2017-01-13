@@ -39,7 +39,7 @@
                             <td>{{addOne @index}}</td>
                             <td>{{name}}</td>
                             <td>{{tel}}</td>
-                            <td>{{formatDate endTime "YYYY-MM-DD HH:mm:ss"}}</td>
+                            <td>{{date endTime "YYYY-MM-DD HH:mm:ss"}}</td>
                             <td>
                                 {{#if isRead}} 已回访 {{else}} <code>未回访</code> {{/if}}
                             </td>
@@ -62,7 +62,7 @@
     </section>
     <!-- /.content -->
 </div>
-{{#section 'fonter'}}
+{{#contentFor 'fonter'}}
 <!-- DataTables -->
 <script src="//cdn.bootcss.com/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.bootcss.com/datatables/1.10.13/js/dataTables.bootstrap.min.js"></script>
@@ -80,4 +80,4 @@
         });
     });
 </script>
-{{/section}}
+{{/contentFor}}

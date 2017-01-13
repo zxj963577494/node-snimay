@@ -1,7 +1,7 @@
-{{#section 'header'}}
+{{#contentFor 'header'}}
 <link href="//cdn.bootcss.com/bootstrap3-wysiwyg/0.3.3/bootstrap3-wysihtml5.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet" >
-{{/section}}
+{{/contentFor}}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -151,7 +151,7 @@
     </section>
     <!-- /.content -->
 </div>
-{{#section 'fonter'}}
+{{#contentFor 'fonter'}}
 <!-- Bootstrap WYSIHTML5 -->
 <script src="//cdn.bootcss.com/bootstrap3-wysiwyg/0.3.3/bootstrap3-wysihtml5.all.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap3-wysiwyg/0.3.3/locales/bootstrap-wysihtml5.zh-CN.min.js"></script>
@@ -351,4 +351,4 @@ $(function () {
     }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
 });
 </script>
-{{/section}}
+{{/contentFor}}

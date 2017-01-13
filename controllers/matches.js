@@ -1,8 +1,9 @@
 const eventproxy = require('eventproxy')
 const _ = require('lodash')
-const Product = require('../proxy').Product
-const Selector = require('../proxy').Selector
-const util = require('../util')
+const ProductProxy = require('../proxy').Product
+const SelectorProxy = require('../proxy').Selector
+const whereUtil = require('../util/whereUtil')
+
 
 exports.get = function (req, res, next) {
     // 获取当前页
@@ -30,7 +31,7 @@ exports.get = function (req, res, next) {
     })
   })
 
-  Selector.getByCid(3, {
+  SelectorProxy.getByCid(3, {
     isVisible: 1
   }, ep.done(function (keys) {
     let params = []
@@ -49,15 +50,15 @@ exports.get = function (req, res, next) {
         'where': { $in: where }
       })
     }
-    const pageLink = util.pageLink(params)
-    util.addActive(keys, params)
-    util.addLink('/matches', keys, params)
+    const pageLink = whereUtil.pageLink(params)
+    whereUtil.addActive(keys, params)
+    whereUtil.addLink('/matches', keys, params)
     ep.emit('pageLink', pageLink)
     ep.emit('keys', keys)
 
-    Product.getProductsByPage('id skPic price title', currentPage, pageSize, options, ep.done('products'))
+    ProductProxy.getProductsByPage('id skPic price title', currentPage, pageSize, options, ep.done('products'))
 
-    Product.getProductCount(options, ep.done('totalCount'))
+    ProductProxy.getProductCount(options, ep.done('totalCount'))
   }))
 
   ep.fail(function (err) {

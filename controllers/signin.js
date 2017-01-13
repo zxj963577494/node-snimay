@@ -1,5 +1,5 @@
 const eventproxy = require('eventproxy')
-const User = require('../proxy').User
+const UserProxy = require('../proxy').User
 const auth = require('../middlewares/auth')
 const tools = require('../util/tools')
 
@@ -14,14 +14,14 @@ exports.login = function (req, res, next) {
   var password = req.body.password
   var ep = new eventproxy()
 
-  ep.on('login_error', function (login_error) {
+  ep.on('login_error', function (loginError) {
     req.flash('error', {
       message: '用户名或密码错误，或者账户已禁用'
     })
     res.redirect('signin')
   })
 
-  User.get({ name: name }, function (err, user) {
+  UserProxy.get({ name: name }, function (err, user) {
     if (err) {
       return next(err)
     }

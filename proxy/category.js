@@ -1,6 +1,5 @@
-const _ = require('lodash')
 const models = require('../models')
-const Category = models.Category
+const CategoryModel = models.Category
 
 /**
  * 获取所有分类
@@ -10,7 +9,7 @@ const Category = models.Category
  * @param {Function} callback 回调函数
  */
 exports.get = function (options, callback) {
-  Category.find(options, callback)
+  CategoryModel.find(options, callback)
 }
 
 /**
@@ -20,19 +19,19 @@ exports.get = function (options, callback) {
  * @param {Function} callback 回调函数
  */
 exports.getCategories = function (options, callback) {
-  Category.find(options, 'title alias', { sort: '-sort' }, callback)
+  CategoryModel.find(options, 'title alias', { sort: '-sort' }, callback)
 }
 
 exports.getCategories_Admin = function (options, callback) {
-  Category.find(options, '_id id title alias isVisible sort', { sort: '-sort' }, callback)
+  CategoryModel.find(options, '_id id title alias isVisible sort', { sort: '-sort' }, callback)
 }
 
 exports.getById_Admin = function (_id, callback) {
-  Category.find({ _id: _id }, '_id title alias isVisible sort', { sort: '-sort' }, callback)
+  CategoryModel.find({ _id: _id }, '_id title alias isVisible sort', { sort: '-sort' }, callback)
 }
 
 exports.update = function (_id, title, sort, isVisible, callback) {
-  Category.findOne({ _id: _id }, function (err, category) {
+  CategoryModel.findOne({ _id: _id }, function (err, category) {
     if (err || !category) {
       return callback(err)
     }
@@ -51,7 +50,7 @@ exports.update = function (_id, title, sort, isVisible, callback) {
  * @param {Function} callback 回调函数
  */
 exports.newAndSave = function (title, alias, isVisible, sort, callback) {
-  var category = new Category()
+  var category = new CategoryModel()
   category.title = title
   category.alias = alias
   category.isVisible = isVisible

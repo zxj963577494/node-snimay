@@ -1,7 +1,7 @@
 const eventproxy = require('eventproxy')
-const Consult = require('../../proxy').Consult
+const ConsultProxy = require('../../proxy').Consult
 
-exports.get = function (req, res, next) {
+function get (req, res, next) {
   const ep = new eventproxy()
   ep.all('notReadCount', function (notReadCount) {
     res.render('/admin', {
@@ -12,7 +12,7 @@ exports.get = function (req, res, next) {
     })
   })
 
-  Consult.getNotReadCount(ep.done('notReadCount'))
+  ConsultProxy.getNotReadCount(ep.done('notReadCount'))
 
   ep.fail(function (err) {
     if (err) {
@@ -21,3 +21,6 @@ exports.get = function (req, res, next) {
   })
 }
 
+module.exports = {
+  get
+}

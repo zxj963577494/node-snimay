@@ -1,5 +1,3 @@
-const _ = require('lodash')
-
 function pageLink (params) {
   var link = ''
   for (var x of params) {

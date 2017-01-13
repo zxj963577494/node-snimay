@@ -40,8 +40,8 @@
                             <td>{{addOne @index}}</td>
                             <td>{{title}}</td>
                             <td>{{sort}}</td>
-                            <td>{{formatDate startTime "ll"}}</td>
-                            <td>{{formatDate endTime "ll"}}</td>
+                            <td>{{date startTime "ll"}}</td>
+                            <td>{{date endTime "ll"}}</td>
                             <td>
                                 {{#if isVisible}} <code>可见</code> {{else}} 隐藏 {{/if}}
                             </td>
@@ -64,7 +64,7 @@
     </section>
     <!-- /.content -->
 </div>
-{{#section 'fonter'}}
+{{#contentFor 'fonter'}}
 <!-- DataTables -->
 <script src="//cdn.bootcss.com/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.bootcss.com/datatables/1.10.13/js/dataTables.bootstrap.min.js"></script>
@@ -82,4 +82,4 @@
         });
     });
 </script>
-{{/section}}
+{{/contentFor}}

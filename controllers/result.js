@@ -1,5 +1,5 @@
 const eventproxy = require('eventproxy')
-const Product = require('../proxy').Product
+const ProductProxy = require('../proxy').Product
 const nodejieba = require('nodejieba')
 
 exports.get = function (req, res, next) {
@@ -44,9 +44,9 @@ exports.get = function (req, res, next) {
     })
   })
 
-  Product.getProductsByPage('id skPic price title', currentPage, pageSize, options, ep.done('products'))
+  ProductProxy.getProductsByPage('id skPic price title', currentPage, pageSize, options, ep.done('products'))
 
-  Product.getProductCount(options, ep.done('totalCount'))
+  ProductProxy.getProductCount(options, ep.done('totalCount'))
 
   ep.fail(function (err) {
     if (err) {

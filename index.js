@@ -1,5 +1,5 @@
 const express = require('express')
-const exphbs = require('express3-handlebars')
+const hbs = require('express-hbs')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const MongoStore = require('connect-mongo')(session)
@@ -13,6 +13,7 @@ const bodyParser = require('body-parser')
 const moment = require('moment')
 const csrf = require('csurf')
 const upload = require('./util/multerUtil')
+const helpers = require('./helpers')
 /*
  * 分词
  * https://github.com/yanyiwu/nodejieba
@@ -40,95 +41,14 @@ app.use(bodyParser.urlencoded({
   limit: '1mb'
 }))
 
-app.engine('.hbs', exphbs({
+app.engine('hbs', hbs.express4({
   extname: '.hbs',
-  defaultLayout: 'main',
-  helpers: {
-    grouped_each: function (every, context, options) {
-      let out = ''
-      let subcontext = []
-      if (context && context.length > 0) {
-        for (let i = 0; i < context.length; i++) {
-          if (i > 0 && i % every === 0) {
-            out += options.fn(subcontext)
-            subcontext = []
-          }
-          subcontext.push(context[i])
-        }
-        out += options.fn(subcontext)
-      }
-      return out
-    },
-    section: function (name, options) {
-      if (!this._sections) this._sections = {}
-      this._sections[name] = options.fn(this)
-      return null
-    },
-    addOne: function (index) {
-      return index + 1
-    },
-    setChecked: function (value, currentValue) {
-      if (value === currentValue) {
-        return 'checked'
-      } else {
-        return ''
-      }
-    },
-    formatDate: function (date, format) {
-      return moment(date).format(format)
-    },
-    iff: function (a, operator, b, opts) {
-      let bool = false
-      switch (operator) {
-        case 'eq':
-          bool = a === b
-          break
-        case 'ne':
-          bool = a !== b
-          break
-        case 'gt':
-          bool = a > b
-          break
-        case 'lt':
-          bool = a < b
-          break
-        case 'lte':
-          bool = a <= b
-          break
-        case 'gte':
-          bool = a >= b
-          break
-        case 'and':
-          bool = a && b
-          break
-        case 'or':
-          bool = a || b
-          break
-        default:
-          throw new Error('Unknown operator ' + operator)
-      }
-      if (bool) {
-        return opts.fn(this)
-      } else {
-        return opts.inverse(this)
-      }
-    },
-    toSelect2: function (a) {
-      var str = '['
-      a.forEach((x) => {
-        if (x !== 'all') {
-          str += str.length > 2 ? (',"' + x + '"') : '"' + x + '"'
-        }
-      })
-      return str + ']'
-    },
-    toString: function (a) {
-      return a.join(',')
-    }
-  }
+  layoutsDir: path.join(__dirname, 'views', 'layout'),
+  defaultLayout: path.join(__dirname, 'views', 'layout', 'main.hbs')
 }))
-
-app.set('view engine', '.hbs')
+app.set('view engine', 'hbs')
+app.set('views', path.join(__dirname, 'views'))
+helpers.loadHelpers()
 
 app.use(express.static(path.join(__dirname, 'public')))
 
