@@ -32,6 +32,13 @@ exports.postAdd = function (req, res, next) {
   const email = req.body.email
   const isEnable = req.body.isEnable
 
+  const params = {
+    name,
+    password,
+    email,
+    isEnable
+  }
+
   const ep = new eventproxy()
   ep.all('model', function (model) {
     req.flash('info', {
@@ -41,7 +48,7 @@ exports.postAdd = function (req, res, next) {
   })
 
   tools.bhash(password, ep.done(function (passhash) {
-    UserProxy.newAndSave(name, email, isEnable, passhash, ep.done('model'))
+    UserProxy.newAndSave(params, ep.done('model'))
   }))
 
   ep.fail(function (err) {
@@ -52,7 +59,7 @@ exports.postAdd = function (req, res, next) {
 }
 
 exports.getEdit = function (req, res, next) {
-  const _id = req.query._id
+  const _id = req.params._id
   const ep = new eventproxy()
   ep.all('model', function (model) {
     res.render('admin/user_edit', {
@@ -74,7 +81,13 @@ exports.postEdit = function (req, res, next) {
   const email = req.body.email
   const isEnable = req.body.isEnable
   const password = req.body.password
-
+  const params = {
+    _id,
+    name,
+    password,
+    email,
+    isEnable
+  }
   const ep = new eventproxy()
   ep.all('model', function (model) {
     req.flash('info', { message: '编辑成功' })
@@ -82,10 +95,11 @@ exports.postEdit = function (req, res, next) {
   })
   if (password) {
     tools.bhash(password, ep.done(function (passhash) {
-      UserProxy.update(_id, name, email, isEnable, passhash, ep.done('model'))
+      params.password = passhash
+      UserProxy.update(params, ep.done('model'))
     }))
   } else {
-    UserProxy.update(_id, name, email, isEnable, password, ep.done('model'))
+    UserProxy.update(params, ep.done('model'))
   }
   ep.fail(function (err) {
     if (err) {
@@ -95,7 +109,7 @@ exports.postEdit = function (req, res, next) {
 }
 
 exports.getRemove = function (req, res, next) {
-  const _id = req.query._id
+  const _id = req.params._id
   UserProxy.remove(_id, function (model) {
     req.flash('info', {
       message: '删除成功'

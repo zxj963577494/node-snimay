@@ -18,7 +18,7 @@ exports.getList = function (req, res, next) {
 }
 
 exports.getEdit = function (req, res, next) {
-  const _id = req.query._id
+  const _id = req.params._id
 
   const ep = new eventproxy()
   ep.all('model', function (model) {
@@ -42,7 +42,9 @@ exports.postEdit = function (req, res, next) {
   const title = req.body.title
   const sort = req.body.sort
   const isVisible = req.body.isVisible
-
+  const params = {
+    _id, title, sort, isVisible
+  }
   const ep = new eventproxy()
   ep.all('category', function (category) {
     req.flash('info', {
@@ -51,7 +53,7 @@ exports.postEdit = function (req, res, next) {
     res.redirect('/admin/category_list')
   })
 
-  CategoryProxy.update(_id, title, sort, isVisible, ep.done('category'))
+  CategoryProxy.update(params, ep.done('category'))
 
   ep.fail(function (err) {
     if (err) {

@@ -30,14 +30,14 @@ exports.getById_Admin = function (_id, callback) {
   CategoryModel.find({ _id: _id }, '_id title alias isVisible sort', { sort: '-sort' }, callback)
 }
 
-exports.update = function (_id, title, sort, isVisible, callback) {
-  CategoryModel.findOne({ _id: _id }, function (err, category) {
+exports.update = function (params, callback) {
+  CategoryModel.findOne({ _id: params._id }, function (err, category) {
     if (err || !category) {
       return callback(err)
     }
-    category.title = title
-    category.sort = sort
-    category.isVisible = isVisible
+    category.title = params.title
+    category.sort = params.sort
+    category.isVisible = params.isVisible
     category.lastModifyTime = new Date()
     category.save(callback)
   })

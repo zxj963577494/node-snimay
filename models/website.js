@@ -12,7 +12,7 @@ const WebSiteSchema = mongoose.Schema({
   qq: String,
   weibo: String,
   tel: String,
-  mail: String,
+  email: String,
   lastModifyTime: { type: Date, default: Date.now }
 })
 

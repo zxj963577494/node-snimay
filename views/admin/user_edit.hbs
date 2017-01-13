@@ -17,15 +17,17 @@
             <!-- /.box-header -->
             <!-- form start -->
             {{#model}}
-            <form role="form" action='/admin/user_edit' method='post'>
+            <form id="formValidator" role="form" action='/admin/user_edit/{{_id}}' method='post'>
                 <div class="box-body">
                     <div class="form-group">
                         <label for="name">用户名</label>
                         <input type="text" value="{{name}}" name="name" class="form-control" id="name" placeholder="请输入用户名">
+                        <span id="nameError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">邮箱</label>
                         <input type="text" value="{{email}}" name="email" class="form-control" id="email" placeholder="请输入邮箱">
+                        <span id="emailError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="password">密码(为空则不修改密码)</label>
@@ -56,3 +58,41 @@
     </section>
     <!-- /.content -->
 </div>
+{{#contentFor 'fonter'}}
+<script>
+    $(function () {
+        $('#formValidator').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            locale: 'zh_CN',
+            fields: {
+                name: {
+                    container: '#nameError',
+                    validators: {
+                        notEmpty: {
+                        }
+                    }
+                },
+                email: {
+                    container: '#emailError',
+                    validators: {
+                        notEmpty: {
+                        },
+                        emailAddress: {
+                        }
+                    }
+                }
+            }
+        }).on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var fv = $form.data('formValidation');
+            fv.defaultSubmit();
+        });
+    });
+</script>
+{{/contentFor}}

@@ -1,5 +1,4 @@
 const eventproxy = require('eventproxy')
-const validator = require('validator')
 const BannerProxy = require('../../proxy').Banner
 
 function getList (req, res, next) {
@@ -26,7 +25,7 @@ function getAdd (req, res, next) {
 
 function postAdd (req, res, next) {
   const title = req.body.title
-  const sort = req.body.sort
+  const sort = req.body.sort || 1
   const isVisible = req.body.isVisible
   const endTime = new Date(req.body.endTime)
   const startTime = new Date(req.body.startTime)
@@ -36,6 +35,7 @@ function postAdd (req, res, next) {
   const price = req.body.price
 
   const ep = new eventproxy()
+
   ep.all('model', function (model) {
     req.flash('info', {
       message: '添加成功'
@@ -65,7 +65,7 @@ function postAdd (req, res, next) {
 }
 
 function getEdit (req, res, next) {
-  const _id = req.query._id
+  const _id = req.params._id
   const ep = new eventproxy()
   ep.all('model', function (model) {
     res.render('admin/banner_edit', {
@@ -93,6 +93,19 @@ function postEdit (req, res, next) {
   const description = req.body.description
   const price = req.body.price
 
+  const bannerParams = {
+    _id,
+    title,
+    sort,
+    isVisible,
+    endTime,
+    startTime,
+    pic,
+    link,
+    description,
+    price
+  }
+
   const ep = new eventproxy()
   ep.all('model', function (model) {
     req.flash('info', {
@@ -101,7 +114,7 @@ function postEdit (req, res, next) {
     res.redirect('/admin/banner_list')
   })
 
-  BannerProxy.update(_id, title, sort, isVisible, endTime, startTime, pic, link, description, price, ep.done('model'))
+  BannerProxy.update(bannerParams, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {
@@ -111,7 +124,7 @@ function postEdit (req, res, next) {
 }
 
 function getRemove (req, res, next) {
-  const _id = req.query._id
+  const _id = req.params._id
   BannerProxy.remove(_id, function (model) {
     req.flash('info', {
       message: '删除成功'

@@ -23,6 +23,7 @@
 	<!-- Owl Carousel  -->
 	<link href="//cdn.bootcss.com/owl-carousel/1.32/owl.carousel.min.css" rel="stylesheet">
 	<link href="//cdn.bootcss.com/owl-carousel/1.32/owl.theme.min.css" rel="stylesheet">
+  	<link href="//cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
 
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="/css/style.css">
@@ -102,17 +103,19 @@
 				</div>
 				<div class="row animate-box">
 					<div class="col-md-8 col-md-offset-2">
-						<form action="/" method="POST" class="form-inline">
+						<form id="formValidator" action="/" method="POST" class="form-inline">
 							<div class="col-md-4 col-sm-4">
 								<div class="form-group">
 									<label for="name" class="sr-only">姓名</label>
 									<input type="text" name="name" class="form-control" id="name" placeholder="姓名">
+									<span id="nameError" class="help-block"></span>
 								</div>
 							</div>
 							<div class="col-md-4 col-sm-4">
 								<div class="form-group">
 									<label for="tel" class="sr-only">联系方式</label>
 									<input type="text" name="tel" class="form-control" id="tel" placeholder="联系方式">
+									<span id="telError" class="help-block"></span>
 								</div>
 							</div>
 							<input type='hidden' name="_csrf" value="{{csrf}}" />
@@ -198,16 +201,54 @@
 	<script src="//cdn.bootcss.com/jquery-countto/1.2.0/jquery.countTo.min.js"></script>
 	<!-- Flexslider -->
 	<script src="//cdn.bootcss.com/flexslider/2.6.3/jquery.flexslider.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+  	<script src="//cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/language/zh_CN.min.js"></script>
 	<!-- Main -->
 	<script src="/js/main.js"></script>
 	<script>
-		$(function() {
-			$('#btnSearch').click(function() {
+		$(function () {
+			$('#formValidator').bootstrapValidator({
+				message: 'This value is not valid',
+				feedbackIcons: {
+					valid: 'glyphicon glyphicon-ok',
+					invalid: 'glyphicon glyphicon-remove',
+					validating: 'glyphicon glyphicon-refresh'
+				},
+				locale: 'zh_CN',
+				fields: {
+					name: {
+						container: '#nameError',
+						validators: {
+							notEmpty: {
+								message: '请输入姓名'
+							}
+						}
+					},
+					tel: {
+						container: '#telError',
+						validators: {
+							notEmpty: {
+								message: '请输入手机号码'
+							},
+							phone: {
+								country: 'CN',
+								message: '手机号码格式不正确'
+							}
+						}
+					}
+				}
+			}).on('success.form.fv', function (e) {
+				e.preventDefault();
+				var $form = $(e.target);
+				var fv = $form.data('formValidation');
+				fv.defaultSubmit();
+			});
+			$('#btnSearch').click(function () {
 				window.location.href = "/result?search=" + $('#txtSearch').val();
 			});
 		})
 	</script>
-	{{{block "footer"}}}
+{{{block "footer"}}}
 </body>
 
 </html>

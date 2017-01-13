@@ -192,29 +192,29 @@ exports.getById_Admin = function (_id, callback) {
   }).exec(callback)
 }
 
-exports.update = function (_id, cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, isIndex, tag, where, search, callback) {
+exports.update = function (params, callback) {
   ProductModel.findOne({
-    _id: _id
+    _id: params._id
   }, function (err, product) {
     if (err || !product) {
       return callback(err)
     }
-    product.cid = cid
-    product.categoryRef = categoryRef
-    product.title = title
+    product.cid = params.cid
+    product.categoryRef = params.categoryRef
+    product.title = params.title
         // product.search = nodejieba.cut(sentence, true);
-    product.content = content
-    product.price = price
-    product.description = description
-    product.sliderPics = sliderPics
-    product.skPic = skPic
-    product.code = code
-    product.part = part
-    product.search = search
-    product.tag = tag
-    product.where = where
-    product.isVisible = isVisible
-    product.isIndex = isIndex
+    product.content = params.content
+    product.price = params.price
+    product.description = params.description
+    product.sliderPics = params.sliderPics
+    product.skPic = params.skPic
+    product.code = params.code
+    product.part = params.part
+    product.search = params.search
+    product.tag = params.tag
+    product.where = params.where
+    product.isVisible = params.isVisible
+    product.isIndex = params.isIndex
     product.lastModifyTime = new Date()
     product.save(callback)
   })
@@ -223,24 +223,24 @@ exports.update = function (_id, cid, categoryRef, title, content, price, descrip
 /**
  * 新增和保存
  */
-exports.newAndSave = function (cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, isIndex, tag, where, search, callback) {
+exports.newAndSave = function (params, callback) {
   var product = new ProductModel()
-  product.cid = cid
-  product.categoryRef = categoryRef
-  product.title = title
+  product.cid = params.cid
+  product.categoryRef = params.categoryRef
+  product.title = params.title
     // product.search = nodejieba.cut(sentence, true);
-  product.content = content
-  product.price = price
-  product.description = description
-  product.sliderPics = sliderPics
-  product.skPic = skPic
-  product.code = code
-  product.part = part
-  product.search = search
-  product.tag = tag
-  product.where = where
-  product.isVisible = isVisible
-  product.isIndex = isIndex
+  product.content = params.content
+  product.price = params.price
+  product.description = params.description
+  product.sliderPics = params.sliderPics
+  product.skPic = params.skPic
+  product.code = params.code
+  product.part = params.part
+  product.search = params.search
+  product.tag = params.tag
+  product.where = params.where
+  product.isVisible = params.isVisible
+  product.isIndex = params.isIndex
   product.save(callback)
 }
 

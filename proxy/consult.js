@@ -39,15 +39,15 @@ exports.getById = function (_id, callback) {
  * 更新
  * @param {Function} callback 回调函数
  */
-exports.update = function (_id, name, tel, isRead, remark, callback) {
-  ConsultModel.findOne({ _id: _id }, function (err, consult) {
+exports.update = function (params, callback) {
+  ConsultModel.findOne({ _id: params._id }, function (err, consult) {
     if (err || !consult) {
       return callback(err)
     }
-    consult.name = name
-    consult.tel = tel
-    consult.isRead = isRead
-    consult.remark = remark
+    consult.name = params.name
+    consult.tel = params.tel
+    consult.isRead = params.isRead
+    consult.remark = params.remark
     consult.lastModifyTime = new Date()
     consult.save(callback)
   })

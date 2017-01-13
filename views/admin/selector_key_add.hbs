@@ -16,19 +16,22 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action='/admin/selector_key_add' method='post'>
+            <form id="formValidator" role="form" action='/admin/selector_key_add/1' method='post'>
                 <div class="box-body">
                     <div class="form-group">
                         <label for="title">标题名称</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="请输入标题名称">
+                        <span id="titleError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="alias">别名(英文)</label>
                         <input type="text" name="alias" class="form-control" id="alias" placeholder="请输入英文别名">
+                        <span id="aliasError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="sort">排序(从大到小)</label>
                         <input value="1" type="number" name="sort" class="form-control" id="sort" placeholder="请输入排序">
+                        <span id="sortError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label>
@@ -41,7 +44,6 @@
                         </label>
                     </div>
                 </div>
-                <input type="hidden" value="1" name="cid">
                 <input type='hidden' name="_csrf" value="{{csrf}}" />
                 <!-- /.box-body -->
 
@@ -54,3 +56,48 @@
     </section>
     <!-- /.content -->
 </div>
+{{#contentFor 'fonter'}}
+<script>
+    $(function () {
+        $('#formValidator').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            locale: 'zh_CN',
+            fields: {
+                title: {
+                    container: '#titleError',
+                    validators: {
+                        notEmpty: {
+                        }
+                    }
+                },
+                alias: {
+                    container: '#aliasError',
+                    validators: {
+                        notEmpty: {
+                        }
+                    }
+                },
+                sort: {
+                    container: '#sortError',
+                    validators: {
+                        notEmpty: {
+                        },
+                        integer: {
+                        }
+                    }
+                }
+            }
+        }).on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var fv = $form.data('formValidation');
+            fv.defaultSubmit();
+        });
+    });
+</script>
+{{/contentFor}}

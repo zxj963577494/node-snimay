@@ -18,7 +18,7 @@
             </div>
             {{/if}}
             <div class="box-header with-border">
-                <h3 class="box-title">{{title}}列表</h3> <a href="/admin/product_add?cid={{cid}}" type="button" class="btn bg-purple">新增</a>
+                <h3 class="box-title">{{title}}列表</h3> <a href="/admin/product_add/{{cid}}" type="button" class="btn bg-purple">新增</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -35,25 +35,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{isIndex}}
-                        {{#each list}}
+                        {{isIndex}} {{#each list}}
                         <tr>
                             <td>{{addOne @index}}</td>
                             <td>{{categoryRef.title}}</td>
                             <td>{{code}}</td>
                             <td><a href="/single/{{id}}">{{title}}</a></td>
                             <td>
-                                {{#if isVisible}} 
+                                {{#if isVisible}}
                                 <code>可见</code> {{else}} 隐藏 {{/if}} {{#if isIndex}}
                                 <code>首页</code> {{else}} 首页 {{/if}}
                             </td>
                             <td>{{date lastModifyTime "ll"}}</td>
                             <td>
-                                <a href="/admin/product_edit?_id={{_id}}&cid={{../cid}}">
+                                <a href="/admin/product_edit/{{../cid}}/{{_id}}">
                                     编辑 
-                                </a>
-                                &nbsp;&nbsp;
-                                 <a href="/admin/product_remove?_id={{_id}}">
+                                </a> &nbsp;&nbsp;
+                                <a href="/admin/product_remove/{{_id}}">
                                     删除 
                                 </a>
                             </td>
@@ -73,14 +71,15 @@
 <script src="//cdn.bootcss.com/datatables/1.10.13/js/dataTables.bootstrap.min.js"></script>
 <script>
     $(function () {
+        
         $('#keylist').DataTable({
             "responsive": true,
             "pageLength": 10,
             "paging": true,
             "searching": false,
             "info": true,
-            "language":{
-                "url":"/language/dataTables.chinese.lang"
+            "language": {
+                "url": "/language/dataTables.chinese.lang"
             }
         });
     });

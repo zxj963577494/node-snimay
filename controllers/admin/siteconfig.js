@@ -31,15 +31,30 @@ exports.update = function (req, res, next) {
   const tel = req.body.tel
   const qq = req.body.qq
   const weibo = req.body.weibo
-  const mail = req.body.mail
+  const email = req.body.email
+
+  const params = {
+    _id,
+    host,
+    title,
+    keywords,
+    description,
+    copyright,
+    address,
+    icp,
+    tel,
+    qq,
+    weibo,
+    email
+  }
 
   const ep = new eventproxy()
   ep.all('website', function (website) {
-    req.flash('info', {message: '编辑成功'})
+    req.flash('info', { message: '编辑成功' })
     res.redirect('/admin/siteconfig')
   })
 
-  WebSiteProxy.update(_id, host, title, keywords, description, copyright, address, icp, tel, qq, weibo, mail, ep.done('website'))
+  WebSiteProxy.update(params, ep.done('website'))
 
   ep.fail(function (err) {
     if (err) {

@@ -15,23 +15,23 @@ exports.get = function (callback) {
  * 更新网站配置信息
  * @param {Function} callback 回调函数
  */
-exports.update = function (_id, host, title, keywords, description, copyright, address, icp, tel, qq, weibo, mail, callback) {
-  WebSiteModel.findOne({ _id: _id }, function (err, website) {
+exports.update = function (params, callback) {
+  WebSiteModel.findOne({ _id: params._id }, function (err, website) {
     if (err || !website) {
       return callback(err)
     }
-    website.host = host
-    website.title = title
-    website.keywords = keywords
-    website.description = description
-    website.title = title
-    website.copyright = copyright
-    website.address = address
-    website.icp = icp
-    website.tel = tel
-    website.qq = qq
-    website.weibo = weibo
-    website.mail = mail
+    website.host = params.host
+    website.title = params.title
+    website.keywords = params.keywords
+    website.description = params.description
+    website.title = params.title
+    website.copyright = params.copyright
+    website.address = params.address
+    website.icp = params.icp
+    website.tel = params.tel
+    website.qq = params.qq
+    website.weibo = params.weibo
+    website.email = params.email
     website.lastModifyTime = new Date()
     website.save(callback)
   })

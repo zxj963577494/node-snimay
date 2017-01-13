@@ -35,16 +35,16 @@ exports.getByUserId = function (userid, callback) {
  * 更新
  * @param {Function} callback 回调函数
  */
-exports.update = function (_id, name, email, isEnable, password, callback) {
-  UserModel.findOne({ _id: _id }, function (err, user) {
+exports.update = function (params, callback) {
+  UserModel.findOne({ _id: params._id }, function (err, user) {
     if (err || !user) {
       return callback(err)
     }
-    user.name = name
-    user.email = email
-    user.isEnable = isEnable
-    if (password) {
-      user.password = password
+    user.name = params.name
+    user.email = params.email
+    user.isEnable = params.isEnable
+    if (params.password) {
+      user.password = params.password
     };
     user.lastModifyTime = new Date()
     user.save(callback)
@@ -57,13 +57,13 @@ exports.update = function (_id, name, email, isEnable, password, callback) {
  * - err, 数据库异常
  * @param {Function} callback 回调函数
  */
-exports.newAndSave = function (name, email, isEnable, password, callback) {
+exports.newAndSave = function (params, callback) {
   let user = new UserModel()
   user.userid = uuid.v4()
-  user.name = name
-  user.email = email
-  user.isEnable = isEnable
-  user.password = password
+  user.name = params.name
+  user.email = params.email
+  user.isEnable = params.isEnable
+  user.password = params.password
 
   user.save(callback)
 }

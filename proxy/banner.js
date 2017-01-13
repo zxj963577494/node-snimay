@@ -10,11 +10,11 @@ const BannerModel = models.Banner
  * @param {Function} callback 获取消息数量
  */
 exports.getBanners = function (options, callback) {
-  BannerModel.find(Object.assign({ startTime: { '$lte': new Date() }, endTime: { $gt: new Date() } }, options), {}, { sort: '-sort' }, callback)
+  BannerModel.find(Object.assign({ startTime: { '$lte': new Date() }, endTime: { $gt: new Date() } }, options), {}, { sort: ['-sort'] }, callback)
 }
 
 exports.getBanners_Admin = function (callback) {
-  BannerModel.find({}, '_id title startTime endTime sort isVisible', { sort: '-sort' }, callback)
+  BannerModel.find({}, '_id title startTime endTime sort isVisible', { sort: ['-lastModifyTime'] }, callback)
 }
 
 /**
@@ -29,22 +29,22 @@ exports.getBannerById = function (_id, callback) {
 /**
  * 新增、保存
  */
-exports.update = function (_id, title, sort, isVisible, endTime, startTime, pic, link, description, price, callback) {
+exports.update = function (bannerParams, callback) {
   BannerModel.findOne({
-    _id: _id
+    _id: bannerParams._id
   }, function (err, banner) {
     if (err || !banner) {
       return callback(err)
     }
-    banner.title = title
-    banner.price = price
-    banner.description = description
-    banner.link = link
-    banner.pic = pic
-    banner.startTime = startTime
-    banner.endTime = endTime
-    banner.isVisible = isVisible
-    banner.sort = sort
+    banner.title = bannerParams.title
+    banner.price = bannerParams.price
+    banner.description = bannerParams.description
+    banner.link = bannerParams.link
+    banner.pic = bannerParams.pic
+    banner.startTime = bannerParams.startTime
+    banner.endTime = bannerParams.endTime
+    banner.isVisible = bannerParams.isVisible
+    banner.sort = bannerParams.sort
     banner.lastModifyTime = new Date()
     banner.save(callback)
   })

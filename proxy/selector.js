@@ -1,5 +1,6 @@
 const models = require('../models')
 const SelectorModel = models.Selector
+const _ = require('lodash')
 
 /**
  * 获取所有分类
@@ -42,15 +43,15 @@ exports.getById_Admin = function (_id, callback) {
   SelectorModel.findOne({ _id: _id }, '_id title values sort alias isVisible', { 'values.sort': '-sort' }, callback)
 }
 
-exports.update = function (_id, title, alias, sort, isVisible, callback) {
-  SelectorModel.findOne({ _id: _id }, function (err, selector) {
+exports.update = function (params, callback) {
+  SelectorModel.findOne({ _id: params._id }, function (err, selector) {
     if (err || !selector) {
       return callback(err)
     }
-    selector.title = title
-    selector.alias = alias
-    selector.sort = sort
-    selector.isVisible = isVisible
+    selector.title = params.title
+    selector.alias = params.alias
+    selector.sort = params.sort
+    selector.isVisible = params.isVisible
     selector.lastModifyTime = new Date()
     selector.save(callback)
   })
@@ -67,17 +68,17 @@ exports.updateValues = function (_id, value, callback) {
   })
 }
 
-exports.updateValueModel = function (_id, id, title, alias, sort, isVisible, callback) {
-  SelectorModel.findOne({ _id: _id }, function (err, selector) {
+exports.updateValueModel = function (params, callback) {
+  SelectorModel.findOne({ _id: params._id }, function (err, selector) {
     if (err || !selector) {
       return callback(err)
     }
     selector.values.forEach((x) => {
-      if (x.id === id) {
-        x.title = title
-        x.alias = alias
-        x.sort = sort
-        x.isVisible = isVisible
+      if (x.id === params._sid) {
+        x.title = params.title
+        x.alias = params.alias
+        x.sort = params.sort
+        x.isVisible = params.isVisible
       }
     })
     selector.lastModifyTime = new Date()
@@ -91,15 +92,31 @@ exports.updateValueModel = function (_id, id, title, alias, sort, isVisible, cal
  * - err, 数据库异常
  * @param {Function} callback 回调函数
  */
-exports.newAndSave = function (title, alias, cid, isVisible, sort, values, callback) {
+exports.newAndSave = function (params, callback) {
   var selector = new SelectorModel()
-  selector.cid = cid
-  selector.title = title
-  selector.alias = alias
-  selector.isVisible = isVisible
-  selector.sort = sort
-  selector.values = values
+  selector.cid = params.cid
+  selector.title = params.title
+  selector.alias = params.alias
+  selector.isVisible = params.isVisible
+  selector.sort = params.sort
+  selector.values = params.values
 
   selector.save(callback)
 }
 
+exports.removeKey = function (_id, callback) {
+  SelectorModel.remove({
+    _id: _id
+  }, callback)
+}
+
+exports.removeValue = function (_id, _sid, callback) {
+  SelectorModel.findOne({ _id: _id }, function (err, selector) {
+    if (err || !selector) {
+      return callback(err)
+    }
+    selector.values.id(_sid).remove()
+    selector.lastModifyTime = new Date()
+    selector.save(callback)
+  })
+}

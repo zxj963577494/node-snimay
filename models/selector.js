@@ -12,7 +12,6 @@ const SelectorSchema = mongoose.Schema({
   sort: Number,
   alias: String,
   values: [{
-    id: String,
     title: String,
     isVisible: Number,
     alias: String,

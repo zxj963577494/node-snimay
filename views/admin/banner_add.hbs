@@ -16,19 +16,22 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action='/admin/banner_add' method='post'>
+            <form id="formValidator" role="form" action='/admin/banner_add' method='post'>
                 <div class="box-body">
                     <div class="form-group">
                         <label for="title">标题</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="请输入标题">
+                        <span id="titleError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="price">价格(填0不显示)</label>
                         <input type="text" name="price" class="form-control" id="price" placeholder="请输入价格">
+                        <span id="priceError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="sort">排序(从大到小排列)</label>
-                        <input type="text" name="sort" class="form-control" id="sort" placeholder="请输入序号">
+                        <input type="number" value="1" name="sort" class="form-control" id="sort" placeholder="请输入序号">
+                        <span id="sortError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="pic">请上传图片(只需要一张图片)</label><br>
@@ -45,27 +48,30 @@
                     <div class="form-group">
                         <label for="link">链接地址(如http://www.baidu.com)</label>
                         <input type="text" name="link" class="form-control" id="link" placeholder="请输入链接地址">
+                        <span id="linkError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="description">描述</label>
                         <textarea id="description" name="description" placeholder="请输入描述" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="startTime">开始时间</label>
+                        <label for="startTime">起始时间</label>
                         <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" id="startTime" name="startTime" class="form-control" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask>
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" id="startTime" name="startTime" class="form-control" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask>
+                            <span id="startTimeError" class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="endTime">结束时间</label>
                         <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" id="endTime" name="endTime" class="form-control" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask>
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" id="endTime" name="endTime" class="form-control" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask>
+                            <span id="endTimeError" class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -114,6 +120,75 @@
 <script src="//cdn.bootcss.com/blueimp-file-upload/9.14.2/js/jquery.fileupload-validate.min.js"></script>
 <script>
 $(function () {
+    $('#formValidator').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        locale: 'zh_CN',
+        fields: {
+            title: {
+                container: '#titleError',
+                validators: {
+                    notEmpty: {
+                    }
+                }
+            },
+            price: {
+                container: '#priceError',
+                validators: {
+                    numeric: {
+                        decimalSeparator: '.'
+                    }
+                }
+            },
+            sort: {
+                container: '#sortError',
+                validators: {
+                    notEmpty: {
+                    },
+                    integer: {
+                    }
+                }
+            },
+            link: {
+                container: '#linkError',
+                validators: {
+                    notEmpty: {
+                    },
+                    uri: {
+                    }
+                }
+            },
+            startTime: {
+                container: '#startTimeError',
+                validators: {
+                    notEmpty: {
+                    },
+                    date: {
+                        format: 'YYYY/MM/DD',
+                    }
+                }
+            },
+            endTime: {
+                container: '#endTimeError',
+                validators: {
+                    notEmpty: {
+                    },
+                    date: {
+                        format: 'YYYY/MM/DD',
+                    }
+                }
+            },
+        }
+    }).on('success.form.fv', function(e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var fv = $form.data('formValidation');
+            fv.defaultSubmit();
+        });
     $("#startTime").inputmask("yyyy/mm/dd", {"placeholder": "yyyy/mm/dd"});
     $("#endTime").inputmask("yyyy/mm/dd", {"placeholder": "yyyy/mm/dd"});
     $('#s_files').on('click', 'button',function(){

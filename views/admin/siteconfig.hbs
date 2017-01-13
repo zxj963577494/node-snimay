@@ -23,39 +23,52 @@
             <!-- /.box-header -->
             <!-- form start -->
             {{#website}}
-            <form role="form" action='/admin/siteconfig' method='post'>
+            <form id="formValidator" role="form" action='/admin/siteconfig' method='post'>
                 <div class="box-body">
                     <div class="form-group">
                         <label for="host">域名</label>
                         <input value="{{host}}" name="host" type="text" class="form-control" id="host" placeholder="请输入域名">
+                        <span id="hostError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="title">标题</label>
                         <input value="{{title}}" name="title" type="text" class="form-control" id="title" placeholder="请输入标题">
+                        <span id="titleError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="keywords">关键字</label>
                         <input value="{{keywords}}" name="keywords" type="text" class="form-control" id="keywords" placeholder="请输入关键字">
+                        <span id="keywordsError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="description">描述</label>
                         <input value="{{description}}" name="description" type="text" class="form-control" id="description" placeholder="请输入描述">
+                        <span id="descriptionError" class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input value="{{email}}" name="email" type="email" class="form-control" id="email" placeholder="请输入邮箱">
+                        <span id="emailError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="copyright">版权</label>
                         <input value="{{copyright}}" name="copyright" value="{{title}}" type="text" class="form-control" id="copyright" placeholder="请输入版权">
+                        <span id="copyrightError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="address">地址</label>
                         <input value="{{address}}" name="address" type="text" class="form-control" id="address" placeholder="请输入地址">
+                        <span id="addressError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="icp">ICP备案号</label>
                         <input value="{{icp}}" name="icp" type="text" class="form-control" id="icp" placeholder="请输入ICP备案号">
+                        <span id="icpError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="tel">联系方式</label>
                         <input value="{{tel}}" name="tel" type="text" class="form-control" id="tel" placeholder="请输入联系方式">
+                        <span id="telError" class="help-block"></span>
                     </div>
                     <div class="form-group">
                         <label for="qq">QQ</label>
@@ -64,10 +77,6 @@
                     <div class="form-group">
                         <label for="weibo">微博</label>
                         <input value="{{weibo}}" name="weibo" type="text" class="form-control" id="weibo" placeholder="请输入微博">
-                    </div>
-                    <div class="form-group">
-                        <label for="mail">邮箱</label>
-                        <input value="{{mail}}" name="mail" type="email" class="form-control" id="mail" placeholder="请输入邮箱">
                     </div>
                 </div>
                 <input value="{{_id}}" name="_id" type="hidden">
@@ -84,3 +93,69 @@
     </section>
     <!-- /.content -->
 </div>
+{{#contentFor 'fonter'}}
+<script>
+    $(function () {
+        $('#formValidator').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            locale: 'zh_CN',
+            fields: {
+                title: {
+                    container: '#titleError',
+                    validators: {
+                        notEmpty: {
+                        }
+                    }
+                },
+                email: {
+                    container: '#emailError',
+                    validators: {
+                        notEmpty: {
+                        },
+                        emailAddress: {
+                        }
+                    }
+                },
+                host: {
+                    container: '#hostError',
+                    validators: {
+                        notEmpty: {
+                        },
+                    }
+                },
+                keywords: {
+                    container: '#keywordsError',
+                    validators: {
+                        notEmpty: {
+                        }
+                    }
+                },
+                description: {
+                    container: '#descriptionError',
+                    validators: {
+                        notEmpty: {
+                        }
+                    }
+                },
+                tel: {
+                    container: '#telError',
+                    validators: {
+                        notEmpty: {
+                        }
+                    }
+                },
+            }
+        }).on('success.form.fv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var fv = $form.data('formValidation');
+            fv.defaultSubmit();
+        });
+    });
+</script>
+{{/contentFor}}
