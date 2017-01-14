@@ -39,10 +39,12 @@ exports.postKeyAdd = function (req, res, next) {
 
 exports.getKeyEdit = function (req, res, next) {
   const _id = req.params._id
+  const cid = req.params.cid
 
   const ep = new eventproxy()
   ep.all('key', function (key) {
     res.render('admin/selector_key_edit', {
+      cid: cid,
       model: key,
       layout: 'admin'
     })
@@ -59,6 +61,7 @@ exports.getKeyEdit = function (req, res, next) {
 
 exports.postKeyEdit = function (req, res, next) {
   const _id = req.body._id
+  const cid = req.body.cid
   const title = req.body.title
   const alias = req.body.alias
   const sort = req.body.sort
@@ -69,7 +72,7 @@ exports.postKeyEdit = function (req, res, next) {
   const ep = new eventproxy()
   ep.all('selector', function (selector) {
     req.flash('info', {message: '修改成功'})
-    res.redirect('back')
+    res.redirect('/admin/selector_key_list/' + cid)
   })
 
   SelectorProxy.update(params, ep.done('selector'))
@@ -86,6 +89,7 @@ exports.getKeyList = function (req, res, next) {
   const ep = new eventproxy()
   ep.all('list', function (list) {
     res.render('admin/selector_key_list', {
+      cid: cid,
       list: list,
       layout: 'admin'
     })

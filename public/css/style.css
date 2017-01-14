@@ -1713,4 +1713,21 @@ h1, h2, h3, h4, h5, h6, figure {
     background-color: #ccc;
 }
 
+#fh5co-product .timer {
+  position: absolute;
+  left: 35px;
+  top: 0px;
+  width: 66px;
+  height: 26px;
+  line-height: 26px;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  background-color: #822d43;
+  display: block;
+}
+#fh5co-product .on {
+  background-color: #b5b5b5;
+}
+
 /*# sourceMappingURL=style.css.map */

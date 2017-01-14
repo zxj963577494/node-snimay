@@ -3,7 +3,9 @@ const config = require('config-lite')
 const autoIncrement = require('mongoose-auto-increment')
 
 const connection = mongoose.connect(config.mongodb, {
-  server: { poolSize: 20 }
+  server: {
+    poolSize: 20
+  }
 }, function (err) {
   if (err) {
     process.exit(1)
@@ -20,6 +22,7 @@ require('./banner')
 require('./selector')
 require('./consult')
 require('./user')
+require('./activity')
 
 exports.WebSite = mongoose.model('WebSite')
 exports.Banner = mongoose.model('Banner')
@@ -28,4 +31,4 @@ exports.Category = mongoose.model('Category')
 exports.Selector = mongoose.model('Selector')
 exports.Consult = mongoose.model('Consult')
 exports.User = mongoose.model('User')
-
+exports.Activity = mongoose.model('Activity')

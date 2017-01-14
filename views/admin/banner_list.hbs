@@ -22,7 +22,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table id="list" class="table table-bordered table-hover">
+                <table id="bannerlist" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>序号</th>
@@ -70,14 +70,14 @@
 <script src="//cdn.bootcss.com/datatables/1.10.13/js/dataTables.bootstrap.min.js"></script>
 <script>
     $(function () {
-        $('#keylist').DataTable({
+        $('#bannerlist').DataTable({
             "responsive": true,
             "pageLength": 10,
             "paging": true,
             "searching": false,
             "info": true,
             "language":{
-                "url":"/language/dataTables.chinese.lang"
+                "url": "/language/dataTables.chinese.lang"
             }
         });
     });

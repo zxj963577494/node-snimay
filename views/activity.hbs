@@ -1,0 +1,69 @@
+{{# model}}
+<div id="fh5co-product" style="padding:3em 0">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 animate-box">
+				<div class="owl-carousel owl-carousel-fullwidth product-carousel" style="margin-bottom:3em">
+					<div class="item">
+						<div class="active text-center">
+							<figure>
+								<img src="{{pic}}" alt="{{title}}">
+							</figure>
+						</div>
+					</div>
+				</div>
+				<div class="row animate-box">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+						<h2>{{title}}</h2>
+						<p>
+							<span style="color:red">活动时间：{{date startTime 'll'}} ~ {{date endTime 'll'}}({{{activityTimer endTime 0}}})</span>
+						</p>
+						<p>
+							{{description}}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="fh5co-tabs animate-box">
+					<ul class="fh5co-tab-nav text-center">
+						<li class="active"><a href="#" data-tab="1"><span >活动详细</span></a></li>
+					</ul>
+
+					<!-- Tabs -->
+					<div class="fh5co-tab-content-wrap"  style="top: 0;" >
+
+						<div class="fh5co-tab-content tab-content active" data-tab-content="1">
+							<div class="col-md-10 col-md-offset-1">
+								{{{content}}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 animate-box">
+				<!-- 多说评论框 start -->
+				<div class="ds-thread" data-thread-key="{{id}}" data-title="{{title}}" data-url="{{../website.host}}activity/{{id}}"></div>
+				<!-- 多说评论框 end -->
+				<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+				<script type="text/javascript">
+				var duoshuoQuery = {short_name:"zhengxujiang"};
+				(function() {
+					var ds = document.createElement('script');
+					ds.type = 'text/javascript';ds.async = true;
+					ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+					ds.charset = 'UTF-8';
+					(document.getElementsByTagName('head')[0] 
+						|| document.getElementsByTagName('body')[0]).appendChild(ds);
+				})();
+				</script>
+				<!-- 多说公共JS代码 end -->
+			</div>
+		</div>
+	</div>
+</div>
+{{/model}}

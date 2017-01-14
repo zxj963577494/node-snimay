@@ -105,8 +105,8 @@ exports.getProducts = function (callback, {
     match: t_options,
     select: t_select,
     options: {
-        sort: c_t_sort
-      }
+      sort: c_t_sort
+    }
   }).exec(callback)
 }
 
@@ -125,10 +125,10 @@ exports.getProductsWithCategory = function (p_select, p_options, c_options, call
     match: c_options,
     select: 'id title',
     options: {
-        sort: {
-          sort: -1
-        }
+      sort: {
+        sort: -1
       }
+    }
   }).exec(callback)
 }
 
@@ -147,10 +147,10 @@ exports.getProductsWithValue = function (p_options, c_options) {
     match: c_options,
     select: 'id title',
     options: {
-        sort: {
-          sort: -1
-        }
+      sort: {
+        sort: -1
       }
+    }
   }).exec(callback)
 }
 

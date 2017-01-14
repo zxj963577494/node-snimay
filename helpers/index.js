@@ -7,6 +7,8 @@ helpers.setChecked = require('./setChecked')
 helpers.addOne = require('./addOne')
 helpers.iff = require('./iff')
 helpers.toSelect2 = require('./toSelect2')
+helpers.activityTimer = require('./activityTimer')
+
 
 function registerThemeHelper (name, fn) {
   hbs.registerHelper(name, fn)
@@ -19,6 +21,7 @@ const registerHelpers = function () {
   registerThemeHelper('addOne', helpers.addOne)
   registerThemeHelper('iff', helpers.iff)
   registerThemeHelper('toSelect2', helpers.toSelect2)
+  registerThemeHelper('activityTimer', helpers.activityTimer)
 }
 
 module.exports = helpers

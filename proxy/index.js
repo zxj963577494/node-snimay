@@ -5,4 +5,5 @@ exports.Banner = require('./banner')
 exports.Selector = require('./selector')
 exports.Consult = require('./consult')
 exports.User = require('./user')
+exports.Activity = require('./activity')
 

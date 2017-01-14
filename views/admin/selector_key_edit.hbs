@@ -17,7 +17,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             {{#model}}
-            <form id="formValidator" role="form" action='/admin/selector_key_edit/{{_id}}' method='post'>
+            <form id="formValidator" role="form" action='/admin/selector_key_edit/{{../cid}}/{{_id}}' method='post'>
                 <div class="box-body">
                     <div class="form-group">
                         <label for="title">头部名称</label>
@@ -44,6 +44,7 @@
                             对外隐藏
                         </label>
                     </div>
+                    <input type="hidden" name="cid" value="{{../cid}}">
                     <input type="hidden" name="_id" value="{{_id}}">
                 </div>
                 <!-- /.box-body -->
