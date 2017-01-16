@@ -15,9 +15,9 @@ module.exports = {
   },
   baiduMap: {
     ak: 'GkSpNtvicNBxmNPHU9I3APgCMXjoH4ve',   // 百度地图 ak
-    point: '120.736816,28.860294',            // 百度地图经纬度
+    point: '120.159465,30.273073',            // 百度地图经纬度
     mapText: '诗尼曼家具店',                    // 地图文字显示内容
-    mapMouseoverTxt: '诗尼曼家具店'            // 当鼠标悬浮时，地图文字显示内容
+    mapMouseoverTxt: '诗尼曼家具店'             // 当鼠标悬浮时，地图文字显示内容
   },
   mongodb: 'mongodb://localhost:27017/snimay'
 }
