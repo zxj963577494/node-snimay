@@ -11,7 +11,7 @@ exports.init = function (req, res, next) {
   })
 
     // get WebSite
-  WebSite.get(ep.done('website'))
+  WebSite.getOne(ep.done('website'))
 
     // get Category
   Category.get('title alias', {isVisible: 1}, ep.done('category'))
