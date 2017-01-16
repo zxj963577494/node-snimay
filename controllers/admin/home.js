@@ -15,7 +15,7 @@ exports.get = function (req, res, next) {
     })
   })
 
-  ConsultProxy.getConsultsLimit(10, ep.done('consultlist'))
+  ConsultProxy.getLimit(10, ep.done('consultlist'))
   ProductProxy.getProductsLimit({ cid: 1 }, 10, ep.done('productlist'))
   ProductProxy.getProductsLimit({ cid: 2 }, 10, ep.done('modelist'))
   ProductProxy.getProductsLimit({ cid: 3 }, 10, ep.done('matchlist'))

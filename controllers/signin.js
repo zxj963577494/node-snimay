@@ -21,7 +21,7 @@ exports.login = function (req, res, next) {
     res.redirect('signin')
   })
 
-  UserProxy.get({ name: name }, function (err, user) {
+  UserProxy.getOne({ name: name }, function (err, user) {
     if (err) {
       return next(err)
     }

@@ -46,9 +46,8 @@
                             <td>
                                 <a href="/admin/activity_edit/{{_id}}">
                                     编辑 
-                                </a>
-                                &nbsp;&nbsp;
-                                <a href="/admin/activity_remove/{{_id}}">
+                                </a> &nbsp;&nbsp;
+                                <a onclick="if(confirm('确定删除?')==false)return false;" href="/admin/activity_remove/{{_id}}">
                                     删除
                                 </a>
                             </td>
@@ -74,7 +73,7 @@
             "paging": true,
             "searching": false,
             "info": true,
-            "language":{
+            "language": {
                 "url": "/language/dataTables.chinese.lang"
             }
         });

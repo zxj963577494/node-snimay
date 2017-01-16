@@ -10,7 +10,7 @@ exports.getList = function (req, res, next) {
     })
   })
 
-  ConsultProxy.getConsults(ep.done('list'))
+  ConsultProxy.get('_id name tel isRead remark', {}, ep.done('list'))
 
   ep.fail(function (err) {
     if (err) {
@@ -28,7 +28,7 @@ exports.getEdit = function (req, res, next) {
       layout: 'admin'
     })
   })
-  ConsultProxy.getById(_id, ep.done('model'))
+  ConsultProxy.getBy_Id(_id, ep.done('model'))
   ep.fail(function (err) {
     if (err) {
       return next(err)

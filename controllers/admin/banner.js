@@ -1,7 +1,7 @@
 const eventproxy = require('eventproxy')
 const BannerProxy = require('../../proxy').Banner
 
-function getList (req, res, next) {
+exports.getList = function (req, res, next) {
   const ep = new eventproxy()
   ep.all('list', function (list) {
     res.render('admin/banner_list', {
@@ -9,7 +9,7 @@ function getList (req, res, next) {
       layout: 'admin'
     })
   })
-  BannerProxy.getBanners_Admin(ep.done('list'))
+  BannerProxy.get_Admin(ep.done('list'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -17,13 +17,13 @@ function getList (req, res, next) {
   })
 }
 
-function getAdd (req, res, next) {
+exports.getAdd = function (req, res, next) {
   res.render('admin/banner_add', {
     layout: 'admin'
   })
 }
 
-function postAdd (req, res, next) {
+exports.postAdd = function (req, res, next) {
   const title = req.body.title
   const sort = req.body.sort || 1
   const isVisible = req.body.isVisible
@@ -43,7 +43,7 @@ function postAdd (req, res, next) {
     res.redirect('/admin/banner_list')
   })
 
-  const bannerParams = {
+  const params = {
     title,
     sort,
     isVisible,
@@ -55,7 +55,7 @@ function postAdd (req, res, next) {
     price
   }
 
-  BannerProxy.newAndSave(bannerParams, ep.done('model'))
+  BannerProxy.create(params, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {
@@ -64,7 +64,7 @@ function postAdd (req, res, next) {
   })
 }
 
-function getEdit (req, res, next) {
+exports.getEdit = function (req, res, next) {
   const _id = req.params._id
   const ep = new eventproxy()
   ep.all('model', function (model) {
@@ -73,7 +73,7 @@ function getEdit (req, res, next) {
       layout: 'admin'
     })
   })
-  BannerProxy.getBannerById(_id, ep.done('model'))
+  BannerProxy.getBy_Id(_id, ep.done('model'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -81,7 +81,7 @@ function getEdit (req, res, next) {
   })
 }
 
-function postEdit (req, res, next) {
+exports.postEdit = function (req, res, next) {
   const _id = req.body._id
   const title = req.body.title
   const sort = req.body.sort
@@ -93,7 +93,7 @@ function postEdit (req, res, next) {
   const description = req.body.description
   const price = req.body.price
 
-  const bannerParams = {
+  const params = {
     _id,
     title,
     sort,
@@ -114,7 +114,7 @@ function postEdit (req, res, next) {
     res.redirect('/admin/banner_list')
   })
 
-  BannerProxy.update(bannerParams, ep.done('model'))
+  BannerProxy.update(params, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {
@@ -123,7 +123,7 @@ function postEdit (req, res, next) {
   })
 }
 
-function getRemove (req, res, next) {
+exports.getRemove = function (req, res, next) {
   const _id = req.params._id
   BannerProxy.remove(_id, function (model) {
     req.flash('info', {
@@ -133,11 +133,3 @@ function getRemove (req, res, next) {
   })
 }
 
-module.exports = {
-  getList,
-  getAdd,
-  postAdd,
-  getEdit,
-  postEdit,
-  getRemove
-}

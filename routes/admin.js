@@ -38,6 +38,8 @@ router.get('/selector_value_remove/:_id/:_sid', selector.getValueRemove)
 router.get('/selector_value_list/:_id', selector.getValueList)
 
 router.get('/category_list', category.getList)
+router.get('/category_add', category.getAdd)
+router.post('/category_add', category.postAdd)
 router.get('/category_edit/:_id', category.getEdit)
 router.post('/category_edit/:_id', category.postEdit)
 

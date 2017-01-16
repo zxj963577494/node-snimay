@@ -9,7 +9,7 @@ function getList (req, res, next) {
       layout: 'admin'
     })
   })
-  ActivityProxy.getActivities_Admin(ep.done('list'))
+  ActivityProxy.get({}, '_id title startTime endTime isVisible', ep.done('list'))
   ep.fail(function (err) {
     if (err) {
       return next(err)
@@ -51,7 +51,7 @@ function postAdd (req, res, next) {
     content
   }
 
-  ActivityProxy.newAndSave(params, ep.done('model'))
+  ActivityProxy.create(params, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {
@@ -69,7 +69,7 @@ function getEdit (req, res, next) {
       layout: 'admin'
     })
   })
-  ActivityProxy.getActivityById_Admin(_id, ep.done('model'))
+  ActivityProxy.getBy_Id(_id, ep.done('model'))
   ep.fail(function (err) {
     if (err) {
       return next(err)

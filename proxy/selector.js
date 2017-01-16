@@ -1,36 +1,17 @@
 const models = require('../models')
 const SelectorModel = models.Selector
-const _ = require('lodash')
 
-/**
- * 获取所有分类
- * Callback:
- * - err, 数据库异常
- * @param {{}}} options 附加条件
- * @param {Function} callback 回调函数
- */
+
 exports.getAll = function (options, callback) {
   SelectorModel.find(options, callback)
 }
 
-/**
- * 根据条件获取
- * Callback:
- * - err, 数据库异常
- * @param {Function} callback 回调函数
- */
+
 exports.getSelectors = function (options, callback) {
   SelectorModel.find(options, 'id title values alias', { sort: '-sort' }, callback)
 }
 
-/**
- * 根据类别ID获取筛选条件
- * Callback:
- * - err, 数据库异常
- * @param {Number} cid 类别ID
- * @param {Number} isVisible 是否显示，默认:1
- * @param {Function} callback 回调函数
- */
+
 exports.getByCid = function (cid, options, callback) {
   SelectorModel.find(Object.assign({ cid: cid }, options), 'id title values alias', { sort: '-sort' }, callback)
 }
@@ -86,13 +67,7 @@ exports.updateValueModel = function (params, callback) {
   })
 }
 
-/**
- * 更新分类信息
- * Callback:
- * - err, 数据库异常
- * @param {Function} callback 回调函数
- */
-exports.newAndSave = function (params, callback) {
+exports.create = function (params, callback) {
   var selector = new SelectorModel()
   selector.cid = params.cid
   selector.title = params.title

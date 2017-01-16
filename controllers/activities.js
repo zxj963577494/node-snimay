@@ -29,9 +29,9 @@ exports.get = function (req, res, next) {
     })
   })
 
-  ActivityProxy.getActivitiesByPage('id pic title endTime description', currentPage, pageSize, options, ep.done('activities'))
+  ActivityProxy.getByPage('id pic title endTime description', currentPage, pageSize, options, ep.done('activities'))
 
-  ActivityProxy.getActivityCount(options, ep.done('totalCount'))
+  ActivityProxy.getCount(options, ep.done('totalCount'))
 
   ep.fail(function (err) {
     if (err) {
@@ -51,7 +51,7 @@ exports.getById = function (req, res, next) {
     })
   })
 
-  ActivityProxy.getActivityById(id, ep.done('model'))
+  ActivityProxy.getById(id, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {

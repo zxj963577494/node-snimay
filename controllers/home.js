@@ -31,13 +31,17 @@ exports.postConsulrAdd = function (req, res, next) {
   const isRead = 0
   const remark = ''
 
+  const params = {
+    name, tel, isRead, remark
+  }
+
   const ep = new eventproxy()
   ep.all('model', function (model) {
     req.flash('info', { message: '提交成功，我们会主动和您联系！' })
     res.redirect('back')
   })
 
-  ConsultProxy.newAndSave(name, tel, isRead, remark, ep.done('model'))
+  ConsultProxy.create(params, ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {

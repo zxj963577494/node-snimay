@@ -117,12 +117,12 @@ exports.getProducts = function (callback, {
  * - err, 数据库错误
  * - result, 产品列表
  */
-exports.getProductsWithCategory = function (p_select, p_options, c_options, callback) {
-  ProductModel.find(p_options, p_select, {
+exports.getProductsWithCategory = function (pSelect, pOptions, cOptions, callback) {
+  ProductModel.find(pOptions, pSelect, {
     sort: '-lastModifyTime'
   }).populate({
     path: 'categoryRef',
-    match: c_options,
+    match: cOptions,
     select: 'id title',
     options: {
       sort: {
@@ -139,12 +139,12 @@ exports.getProductsWithCategory = function (p_select, p_options, c_options, call
  * - err, 数据库错误
  * - result, 产品列表
  */
-exports.getProductsWithValue = function (p_options, c_options) {
-  ProductModel.find(p_options, 'id cid code skPic description price title lastModifyTime values', {
+exports.getProductsWithValue = function (pOptions, cOptions, callback) {
+  ProductModel.find(pOptions, 'id cid code skPic description price title lastModifyTime values', {
     sort: '-lastModifyTime'
   }).populate({
     path: 'values',
-    match: c_options,
+    match: cOptions,
     select: 'id title',
     options: {
       sort: {
@@ -223,7 +223,7 @@ exports.update = function (params, callback) {
 /**
  * 新增和保存
  */
-exports.newAndSave = function (params, callback) {
+exports.create = function (params, callback) {
   var product = new ProductModel()
   product.cid = params.cid
   product.categoryRef = params.categoryRef

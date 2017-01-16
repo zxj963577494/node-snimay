@@ -11,7 +11,7 @@ exports.getList = function (req, res, next) {
     })
   })
 
-  UserProxy.getUsers(ep.done('list'))
+  UserProxy.get(ep.done('list'))
 
   ep.fail(function (err) {
     if (err) {
@@ -48,7 +48,7 @@ exports.postAdd = function (req, res, next) {
   })
 
   tools.bhash(password, ep.done(function (passhash) {
-    UserProxy.newAndSave(params, ep.done('model'))
+    UserProxy.create(params, ep.done('model'))
   }))
 
   ep.fail(function (err) {
@@ -67,7 +67,7 @@ exports.getEdit = function (req, res, next) {
       layout: 'admin'
     })
   })
-  UserProxy.getById(_id, ep.done('model'))
+  UserProxy.getBy_Id(_id, ep.done('model'))
   ep.fail(function (err) {
     if (err) {
       return next(err)

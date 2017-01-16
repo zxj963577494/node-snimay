@@ -2,24 +2,15 @@ const uuid = require('node-uuid')
 const models = require('../models')
 const UserModel = models.User
 
-/**
- * 获取用户
- * Callback:
- * - err, 数据库异常
- * @param {Function} callback 回调函数
- */
-exports.get = function (opts, callback) {
-  UserModel.findOne(opts, callback)
+exports.getOne = function (options, callback) {
+  UserModel.findOne(options, '_id name email isEnable createTime', { sort: '-createTime' }, callback)
 }
 
-exports.getUsers = function (callback) {
+exports.get = function (callback) {
   UserModel.find({}, '_id name email isEnable createTime', { sort: '-createTime' }, callback)
 }
 
-/**
- * 根据Id获取Banner
- */
-exports.getById = function (_id, callback) {
+exports.getBy_Id = function (_id, callback) {
   UserModel.findOne({
     _id: _id
   }, callback)
@@ -31,10 +22,6 @@ exports.getByUserId = function (userid, callback) {
   }, 'name', callback)
 }
 
-/**
- * 更新
- * @param {Function} callback 回调函数
- */
 exports.update = function (params, callback) {
   UserModel.findOne({ _id: params._id }, function (err, user) {
     if (err || !user) {
@@ -51,14 +38,9 @@ exports.update = function (params, callback) {
   })
 }
 
-/**
- * 新增
- * Callback:
- * - err, 数据库异常
- * @param {Function} callback 回调函数
- */
-exports.newAndSave = function (params, callback) {
-  let user = new UserModel()
+
+exports.create = function (params, callback) {
+  const user = new UserModel()
   user.userid = uuid.v4()
   user.name = params.name
   user.email = params.email

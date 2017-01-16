@@ -48,7 +48,7 @@
                                     编辑 
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="/admin/consult_remove/{{_id}}">
+                                <a onclick="if(confirm('确定删除?')==false)return false;" href="/admin/consult_remove/{{_id}}">
                                     删除
                                 </a>
                             </td>

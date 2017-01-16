@@ -48,7 +48,7 @@
                                 <a href="/admin/selector_value_edit/{{../_id}}/{{_id}}">
                                     编辑 
                                 </a> 
-                                <a href="/admin/selector_value_remove/{{../_id}}/{{_id}}">
+                                <a onclick="if(confirm('确定删除?')==false)return false;" href="/admin/selector_value_remove/{{../_id}}/{{_id}}">
                                     删除 
                                 </a> 
                             </td>

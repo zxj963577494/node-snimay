@@ -14,7 +14,7 @@ exports.init = function (req, res, next) {
   WebSite.get(ep.done('website'))
 
     // get Category
-  Category.getCategories(ep.done('category'))
+  Category.get('title alias', {isVisible: 1}, ep.done('category'))
 
   ep.fail(function (err) {
     if (err) {

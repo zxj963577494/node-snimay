@@ -10,7 +10,7 @@ exports.get = function (req, res, next) {
     })
   })
 
-  WebSiteProxy.get(ep.done('website'))
+  WebSiteProxy.getOne(ep.done('website'))
 
   ep.fail(function (err) {
     if (err) {

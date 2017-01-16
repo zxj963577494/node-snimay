@@ -76,7 +76,7 @@ exports.postAdd = function (req, res, next) {
     res.redirect('/admin/product_list')
   })
 
-  ProductProxy.newAndSave(params, ep.done('product'))
+  ProductProxy.create(params, ep.done('product'))
 
   ep.fail(function (err) {
     if (err) {

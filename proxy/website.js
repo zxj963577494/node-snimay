@@ -1,20 +1,10 @@
 const models = require('../models')
 const WebSiteModel = models.WebSite
 
-/**
- * 获取网站配置信息
- * Callback:
- * - err, 数据库异常
- * @param {Function} callback 回调函数
- */
-exports.get = function (callback) {
+exports.getOne = function (callback) {
   WebSiteModel.findOne({}, callback)
 }
 
-/**
- * 更新网站配置信息
- * @param {Function} callback 回调函数
- */
 exports.update = function (params, callback) {
   WebSiteModel.findOne({ _id: params._id }, function (err, website) {
     if (err || !website) {
@@ -37,25 +27,19 @@ exports.update = function (params, callback) {
   })
 }
 
-/**
- * 新增网站配置信息
- * Callback:
- * - err, 数据库异常
- * @param {Function} callback 回调函数
- */
-exports.newAndSave = function (host, title, keywords, description, copyright, address, icp, tel, qq, weibo, mail, callback) {
-  var website = new WebSiteModel()
-  website.host = host
-  website.title = title
-  website.description = description
-  website.keywords = keywords
-  website.copyright = copyright
-  website.address = address
-  website.icp = icp
-  website.qq = qq
-  website.weibo = weibo
-  website.tel = tel
-  website.mail = mail
+exports.create = function (params, callback) {
+  const website = new WebSiteModel()
+  website.host = params.host
+  website.title = params.title
+  website.description = params.description
+  website.keywords = params.keywords
+  website.copyright = params.copyright
+  website.address = params.address
+  website.icp = params.icp
+  website.qq = params.qq
+  website.weibo = params.weibo
+  website.tel = params.tel
+  website.mail = params.mail
 
   website.save(callback)
 }

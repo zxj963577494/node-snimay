@@ -28,7 +28,7 @@ exports.postKeyAdd = function (req, res, next) {
     res.redirect('/admin/selector_key_list/' + cid)
   })
 
-  SelectorProxy.newAndSave(params, ep.done('key'))
+  SelectorProxy.create(params, ep.done('key'))
 
   ep.fail(function (err) {
     if (err) {
