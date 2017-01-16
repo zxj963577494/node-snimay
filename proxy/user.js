@@ -3,11 +3,11 @@ const models = require('../models')
 const UserModel = models.User
 
 exports.getOne = function (options, callback) {
-  UserModel.findOne(options, '_id name email isEnable createTime', { sort: '-createTime' }, callback)
+  UserModel.findOne(options, 'userid _id name isEnable password', { sort: ['-createTime'] }, callback)
 }
 
 exports.get = function (callback) {
-  UserModel.find({}, '_id name email isEnable createTime', { sort: '-createTime' }, callback)
+  UserModel.find({}, '_id name email isEnable createTime', { sort: ['-createTime'] }, callback)
 }
 
 exports.getBy_Id = function (_id, callback) {

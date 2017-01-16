@@ -30,7 +30,7 @@ const SelectorSchema = mongoose.Schema({
 SelectorSchema.plugin(autoIncrement.plugin, {
   model: 'Selector',
   field: 'id',
-  startAt: 1,
+  startAt: 5,
   incrementBy: 1
 })
 

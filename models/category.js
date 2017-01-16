@@ -22,7 +22,7 @@ const CategorySchema = mongoose.Schema({
 CategorySchema.plugin(autoIncrement.plugin, {
   model: 'Category',
   field: 'id',
-  startAt: 1,
+  startAt: 4,
   incrementBy: 1
 })
 

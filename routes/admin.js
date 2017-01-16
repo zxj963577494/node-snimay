@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const install = require('../controllers/admin/install')
 const siteconfig = require('../controllers/admin/siteconfig')
 const selector = require('../controllers/admin/selector')
 const category = require('../controllers/admin/category')
@@ -12,6 +13,9 @@ const home = require('../controllers/admin/home')
 const signout = require('../controllers/admin/signout')
 const fileupload = require('../controllers/admin/fileupload')
 const auth = require('../middlewares/auth')
+
+router.get('/install', install.get)
+router.post('/install', install.post)
 
 router.use(auth.authUser)
 
