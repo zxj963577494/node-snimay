@@ -1,3 +1,36 @@
-{"_id":{"$oid":"586c5ac48fc4b61b883393df"},"id":1,"sort":1,"isVisible":1,"alias":"products","title":"产品体验","lastModifyTime":{"$date":"2017-01-04T02:15:32.696Z"},"createTime":{"$date":"2017-01-04T02:15:32.696Z"},"keys":[],"__v":0}
-{"_id":{"$oid":"586c5b51e3a6cb1bf36cf3eb"},"id":2,"sort":1,"isVisible":1,"alias":"modes","title":"定制家具","lastModifyTime":{"$date":"2017-01-04T02:17:53.926Z"},"createTime":{"$date":"2017-01-04T02:17:53.926Z"},"keys":[],"__v":0}
-{"_id":{"$oid":"586c5b6a4e5aad1c1751b373"},"id":3,"sort":1,"isVisible":1,"alias":"matches","title":"配套家具","lastModifyTime":{"$date":"2017-01-04T02:18:18.739Z"},"createTime":{"$date":"2017-01-04T02:18:18.739Z"},"keys":[],"__v":0}
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("586c5ac48fc4b61b883393df"),
+	"alias" : "products",
+	"createTime" : ISODate("2017-01-04T10:15:32.696+08:00"),
+	"id" : NumberInt("1"),
+	"isVisible" : NumberInt("1"),
+	"keys" : [ ],
+	"lastModifyTime" : ISODate("2017-01-13T14:54:52.589+08:00"),
+	"sort" : NumberInt("99"),
+	"title" : "产品体验"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("586c5b51e3a6cb1bf36cf3eb"),
+	"alias" : "modes",
+	"createTime" : ISODate("2017-01-04T10:17:53.926+08:00"),
+	"id" : NumberInt("2"),
+	"isVisible" : NumberInt("1"),
+	"keys" : [ ],
+	"lastModifyTime" : ISODate("2017-01-10T16:21:26.900+08:00"),
+	"sort" : NumberInt("90"),
+	"title" : "定制家具"
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("586c5b6a4e5aad1c1751b373"),
+	"alias" : "matches",
+	"createTime" : ISODate("2017-01-04T10:18:18.739+08:00"),
+	"id" : NumberInt("3"),
+	"isVisible" : NumberInt("1"),
+	"keys" : [ ],
+	"lastModifyTime" : ISODate("2017-01-10T16:23:02.614+08:00"),
+	"sort" : NumberInt("88"),
+	"title" : "配套家具"
+},
