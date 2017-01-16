@@ -6,7 +6,7 @@ exports.get = function (select, options, callback) {
 }
 
 exports.getBy_Id = function (_id, callback) {
-  CategoryModel.find({ _id: _id }, '_id title alias isVisible sort', { sort: '-sort' }, callback)
+  CategoryModel.find({ _id: _id }, '_id title alias isVisible sort', { sort: ['-sort'] }, callback)
 }
 
 exports.update = function (params, callback) {

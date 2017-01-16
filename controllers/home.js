@@ -16,7 +16,7 @@ exports.get = function (req, res, next) {
 
   ProductProxy.getProductsWithCategory('id categoryRef skPic description price title', { isVisible: 1, isIndex: 1 }, { isVisible: 1 }, ep.done('products'))
 
-  BannerProxy.getBanners({ isVisible: 1 }, ep.done('banners'))
+  BannerProxy.get({ isVisible: 1 }, ep.done('banners'))
 
   ep.fail(function (err) {
     if (err) {
@@ -36,6 +36,7 @@ exports.postConsulrAdd = function (req, res, next) {
   }
 
   const ep = new eventproxy()
+
   ep.all('model', function (model) {
     req.flash('info', { message: '提交成功，我们会主动和您联系！' })
     res.redirect('back')

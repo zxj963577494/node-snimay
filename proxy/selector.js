@@ -8,20 +8,20 @@ exports.getAll = function (options, callback) {
 
 
 exports.getSelectors = function (options, callback) {
-  SelectorModel.find(options, 'id title values alias', { sort: '-sort' }, callback)
+  SelectorModel.find(options, 'id title values alias', { sort: ['-sort'] }, callback)
 }
 
 
 exports.getByCid = function (cid, options, callback) {
-  SelectorModel.find(Object.assign({ cid: cid }, options), 'id title values alias', { sort: '-sort' }, callback)
+  SelectorModel.find(Object.assign({ cid: cid }, options), 'id title values alias', { sort: ['-sort'] }, callback)
 }
 
 exports.getByCid_Admin = function (cid, options, callback) {
-  SelectorModel.find(Object.assign({ cid: cid }, options), '_id title values sort alias isVisible', { sort: '-sort' }, callback)
+  SelectorModel.find(Object.assign({ cid: cid }, options), '_id title values sort alias isVisible', { sort: ['-sort'] }, callback)
 }
 
 exports.getById_Admin = function (_id, callback) {
-  SelectorModel.findOne({ _id: _id }, '_id title values sort alias isVisible', { 'values.sort': '-sort' }, callback)
+  SelectorModel.findOne({ _id: _id }, '_id title values sort alias isVisible', { 'values.sort': ['-sort'] }, callback)
 }
 
 exports.update = function (params, callback) {

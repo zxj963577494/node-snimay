@@ -9,7 +9,13 @@
   </section>
   <!-- Main content -->
   <section class="content">
-    <!-- Default box -->
+    {{#if infos}}
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-check"></i> {{#each infos}}{{this.message}} {{/each}}</h4>
+    </div>
+    {{/if}}
+    <!-- 用户咨询列表 -->
     <div class="box">
       <div class="box-header with-border">
         <h3 class="box-title">用户咨询列表</h3>
@@ -38,10 +44,10 @@
                 {{#if isRead}} 已回访 {{else}} <code>未回访</code> {{/if}}
               </td>
               <td>
-                <a href="/admin/consult_edit?_id={{_id}}">
+                <a href="/admin/consult_edit/{{_id}}">
                                     编辑 
                                 </a> &nbsp;&nbsp;
-                <a href="/admin/consult_remove?_id={{_id}}">
+                <a href="/admin/consult_remove/{{_id}}">
                                     删除
                                 </a>
               </td>
@@ -51,11 +57,11 @@
         </table>
       </div>
     </div>
+    <!-- 产品体验 -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">产品体验</h3> <a href="/admin/product_add?cid=1" type="button" class="btn bg-purple">新增</a>
+        <h3 class="box-title">产品体验</h3> <a href="/admin/product_add/1" type="button" class="btn bg-purple">新增</a>
       </div>
-      <!-- /.box-header -->
       <div class="box-body">
         <table class="table table-bordered table-hover">
           <thead>
@@ -83,12 +89,8 @@
               </td>
               <td>{{date lastModifyTime "ll"}}</td>
               <td>
-                <a href="/admin/product_edit?_id={{_id}}&cid={{cid}}">
-                                    编辑 
-                                </a> &nbsp;&nbsp;
-                <a href="/admin/product_remove?_id={{_id}}">
-                                    删除 
-                                </a>
+               <a href="/admin/product_edit/1/{{_id}}">编辑</a> &nbsp;&nbsp;
+               <a onclick="if(confirm('确定删除?')==false)return false;" href="/admin/product_remove/{{_id}}">删除 </a>
               </td>
             </tr>
             {{/each}}
@@ -96,11 +98,11 @@
         </table>
       </div>
     </div>
+    <!-- 定制家具 -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">定制家具</h3> <a href="/admin/product_add?cid=2" type="button" class="btn bg-purple">新增</a>
+        <h3 class="box-title">定制家具</h3> <a href="/admin/product_add/2" type="button" class="btn bg-purple">新增</a>
       </div>
-      <!-- /.box-header -->
       <div class="box-body">
         <table id="keylist" class="table table-bordered table-hover">
           <thead>
@@ -128,12 +130,8 @@
               </td>
               <td>{{date lastModifyTime "ll"}}</td>
               <td>
-                <a href="/admin/product_edit?_id={{_id}}&cid={{cid}}">
-                                    编辑 
-                                </a> &nbsp;&nbsp;
-                <a href="/admin/product_remove?_id={{_id}}">
-                                    删除 
-                                </a>
+                <a href="/admin/product_edit/2/{{_id}}">编辑</a> &nbsp;&nbsp;
+                <a onclick="if(confirm('确定删除?')==false)return false;" href="/admin/product_remove/{{_id}}">删除 </a>
               </td>
             </tr>
             {{/each}}
@@ -141,11 +139,11 @@
         </table>
       </div>
     </div>
+    <!-- 配套家具 -->
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">配套家具</h3> <a href="/admin/product_add?cid=3" type="button" class="btn bg-purple">新增</a>
+        <h3 class="box-title">配套家具</h3> <a href="/admin/product_add/3" type="button" class="btn bg-purple">新增</a>
       </div>
-      <!-- /.box-header -->
       <div class="box-body">
         <table class="table table-bordered table-hover">
           <thead>
@@ -173,12 +171,8 @@
               </td>
               <td>{{date lastModifyTime "ll"}}</td>
               <td>
-                <a href="/admin/product_edit?_id={{_id}}&cid={{cid}}">
-                                    编辑 
-                                </a> &nbsp;&nbsp;
-                <a href="/admin/product_remove?_id={{_id}}">
-                                    删除 
-                                </a>
+                <a href="/admin/product_edit/3/{{_id}}">编辑</a> &nbsp;&nbsp;
+                <a onclick="if(confirm('确定删除?')==false)return false;" href="/admin/product_remove/{{_id}}">删除 </a>
               </td>
             </tr>
             {{/each}}

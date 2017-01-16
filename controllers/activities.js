@@ -8,13 +8,10 @@ exports.get = function (req, res, next) {
 
   // 构建产品查询条件
   const options = Object.assign(
-    {'createTime':
-    {
+    { 'createTime': {
       '$lt': new Date()
-    }
-    },
-    {isVisible: 1
-    })
+    } },
+    { isVisible: 1 })
 
   const pageSize = 12
 

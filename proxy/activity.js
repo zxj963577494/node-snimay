@@ -3,7 +3,7 @@ const ActivityModel = models.Activity
 
 exports.get = function (select, options, callback) {
   ActivityModel.find(options, select, {
-    sort: ['-lastModifyTime']
+    sort: ['-createTime']
   }, callback)
 }
 

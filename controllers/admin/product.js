@@ -34,12 +34,12 @@ exports.getAdd = function (req, res, next) {
       category: category.filter((x) => {
         return x.id === parseInt(cid)
       }),
-      title: (cid === 1 ? '产品体验' : cid === 2 ? '定制家具' : '配套家具'),
+      title: (parseInt(cid) === 1 ? '产品体验' : parseInt(cid) === 2 ? '定制家具' : '配套家具'),
       selector: selector,
       layout: 'admin'
     })
   })
-  CategoryProxy.getCategories_Admin({}, ep.done('category'))
+  CategoryProxy.get('_id id title alias isVisible sort', {}, ep.done('category'))
   SelectorProxy.getByCid_Admin(cid, {}, ep.done('selector'))
   ep.fail(function (err) {
     if (err) {
@@ -97,11 +97,11 @@ exports.getEdit = function (req, res, next) {
       }),
       model: model,
       selector: selector,
-      title: (cid === 1 ? '产品体验' : cid === 2 ? '定制家具' : '配套家具'),
+      title: (parseInt(cid) === 1 ? '产品体验' : parseInt(cid) === 2 ? '定制家具' : '配套家具'),
       layout: 'admin'
     })
   })
-  CategoryProxy.getCategories_Admin({}, ep.done('category'))
+  CategoryProxy.get('_id id title alias isVisible sort', {}, ep.done('category'))
   ProductProxy.getById_Admin(_id, ep.done('model'))
   SelectorProxy.getByCid_Admin(cid, {}, ep.done('selector'))
   ep.fail(function (err) {
@@ -150,11 +150,11 @@ exports.postEdit = function (req, res, next) {
 }
 
 exports.getRemove = function (req, res, next) {
-  const _id = req.query._id
+  const _id = req.params._id
   ProductProxy.remove(_id, function (model) {
     req.flash('info', {
       message: '删除成功'
     })
-    res.redirect('/admin/product_list')
+    res.redirect('back')
   })
 }

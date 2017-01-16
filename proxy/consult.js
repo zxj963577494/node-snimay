@@ -33,12 +33,12 @@ exports.update = function (params, callback) {
   })
 }
 
-exports.create = function (name, tel, isRead, remark, callback) {
-  var consult = new ConsultModel()
-  consult.name = name
-  consult.tel = tel
-  consult.isRead = isRead
-  consult.remark = remark
+exports.create = function (params, callback) {
+  const consult = new ConsultModel()
+  consult.name = params.name
+  consult.tel = params.tel
+  consult.isRead = params.isRead
+  consult.remark = params.remark
 
   consult.save(callback)
 }

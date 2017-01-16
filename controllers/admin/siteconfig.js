@@ -3,14 +3,14 @@ const WebSiteProxy = require('../../proxy').WebSite
 
 exports.get = function (req, res, next) {
   const ep = new eventproxy()
-  ep.all('website', function (website) {
+  ep.all('model', function (model) {
     res.render('admin/siteconfig', {
-      website: website,
+      model: model,
       layout: 'admin'
     })
   })
 
-  WebSiteProxy.getOne(ep.done('website'))
+  WebSiteProxy.getOne(ep.done('model'))
 
   ep.fail(function (err) {
     if (err) {

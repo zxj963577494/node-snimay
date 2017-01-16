@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NODE_ENV=production pm2 start index.js",
+    "restart": "pm2 restart index.js",
+    "stop": "pm2 stop index.js",
+    "default": "supervisor --harmony index.js"
   },
   "author": "ZhengXuJiang",
   "homepage": "https://github.com/zxj963577494/node-snimay",
