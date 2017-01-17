@@ -1,4 +1,5 @@
 const ObjectId = require('mongodb').ObjectID
+require('date-utils')
 
 
 module.exports = {
@@ -246,60 +247,60 @@ module.exports = {
   activities: [
     {
       'content': '',
-      'createTime': new Date() + 10,
+      'createTime': new Date().addSeconds(0),
       'description': '诗尼曼全屋定制，定制您的幸福家。在线免费预约量尺，一站式整体空间解决方案。',
       'endTime': new Date('2020-12-30T08:00:00.000+08:00'),
       'id': 1,
       'isVisible': 1,
-      'lastModifyTime': new Date() + 20,
+      'lastModifyTime': new Date().addSeconds(0),
       'pic': 'http://ojejh4mx9.bkt.clouddn.com/product/public/uploads/1484547958548.jpg',
       'startTime': new Date('2017-01-01T08:00:00.000+08:00'),
       'title': '免费预约量尺'
     },
     {
       'content': '',
-      'createTime': new Date() + 30,
+      'createTime': new Date().addSeconds(10),
       'description': '面临如今寸金寸土的高房价，小户型深受广大业主的青睐，但不意味着要牺牲居住品质，小户型也要住得宽敞。诗尼曼全屋定制空间大师，可根据空间特点量身定制，科学设计...',
       'endTime': new Date('2020-12-30T08:00:00.000+08:00'),
       'id': 2,
       'isVisible': 1,
-      'lastModifyTime': new Date(),
+      'lastModifyTime': new Date().addSeconds(10),
       'pic': 'http://ojejh4mx9.bkt.clouddn.com/product/public/uploads/1484548108187.jpg',
       'startTime': new Date('2017-01-01T08:00:00.000+08:00'),
       'title': '诗尼曼全屋定制空间大师'
     },
     {
       'content': '',
-      'createTime': new Date() + 40,
+      'createTime': new Date().addSeconds(20),
       'description': '唐顿庄园系列是诗尼曼2016年推出的高端全屋定制系列产品。设计灵感起源于英国著名电视剧《唐顿庄园》，剧中大气的府邸，考究的家具以及全剧中散发出...',
       'endTime': new Date('2020-12-30T08:00:00.000+08:00'),
       'id': 3,
       'isVisible': 1,
-      'lastModifyTime': new Date(),
+      'lastModifyTime': new Date().addSeconds(20),
       'pic': 'http://ojejh4mx9.bkt.clouddn.com/product/public/uploads/1484548206928.jpg',
       'startTime': new Date('2017-01-01T08:00:00.000+08:00'),
       'title': '诗尼曼新品-唐顿庄园全屋定制'
     },
     {
       'content': '',
-      'createTime': new Date() + 50,
+      'createTime': new Date().addSeconds(30),
       'description': 'E·灵动-1房变3房，可成长性家居。满足房屋使用者在不同时期、不同阶段的需求变化，利用多功能、组合式的家具，巧妙地根据不同年龄段实际需要搭配。',
       'endTime': new Date('2020-12-30T08:00:00.000+08:00'),
       'id': 4,
       'isVisible': 1,
-      'lastModifyTime': new Date(),
+      'lastModifyTime': new Date().addSeconds(30),
       'pic': 'http://ojejh4mx9.bkt.clouddn.com/product/public/uploads/1484548265871.jpg',
       'startTime': new Date('2017-01-01T08:00:00.000+08:00'),
       'title': '诗尼曼新品-E灵动系列'
     },
     {
       'content': '',
-      'createTime': new Date() + 60,
+      'createTime': new Date().addSeconds(40),
       'description': '诗尼曼全屋定制正品保证承诺。我是诗尼曼全屋定制，我承诺100%原厂制作，100%品质保证。我为我的品牌代言，我的我的客户负责！',
       'endTime': new Date('2020-12-30T08:00:00.000+08:00'),
       'id': 5,
       'isVisible': 1,
-      'lastModifyTime': new Date(),
+      'lastModifyTime': new Date().addSeconds(40),
       'pic': 'http://ojejh4mx9.bkt.clouddn.com/product/public/uploads/1484548309338.jpg',
       'startTime': new Date('2017-01-01T08:00:00.000+08:00'),
       'title': '诗尼曼正品保证险'
