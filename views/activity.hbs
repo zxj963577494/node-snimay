@@ -1,4 +1,10 @@
+
 {{# model}}
+	{{#contentFor 'seo'}} 
+	<title>{{../model.title}}</title> 
+	<meta name="description" content="{{../model.description}}" />
+	<meta name="keywords" content="{{../model.title}}" />
+	{{/contentFor}} 
 <div id="fh5co-product" style="padding:3em 0">
 	<div class="container">
 		<div class="row">
