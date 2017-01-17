@@ -16,6 +16,7 @@ const auth = require('../middlewares/auth')
 
 router.get('/install', install.get)
 router.post('/install', install.post)
+router.post('/install/next', install.next)
 
 router.use(auth.authUser)
 

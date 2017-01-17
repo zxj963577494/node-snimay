@@ -33,7 +33,7 @@ const ProductSchema = mongoose.Schema({
 ProductSchema.plugin(autoIncrement.plugin, {
   model: 'Product',
   field: 'id',
-  startAt: 1,
+  startAt: 19,
   incrementBy: 1
 })
 

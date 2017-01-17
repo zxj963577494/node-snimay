@@ -31,15 +31,7 @@ exports.create = function (params, callback) {
   const website = new WebSiteModel()
   website.host = params.host
   website.title = params.title
-  website.description = params.description
-  website.keywords = params.keywords
-  website.copyright = params.copyright
-  website.address = params.address
-  website.icp = params.icp
-  website.qq = params.qq
-  website.weibo = params.weibo
-  website.tel = params.tel
-  website.mail = params.mail
+  website.email = params.email
 
   website.save(callback)
 }

@@ -1,5 +1,4 @@
 const express = require('express')
-const checklock = require('../middlewares/checklock')
 const global = require('../middlewares/global')
 const flash = require('../middlewares/flash')
 const csrf = require('../middlewares/csrf')
@@ -16,7 +15,6 @@ const activities = require('../controllers/activities')
 
 const router = express.Router()
 
-router.use(checklock.check)
 router.use(global.init)
 router.use(flash.init)
 router.use(csrf.init)

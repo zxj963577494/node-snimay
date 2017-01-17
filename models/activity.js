@@ -20,7 +20,7 @@ const ActivitySchema = mongoose.Schema({
 ActivitySchema.plugin(autoIncrement.plugin, {
   model: 'Activity',
   field: 'id',
-  startAt: 1,
+  startAt: 6,
   incrementBy: 1
 })
 
