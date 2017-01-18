@@ -30,7 +30,7 @@ moment.locale('zh-cn')
 
 app.disable('x-powered-by')
 
-//app.use(timeout('10s'))
+app.use(timeout('10s'))
 
 app.use(bodyParser.json({
   limit: '1mb'
@@ -79,5 +79,5 @@ app.use(flash())
 app.use('/', routes)
 
 app.listen(config.port, function (req, res) {
-  console.log(`${pkg.name} started on http://localhost: ${config.port} press Ctrl + C  to terminate.`);
+  console.log(`${pkg.name} started on http://localhost: ${config.port} press Ctrl + C  to terminate.`)
 })
