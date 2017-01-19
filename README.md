@@ -1,5 +1,9 @@
 # node-snimay
 
+## Example
+
+[http://120.132.14.20:8080/](http://120.132.14.20:8080/)
+
 ## Quick Start Install
 
 you’ll need **Node.js v6 LTS**
