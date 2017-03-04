@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const config = require('config-lite')
 const autoIncrement = require('mongoose-auto-increment')
 
+mongoose.Promise = require('bluebird')
+
 const connection = mongoose.connect(config.mongodb, {
   server: {
     poolSize: 20

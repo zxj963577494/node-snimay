@@ -2,27 +2,24 @@ const models = require('../models')
 const BannerModel = models.Banner
 
 
-exports.get = function (options, callback) {
-  BannerModel.find(Object.assign({ startTime: { '$lte': new Date() }, endTime: { $gt: new Date() } }, options), {}, { sort: ['-sort'] }, callback)
+exports.get = function (options) {
+  return BannerModel.find(Object.assign({ startTime: { '$lte': new Date() }, endTime: { $gt: new Date() } }, options), {}, { sort: ['-sort'] }).exec()
 }
 
-exports.get_Admin = function (callback) {
-  BannerModel.find({}, '_id title startTime endTime sort isVisible', { sort: ['-lastModifyTime'] }, callback)
+exports.get_Admin = function () {
+  return BannerModel.find({}, '_id title startTime endTime sort isVisible', { sort: ['-lastModifyTime'] }).exec()
 }
 
-exports.getBy_Id = function (_id, callback) {
-  BannerModel.findOne({
+exports.getBy_Id = function (_id) {
+  return BannerModel.findOne({
     _id: _id
-  }, callback)
+  }).exec()
 }
 
-exports.update = function (params, callback) {
-  BannerModel.findOne({
+exports.update = function (params) {
+  return BannerModel.findOne({
     _id: params._id
-  }, function (err, banner) {
-    if (err || !banner) {
-      return callback(err)
-    }
+  }).then(function (banner) {
     banner.title = params.title
     banner.price = params.price
     banner.description = params.description
@@ -33,12 +30,14 @@ exports.update = function (params, callback) {
     banner.isVisible = params.isVisible
     banner.sort = params.sort
     banner.lastModifyTime = new Date()
-    banner.save(callback)
+    return banner.save()
+  }).catch(function (err) {
+    Promise.reject(err)
   })
 }
 
 
-exports.create = function (params, callback) {
+exports.create = function (params) {
   var banner = new BannerModel()
   banner.title = params.title
   banner.price = params.price
@@ -50,11 +49,11 @@ exports.create = function (params, callback) {
   banner.isVisible = params.isVisible
   banner.sort = params.sort
 
-  banner.save(callback)
+  return banner.save()
 }
 
 exports.remove = function (_id, callback) {
-  BannerModel.remove({
+  return BannerModel.remove({
     _id: _id
-  }, callback)
+  }).exec()
 }

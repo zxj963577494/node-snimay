@@ -1,4 +1,3 @@
-const eventproxy = require('eventproxy')
 const CategoryProxy = require('../../proxy').Category
 const ProductProxy = require('../../proxy').Product
 const SelectorProxy = require('../../proxy').Selector
@@ -6,29 +5,27 @@ const _ = require('lodash')
 
 exports.getList = function (req, res, next) {
   let cid = req.params.cid || 1
-  const ep = new eventproxy()
-  ep.all('list', function (list) {
+  ProductProxy.getProducts_Admin({
+    cid: cid
+  }).then(function (list) {
     res.render('admin/product_list', {
       cid: cid,
       title: parseInt(cid) === 1 ? '产品体验' : parseInt(cid) === 2 ? '定制家具' : '配套家具',
       list: list,
       layout: 'admin'
     })
-  })
-  ProductProxy.getProducts_Admin({
-    cid: cid
-  }, ep.done('list'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getAdd = function (req, res, next) {
-  const ep = new eventproxy()
   let cid = req.params.cid || 1
-  ep.all('category', 'selector', function (category, selector) {
+
+  const CategoryPromise = CategoryProxy.get('_id id title alias isVisible sort', {})
+  const SelectorPromise = SelectorProxy.getByCid_Admin(cid, {})
+  
+  Promise.all([CategoryPromise, SelectorPromise]).then(function ([category, selector]) {
     res.render('admin/product_add', {
       cid: cid,
       category: category.filter((x) => {
@@ -38,13 +35,8 @@ exports.getAdd = function (req, res, next) {
       selector: selector,
       layout: 'admin'
     })
-  })
-  CategoryProxy.get('_id id title alias isVisible sort', {}, ep.done('category'))
-  SelectorProxy.getByCid_Admin(cid, {}, ep.done('selector'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -68,28 +60,23 @@ exports.postAdd = function (req, res, next) {
   const params = {
     cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, isIndex, tag, where, search
   }
-  const ep = new eventproxy()
-  ep.all('product', function (product) {
+  ProductProxy.create(params).then(function () {
     req.flash('info', {
       message: '添加成功'
     })
     res.redirect('/admin/product_list')
-  })
-
-  ProductProxy.create(params, ep.done('product'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getEdit = function (req, res, next) {
   const _id = req.params._id
   const cid = req.params.cid || 1
-  const ep = new eventproxy()
-  ep.all('model', 'category', 'selector', function (model, category, selector) {
+  const CategoryPromise = CategoryProxy.get('_id id title alias isVisible sort', {})
+  const ProductPromise = ProductProxy.getById_Admin(_id)
+  const SelectorPromise = SelectorProxy.getByCid_Admin(cid, {})
+  Promise.all([ProductPromise, CategoryPromise, SelectorPromise]).then(function ([model, category, selector]) {
     res.render('admin/product_edit', {
       cid: cid,
       category: category.filter((x) => {
@@ -100,14 +87,8 @@ exports.getEdit = function (req, res, next) {
       title: (parseInt(cid) === 1 ? '产品体验' : parseInt(cid) === 2 ? '定制家具' : '配套家具'),
       layout: 'admin'
     })
-  })
-  CategoryProxy.get('_id id title alias isVisible sort', {}, ep.done('category'))
-  ProductProxy.getById_Admin(_id, ep.done('model'))
-  SelectorProxy.getByCid_Admin(cid, {}, ep.done('selector'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -132,29 +113,24 @@ exports.postEdit = function (req, res, next) {
   const params = {
     _id, cid, categoryRef, title, content, price, description, sliderPics, skPic, code, part, isVisible, isIndex, tag, where, search
   }
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+  ProductProxy.update(params).then(function (model) {
     req.flash('info', {
       message: '编辑成功'
     })
     res.redirect('/admin/product_list/' + cid)
-  })
-
-  ProductProxy.update(params, ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getRemove = function (req, res, next) {
   const _id = req.params._id
-  ProductProxy.remove(_id, function (model) {
+  ProductProxy.remove(_id).then(function (model) {
     req.flash('info', {
       message: '删除成功'
     })
     res.redirect('back')
+  }).catch(function (err) {
+    return next(err)
   })
 }

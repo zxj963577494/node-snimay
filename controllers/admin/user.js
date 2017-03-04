@@ -1,22 +1,14 @@
-const eventproxy = require('eventproxy')
 const UserProxy = require('../../proxy').User
 const tools = require('../../util/tools')
 
 exports.getList = function (req, res, next) {
-  const ep = new eventproxy()
-  ep.all('list', function (list) {
+  UserProxy.get().then(function (list) {
     res.render('admin/user_list', {
       list: list,
       layout: 'admin'
     })
-  })
-
-  UserProxy.get(ep.done('list'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -39,39 +31,27 @@ exports.postAdd = function (req, res, next) {
     isEnable
   }
 
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
-    req.flash('info', {
-      message: '添加成功'
+  tools.bhash(password).then(function (passhash) {
+    UserProxy.create(params).then(function (model) {
+      req.flash('info', {
+        message: '添加成功'
+      })
+      res.redirect('/admin/user_list')
     })
-    res.redirect('/admin/user_list')
-  })
-
-  tools.bhash(password, ep.done(function (passhash) {
-    UserProxy.create(params, ep.done('model'))
-  }))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getEdit = function (req, res, next) {
   const _id = req.params._id
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+  UserProxy.getBy_Id(_id).then(function (model) {
     res.render('admin/user_edit', {
       model: model,
       layout: 'admin'
     })
-  })
-  UserProxy.getBy_Id(_id, ep.done('model'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -88,32 +68,32 @@ exports.postEdit = function (req, res, next) {
     email,
     isEnable
   }
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
-    req.flash('info', { message: '编辑成功' })
-    res.redirect('/admin/user_list')
-  })
   if (password) {
-    tools.bhash(password, ep.done(function (passhash) {
+    tools.bhash(password).then(function (passhash) {
       params.password = passhash
-      UserProxy.update(params, ep.done('model'))
-    }))
+      UserProxy.update(params).then(function (model) {
+        req.flash('info', { message: '编辑成功' })
+        res.redirect('/admin/user_list')
+      })
+    })
   } else {
-    UserProxy.update(params, ep.done('model'))
-  }
-  ep.fail(function (err) {
-    if (err) {
+    UserProxy.update(params).then(function (model) {
+      req.flash('info', { message: '编辑成功' })
+      res.redirect('/admin/user_list')
+    }).catch(function (err) {
       return next(err)
-    }
-  })
+    })
+  }
 }
 
 exports.getRemove = function (req, res, next) {
   const _id = req.params._id
-  UserProxy.remove(_id, function (model) {
+  UserProxy.remove(_id).then(function (model) {
     req.flash('info', {
       message: '删除成功'
     })
     res.redirect('/admin/user_list')
+  }).catch(function (err) {
+    return next(err)
   })
 }

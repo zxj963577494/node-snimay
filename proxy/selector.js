@@ -2,58 +2,53 @@ const models = require('../models')
 const SelectorModel = models.Selector
 
 
-exports.getAll = function (options, callback) {
-  SelectorModel.find(options, callback)
+exports.getAll = function (options) {
+  return SelectorModel.find(options).exec()
 }
 
 
-exports.getSelectors = function (options, callback) {
-  SelectorModel.find(options, 'id title values alias', { sort: ['-sort'] }, callback)
+exports.getSelectors = function (options) {
+  return SelectorModel.find(options, 'id title values alias', { sort: ['-sort'] }).exec()
 }
 
 
-exports.getByCid = function (cid, options, callback) {
-  SelectorModel.find(Object.assign({ cid: cid }, options), 'id title values alias', { sort: ['-sort'] }, callback)
+exports.getByCid = function (cid, options) {
+  return SelectorModel.find(Object.assign({ cid: cid }, options), 'id title values alias', { sort: ['-sort'] }).exec()
 }
 
-exports.getByCid_Admin = function (cid, options, callback) {
-  SelectorModel.find(Object.assign({ cid: cid }, options), '_id title values sort alias isVisible', { sort: ['-sort'] }, callback)
+exports.getByCid_Admin = function (cid, options) {
+  return SelectorModel.find(Object.assign({ cid: cid }, options), '_id title values sort alias isVisible', { sort: ['-sort'] }).exec()
 }
 
-exports.getById_Admin = function (_id, callback) {
-  SelectorModel.findOne({ _id: _id }, '_id title values sort alias isVisible', { 'values.sort': ['-sort'] }, callback)
+exports.getById_Admin = function (_id) {
+  return SelectorModel.findOne({ _id: _id }, '_id title values sort alias isVisible', { 'values.sort': ['-sort'] }).exec()
 }
 
-exports.update = function (params, callback) {
-  SelectorModel.findOne({ _id: params._id }, function (err, selector) {
-    if (err || !selector) {
-      return callback(err)
-    }
+exports.update = function (params) {
+  return SelectorModel.findOne({ _id: params._id }).then(function (selector) {
     selector.title = params.title
     selector.alias = params.alias
     selector.sort = params.sort
     selector.isVisible = params.isVisible
     selector.lastModifyTime = new Date()
-    selector.save(callback)
+    return selector.save()
+  }).catch(function (err) {
+    Promise.reject(err)
   })
 }
 
-exports.updateValues = function (_id, value, callback) {
-  SelectorModel.findOne({ _id: _id }, function (err, selector) {
-    if (err || !selector) {
-      return callback(err)
-    }
+exports.updateValues = function (_id, value) {
+  return SelectorModel.findOne({ _id: _id }).then(function (selector) {
     selector.values.push(value)
     selector.lastModifyTime = new Date()
-    selector.save(callback)
+    return selector.save()
+  }).catch(function (err) {
+    Promise.reject(err)
   })
 }
 
-exports.updateValueModel = function (params, callback) {
-  SelectorModel.findOne({ _id: params._id }, function (err, selector) {
-    if (err || !selector) {
-      return callback(err)
-    }
+exports.updateValueModel = function (params) {
+  return SelectorModel.findOne({ _id: params._id }).then(function (selector) {
     selector.values.forEach((x) => {
       if (x.id === params._sid) {
         x.title = params.title
@@ -63,11 +58,13 @@ exports.updateValueModel = function (params, callback) {
       }
     })
     selector.lastModifyTime = new Date()
-    selector.save(callback)
+    return selector.save()
+  }).catch(function (err) {
+    Promise.reject(err)
   })
 }
 
-exports.create = function (params, callback) {
+exports.create = function (params) {
   var selector = new SelectorModel()
   selector.cid = params.cid
   selector.title = params.title
@@ -76,22 +73,21 @@ exports.create = function (params, callback) {
   selector.sort = params.sort
   selector.values = params.values
 
-  selector.save(callback)
+  return selector.save()
 }
 
-exports.removeKey = function (_id, callback) {
-  SelectorModel.remove({
+exports.removeKey = function (_id) {
+  return SelectorModel.remove({
     _id: _id
-  }, callback)
+  })
 }
 
-exports.removeValue = function (_id, _sid, callback) {
-  SelectorModel.findOne({ _id: _id }, function (err, selector) {
-    if (err || !selector) {
-      return callback(err)
-    }
+exports.removeValue = function (_id, _sid) {
+  return SelectorModel.findOne({ _id: _id }).then(function (selector) {
     selector.values.id(_sid).remove()
     selector.lastModifyTime = new Date()
-    selector.save(callback)
+    return selector.save()
+  }).catch(function (err) {
+    Promise.reject(err)
   })
 }

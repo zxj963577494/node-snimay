@@ -1,42 +1,39 @@
 const models = require('../models')
 const ActivityModel = models.Activity
 
-exports.get = function (select, options, callback) {
-  ActivityModel.find(options, select, {
+exports.get = function (select, options) {
+  return ActivityModel.find(options, select, {
     sort: ['-createTime']
-  }, callback)
+  }).exec()
 }
 
-exports.getByPage = function (select, pageIndex, pageSize, options, callback) {
+exports.getByPage = function (select, pageIndex, pageSize, options) {
   let numToSkip = (pageIndex - 1) * pageSize
-  ActivityModel.find(options, select).sort({
+  return ActivityModel.find(options, select).sort({
     'createTime': -1
-  }).skip(numToSkip).limit(pageSize).exec(callback)
+  }).skip(numToSkip).limit(pageSize).exec()
 }
 
-exports.getCount = function (options, callback) {
-  ActivityModel.count(options, callback)
+exports.getCount = function (options) {
+  return ActivityModel.count(options).exec()
 }
 
-exports.getById = function (id, callback) {
-  ActivityModel.findOne({
+exports.getById = function (id) {
+  return ActivityModel.findOne({
     id: id
-  }, callback)
+  }).exec()
 }
 
-exports.getBy_Id = function (_id, callback) {
-  ActivityModel.findOne({
+exports.getBy_Id = function (_id) {
+  return ActivityModel.findOne({
     _id: _id
-  }, callback)
+  }).exec()
 }
 
-exports.update = function (params, callback) {
-  ActivityModel.findOne({
+exports.update = function (params) {
+  return ActivityModel.findOne({
     _id: params._id
-  }, function (err, model) {
-    if (err || !model) {
-      return callback(err)
-    }
+  }).then(function (model) {
     model.title = params.title
     model.description = params.description
     model.content = params.content
@@ -45,11 +42,13 @@ exports.update = function (params, callback) {
     model.endTime = params.endTime
     model.isVisible = params.isVisible
     model.lastModifyTime = new Date()
-    model.save(callback)
+    return model.save()
+  }).catch(function (err) {
+    Promise.reject(err)
   })
 }
 
-exports.create = function (params, callback) {
+exports.create = function (params) {
   var model = new ActivityModel()
   model.title = params.title
   model.description = params.description
@@ -59,11 +58,11 @@ exports.create = function (params, callback) {
   model.endTime = params.endTime
   model.isVisible = params.isVisible
 
-  model.save(callback)
+  return model.save()
 }
 
-exports.remove = function (_id, callback) {
-  ActivityModel.remove({
+exports.remove = function (_id) {
+  return ActivityModel.remove({
     _id: _id
-  }, callback)
+  })
 }

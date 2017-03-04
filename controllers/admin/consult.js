@@ -1,38 +1,25 @@
-const eventproxy = require('eventproxy')
 const ConsultProxy = require('../../proxy').Consult
 
 exports.getList = function (req, res, next) {
-  const ep = new eventproxy()
-  ep.all('list', function (list) {
+  ConsultProxy.get('_id name tel isRead remark', {}).then(function (list) {
     res.render('admin/consult_list', {
       list: list,
       layout: 'admin'
     })
-  })
-
-  ConsultProxy.get('_id name tel isRead remark', {}, ep.done('list'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getEdit = function (req, res, next) {
   const _id = req.params._id
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+  ConsultProxy.getBy_Id(_id).then(function (model) {
     res.render('admin/consult_edit', {
       model: model,
       layout: 'admin'
     })
-  })
-  ConsultProxy.getBy_Id(_id, ep.done('model'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -45,27 +32,23 @@ exports.postEdit = function (req, res, next) {
   const params = {
     _id, name, tel, isRead, remark
   }
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
-    req.flash('info', {message: '编辑成功'})
+
+  ConsultProxy.update(params).then(function (model) {
+    req.flash('info', { message: '编辑成功' })
     res.redirect('/admin/consult_list')
-  })
-
-  ConsultProxy.update(params, ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getRemove = function (req, res, next) {
   const _id = req.params._id
-  ConsultProxy.remove(_id, function (model) {
+  ConsultProxy.remove(_id).then(function (model) {
     req.flash('info', {
       message: '删除成功'
     })
     res.redirect('/admin/consult_list')
+  }).catch(function (err) {
+    return next(err)
   })
 }

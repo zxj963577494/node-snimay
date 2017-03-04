@@ -1,4 +1,3 @@
-const eventproxy = require('eventproxy')
 const config = require('config-lite')
 const User = require('../proxy').User
 const UserModel = require('../models').User
@@ -23,26 +22,17 @@ exports.gen_session = function (user, res) {
 
 // 验证用户是否登录
 exports.authUser = function (req, res, next) {
-  const ep = new eventproxy()
-  ep.fail(next)
-
   res.locals.user = null
-
-  ep.all('get_user', function (user) {
-    if (!user) {
-      return next()
-    }
-    user = res.locals.user = req.session.user = new UserModel(user)
-    next()
-  })
-
-  if (req.session.user) {
-    ep.emit('get_user', req.session.user)
+  const authToken = req.signedCookies[config.cookie]
+  if (!authToken) {
+    return next()
   } else {
-    const authToken = req.signedCookies[config.cookie]
-    if (!authToken) {
-      return next()
-    }
-    User.getByUserId(authToken, ep.done('get_user'))
+    User.getByUserId(authToken).then(function (user) {
+      if (!user) {
+        return next()
+      }
+      user = res.locals.user = req.session.user = new UserModel(user)
+      next()
+    })
   }
 }

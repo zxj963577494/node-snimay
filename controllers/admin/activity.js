@@ -1,19 +1,13 @@
-const eventproxy = require('eventproxy')
 const ActivityProxy = require('../../proxy').Activity
 
 function getList (req, res, next) {
-  const ep = new eventproxy()
-  ep.all('list', function (list) {
+  ActivityProxy.get({}, '_id title startTime endTime isVisible').then(function (list) {
     res.render('admin/activity_list', {
       list: list,
       layout: 'admin'
     })
-  })
-  ActivityProxy.get({}, '_id title startTime endTime isVisible', ep.done('list'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -32,15 +26,6 @@ function postAdd (req, res, next) {
   const description = req.body.description
   const content = req.body.content
 
-  const ep = new eventproxy()
-
-  ep.all('model', function (model) {
-    req.flash('info', {
-      message: '添加成功'
-    })
-    res.redirect('/admin/activity_list')
-  })
-
   const params = {
     title,
     isVisible,
@@ -51,29 +36,26 @@ function postAdd (req, res, next) {
     content
   }
 
-  ActivityProxy.create(params, ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  ActivityProxy.create(params).then(function (model) {
+    req.flash('info', {
+      message: '添加成功'
+    })
+    res.redirect('/admin/activity_list')
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 function getEdit (req, res, next) {
   const _id = req.params._id
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+
+  ActivityProxy.getBy_Id(_id).then(function (model) {
     res.render('admin/activity_edit', {
       model: model,
       layout: 'admin'
     })
-  })
-  ActivityProxy.getBy_Id(_id, ep.done('model'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -98,26 +80,19 @@ function postEdit (req, res, next) {
     content
   }
 
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+  ActivityProxy.update(params).then(function () {
     req.flash('info', {
       message: '编辑成功'
     })
     res.redirect('/admin/activity_list')
-  })
-
-  ActivityProxy.update(params, ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 function getRemove (req, res, next) {
   const _id = req.params._id
-  ActivityProxy.remove(_id, function (model) {
+  ActivityProxy.remove(_id).then(function () {
     req.flash('info', {
       message: '删除成功'
     })

@@ -1,19 +1,13 @@
-const eventproxy = require('eventproxy')
 const BannerProxy = require('../../proxy').Banner
 
 exports.getList = function (req, res, next) {
-  const ep = new eventproxy()
-  ep.all('list', function (list) {
+  BannerProxy.get_Admin().then(function (list) {
     res.render('admin/banner_list', {
       list: list,
       layout: 'admin'
     })
-  })
-  BannerProxy.get_Admin(ep.done('list'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -34,15 +28,6 @@ exports.postAdd = function (req, res, next) {
   const description = req.body.description
   const price = req.body.price
 
-  const ep = new eventproxy()
-
-  ep.all('model', function (model) {
-    req.flash('info', {
-      message: '添加成功'
-    })
-    res.redirect('/admin/banner_list')
-  })
-
   const params = {
     title,
     sort,
@@ -55,29 +40,25 @@ exports.postAdd = function (req, res, next) {
     price
   }
 
-  BannerProxy.create(params, ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  BannerProxy.create(params).then(function (model) {
+    req.flash('info', {
+      message: '添加成功'
+    })
+    res.redirect('/admin/banner_list')
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getEdit = function (req, res, next) {
   const _id = req.params._id
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+  BannerProxy.getBy_Id(_id).then(function (model) {
     res.render('admin/banner_edit', {
       model: model,
       layout: 'admin'
     })
-  })
-  BannerProxy.getBy_Id(_id, ep.done('model'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -106,30 +87,25 @@ exports.postEdit = function (req, res, next) {
     price
   }
 
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+  BannerProxy.update(params).then(function () {
     req.flash('info', {
       message: '编辑成功'
     })
     res.redirect('/admin/banner_list')
-  })
-
-  BannerProxy.update(params, ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getRemove = function (req, res, next) {
   const _id = req.params._id
-  BannerProxy.remove(_id, function (model) {
+  BannerProxy.remove(_id).then(function (model) {
     req.flash('info', {
       message: '删除成功'
     })
     res.redirect('/admin/banner_list')
+  }).catch(function (err) {
+    return next(err)
   })
 }
 

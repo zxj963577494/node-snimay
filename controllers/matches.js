@@ -1,16 +1,14 @@
-const eventproxy = require('eventproxy')
 const _ = require('lodash')
 const ProductProxy = require('../proxy').Product
 const SelectorProxy = require('../proxy').Selector
 const whereUtil = require('../util/whereUtil')
 
-
 exports.get = function (req, res, next) {
-    // 获取当前页
+  // 获取当前页
   var currentPage = parseInt(req.query.page, 10) || 1
   currentPage = currentPage > 0 ? currentPage : 1
 
-    // 构建产品查询条件
+  // 构建产品查询条件
   const options = Object.assign({
     cid: 3,
     isVisible: 1
@@ -18,22 +16,9 @@ exports.get = function (req, res, next) {
 
   const pageSize = 12
 
-  const ep = new eventproxy()
-
-  ep.all('products', 'keys', 'totalCount', 'pageLink', function (products, keys, totalCount, pageLink) {
-    res.render('matches', {
-      products: products,
-      keys: keys,
-      pageLink: pageLink,
-      currentPage: currentPage,
-      totalPages: Math.ceil(totalCount / pageSize),
-      pageSize: pageSize
-    })
-  })
-
   SelectorProxy.getByCid(3, {
     isVisible: 1
-  }, ep.done(function (keys) {
+  }).then(function (keys) {
     let params = []
     let search = []
     keys.forEach((x) => {
@@ -53,17 +38,19 @@ exports.get = function (req, res, next) {
     const pageLink = whereUtil.pageLink(params)
     whereUtil.addActive(keys, params)
     whereUtil.addLink('/matches', keys, params)
-    ep.emit('pageLink', pageLink)
-    ep.emit('keys', keys)
 
-    ProductProxy.getProductsByPage('id skPic price title', currentPage, pageSize, options, ep.done('products'))
+    const ProductsByPagePromise = ProductProxy.getProductsByPage('id skPic price title', currentPage, pageSize, options)
+    const ProductCountPromise = ProductProxy.getProductCount(options)
 
-    ProductProxy.getProductCount(options, ep.done('totalCount'))
-  }))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+    Promise.all([ProductsByPagePromise, ProductCountPromise]).then(function ([products, totalCount]) {
+      res.render('matches', {
+        products: products,
+        keys: keys,
+        pageLink: pageLink,
+        currentPage: currentPage,
+        totalPages: Math.ceil(totalCount / pageSize),
+        pageSize: pageSize
+      })
+    })
   })
 }

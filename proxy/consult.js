@@ -1,50 +1,48 @@
 const models = require('../models')
 const ConsultModel = models.Consult
 
-exports.get = function (select, options, callback) {
-  ConsultModel.find(options, select, { sort: ['-createTime'] }, callback)
+exports.get = function (select, options) {
+  return ConsultModel.find(options, select, { sort: ['-createTime'] }).exec()
 }
 
-exports.getLimit = function (limit, callback) {
-  ConsultModel.find({}, '_id name tel isRead remark', { sort: ['-createTime'] }).limit(limit).exec(callback)
+exports.getLimit = function (limit) {
+  return ConsultModel.find({}, '_id name tel isRead remark', { sort: ['-createTime'] }).limit(limit).exec()
 }
 
-exports.getNotReadCount = function (callback) {
-  ConsultModel.count({ isRead: 0 }, callback)
+exports.getNotReadCount = function () {
+  return ConsultModel.count({ isRead: 0 }).exec()
 }
 
-exports.getBy_Id = function (_id, callback) {
-  ConsultModel.findOne({
+exports.getBy_Id = function (_id) {
+  return ConsultModel.findOne({
     _id: _id
-  }, callback)
+  }).exec()
 }
 
-exports.update = function (params, callback) {
-  ConsultModel.findOne({ _id: params._id }, function (err, consult) {
-    if (err || !consult) {
-      return callback(err)
-    }
+exports.update = function (params) {
+  return ConsultModel.findOne({ _id: params._id }).then(function (consult) {
     consult.name = params.name
     consult.tel = params.tel
     consult.isRead = params.isRead
     consult.remark = params.remark
     consult.lastModifyTime = new Date()
-    consult.save(callback)
+    return consult.save()
+  }).catch(function (err) {
+    Promise.reject(err)
   })
 }
 
-exports.create = function (params, callback) {
+exports.create = function (params) {
   const consult = new ConsultModel()
   consult.name = params.name
   consult.tel = params.tel
   consult.isRead = params.isRead
   consult.remark = params.remark
-
-  consult.save(callback)
+  return consult.save()
 }
 
-exports.remove = function (_id, callback) {
-  ConsultModel.remove({
+exports.remove = function (_id) {
+  return ConsultModel.remove({
     _id: _id
-  }, callback)
+  })
 }

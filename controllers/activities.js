@@ -1,4 +1,3 @@
-const eventproxy = require('eventproxy')
 const ActivityProxy = require('../proxy').Activity
 
 exports.get = function (req, res, next) {
@@ -8,51 +7,39 @@ exports.get = function (req, res, next) {
 
   // 构建产品查询条件
   const options = Object.assign(
-    { 'createTime': {
-      '$lt': new Date()
-    } },
+    {
+      'createTime': {
+        '$lt': new Date()
+      }
+    },
     { isVisible: 1 })
 
   const pageSize = 12
 
-  const ep = new eventproxy()
+  const getByPagePromise = ActivityProxy.getByPage('id pic title endTime description', currentPage, pageSize, options)
 
-  ep.all('activities', 'totalCount', function (activities, totalCount) {
+  const getCountPromise = ActivityProxy.getCount(options)
+
+  Promise.all([getByPagePromise, getCountPromise]).then(function ([activities, totalCount]) {
     res.render('activities', {
       activities: activities,
       currentPage: currentPage,
       totalPages: Math.ceil(totalCount / pageSize),
       pageSize: pageSize
     })
-  })
-
-  ActivityProxy.getByPage('id pic title endTime description', currentPage, pageSize, options, ep.done('activities'))
-
-  ActivityProxy.getCount(options, ep.done('totalCount'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getById = function (req, res, next) {
   const id = req.params.id
 
-  const ep = new eventproxy()
-
-  ep.all('model', function (model) {
+  ActivityProxy.getById(id).then(function (model) {
     res.render('activity', {
       model
     })
-  })
-
-  ActivityProxy.getById(id, ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }

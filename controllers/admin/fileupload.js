@@ -1,6 +1,7 @@
-const fs = require('fs')
-const qn = require('qn')
 const config = require('config-lite')
+const Promise = require('bluebird')
+const qn = require('qn')
+const fs = Promise.promisifyAll(require('fs'))
 
 exports.upload = function (req, res, next) {
   let files = []
@@ -16,12 +17,9 @@ exports.upload = function (req, res, next) {
         return next(err)
       }
       // 删除服务器文件
-      if (fs.exists(req.file.path, (exists) => {
-        if (exists) {
-          fs.unlink(req.file.path, (err) => {
-            if (err) {
-              return next(err)
-            }
+      fs.statAsync(req.file.path).then((stat) => {
+        if (stat) {
+          fs.unlinkAsync(req.file.path).then(function () {
             files.push({
               deleteType: 'DELETE',
               deleteUrl: config.qiniu.BROWSE_ORIGIN + qiniu.key,
@@ -50,15 +48,15 @@ exports.upload = function (req, res, next) {
           }
           res.json(result)
         }
-      }));
+      }).catch(function (err) {
+        files.push({
+          error: '上传失败'
+        })
+        let result = {
+          files: files
+        }
+        res.json(result)
+      })
     })
-  } else {
-    files.push({
-      error: '上传失败'
-    })
-    let result = {
-      files: files
-    }
-    res.json(result)
   }
 }

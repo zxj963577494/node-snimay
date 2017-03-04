@@ -1,4 +1,3 @@
-const eventproxy = require('eventproxy')
 const _ = require('lodash')
 const ProductProxy = require('../proxy').Product
 const SelectorProxy = require('../proxy').Selector
@@ -17,22 +16,9 @@ exports.get = function (req, res, next) {
 
   const pageSize = 12
 
-  const ep = new eventproxy()
-
-  ep.all('products', 'keys', 'totalCount', 'pageLink', function (products, keys, totalCount, pageLink) {
-    res.render('products', {
-      products: products,
-      keys: keys,
-      pageLink: pageLink,
-      currentPage: currentPage,
-      totalPages: Math.ceil(totalCount / pageSize),
-      pageSize: pageSize
-    })
-  })
-
   SelectorProxy.getByCid(1, {
     isVisible: 1
-  }, ep.done(function (keys) {
+  }).then(function (keys) {
     let params = []
     let search = []
     keys.forEach((x) => {
@@ -52,17 +38,20 @@ exports.get = function (req, res, next) {
     const pageLink = whereUtil.pageLink(params)
     whereUtil.addActive(keys, params)
     whereUtil.addLink('/products', keys, params)
-    ep.emit('pageLink', pageLink)
-    ep.emit('keys', keys)
 
-    ProductProxy.getProductsByPage('id skPic price title', currentPage, pageSize, options, ep.done('products'))
+    const ProductsByPagePromise = ProductProxy.getProductsByPage('id skPic price title', currentPage, pageSize, options)
 
-    ProductProxy.getProductCount(options, ep.done('totalCount'))
-  }))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+    const ProductCountPromise = ProductProxy.getProductCount(options)
+    
+    Promise.all([ProductsByPagePromise, ProductCountPromise]).then(function ([products, totalCount]) {
+      res.render('products', {
+        products: products,
+        keys: keys,
+        pageLink: pageLink,
+        currentPage: currentPage,
+        totalPages: Math.ceil(totalCount / pageSize),
+        pageSize: pageSize
+      })
+    })
   })
 }

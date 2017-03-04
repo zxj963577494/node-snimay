@@ -8,6 +8,7 @@ module.exports = {
     },
     "rules": {
         "semi": 2,
+        "no-trailing-spaces": 0
     },
     "env": {
         "node": true,

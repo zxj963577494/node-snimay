@@ -1,21 +1,13 @@
-const eventproxy = require('eventproxy')
 const WebSiteProxy = require('../../proxy').WebSite
 
 exports.get = function (req, res, next) {
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+  WebSiteProxy.getOne().then(function (model) {
     res.render('admin/siteconfig', {
       model: model,
       layout: 'admin'
     })
-  })
-
-  WebSiteProxy.getOne(ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -48,17 +40,10 @@ exports.update = function (req, res, next) {
     email
   }
 
-  const ep = new eventproxy()
-  ep.all('website', function (website) {
+  WebSiteProxy.update(params).then(function (model) {
     req.flash('info', { message: '编辑成功' })
     res.redirect('/admin/siteconfig')
-  })
-
-  WebSiteProxy.update(params, ep.done('website'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }

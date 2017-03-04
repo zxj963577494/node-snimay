@@ -1,39 +1,25 @@
-const eventproxy = require('eventproxy')
 const CategoryProxy = require('../../proxy').Category
 
 exports.getList = function (req, res, next) {
-  const ep = new eventproxy()
-  ep.all('list', function (list) {
+  CategoryProxy.get('_id id title alias isVisible sort', {}).then(function (list) {
     res.render('admin/category_list', {
       list: list,
       layout: 'admin'
     })
-  })
-  CategoryProxy.get('_id id title alias isVisible sort', {}, ep.done('list'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getEdit = function (req, res, next) {
   const _id = req.params._id
-
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+  CategoryProxy.getBy_Id(_id).then(function (model) {
     res.render('admin/category_edit', {
       model: model,
       layout: 'admin'
     })
-  })
-
-  CategoryProxy.getBy_Id(_id, ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -45,20 +31,13 @@ exports.postEdit = function (req, res, next) {
   const params = {
     _id, title, sort, isVisible
   }
-  const ep = new eventproxy()
-  ep.all('category', function (category) {
+  CategoryProxy.update(params).then(function (model) {
     req.flash('info', {
       message: '编辑成功'
     })
     res.redirect('/admin/category_list')
-  })
-
-  CategoryProxy.update(params, ep.done('category'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -70,25 +49,21 @@ exports.postAdd = function (req, res, next) {
   const params = {
     title, alias, sort, isVisible
   }
-  const ep = new eventproxy()
-  ep.all('category', function (category) {
+
+  CategoryProxy.create(params).then(function (model) {
     req.flash('info', {
       message: '添加成功'
     })
     res.redirect('/admin/category_list')
-  })
-
-  CategoryProxy.create(params, ep.done('category'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getAdd = function (req, res, next) {
   res.render('admin/category_add', {
     layout: 'admin'
+  }).catch(function (err) {
+    return next(err)
   })
 }

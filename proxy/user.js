@@ -2,31 +2,28 @@ const uuid = require('node-uuid')
 const models = require('../models')
 const UserModel = models.User
 
-exports.getOne = function (options, callback) {
-  UserModel.findOne(options, 'userid _id name isEnable password', { sort: ['-createTime'] }, callback)
+exports.getOne = function (options) {
+  return UserModel.findOne(options, 'userid _id name isEnable password', { sort: ['-createTime'] }).exec()
 }
 
-exports.get = function (callback) {
-  UserModel.find({}, '_id name email isEnable createTime', { sort: ['-createTime'] }, callback)
+exports.get = function () {
+  return UserModel.find({}, '_id name email isEnable createTime', { sort: ['-createTime'] }).exec()
 }
 
-exports.getBy_Id = function (_id, callback) {
-  UserModel.findOne({
+exports.getBy_Id = function (_id) {
+  return UserModel.findOne({
     _id: _id
-  }, callback)
+  }).exec()
 }
 
-exports.getByUserId = function (userid, callback) {
-  UserModel.findOne({
+exports.getByUserId = function (userid) {
+  return UserModel.findOne({
     userid: userid
-  }, 'name', callback)
+  }, 'name').exec()
 }
 
-exports.update = function (params, callback) {
-  UserModel.findOne({ _id: params._id }, function (err, user) {
-    if (err || !user) {
-      return callback(err)
-    }
+exports.update = function (params) {
+  return UserModel.findOne({ _id: params._id }).then(function (user) {
     user.name = params.name
     user.email = params.email
     user.isEnable = params.isEnable
@@ -34,12 +31,14 @@ exports.update = function (params, callback) {
       user.password = params.password
     };
     user.lastModifyTime = new Date()
-    user.save(callback)
+    return user.save()
+  }).catch(function (err) {
+    Promise.reject(err)
   })
 }
 
 
-exports.create = function (params, callback) {
+exports.create = function (params) {
   const user = new UserModel()
   user.userid = uuid.v4()
   user.name = params.name
@@ -47,11 +46,11 @@ exports.create = function (params, callback) {
   user.isEnable = params.isEnable
   user.password = params.password
 
-  user.save(callback)
+  return user.save()
 }
 
-exports.remove = function (_id, callback) {
-  UserModel.remove({
+exports.remove = function (_id) {
+  return UserModel.remove({
     _id: _id
-  }, callback)
+  })
 }

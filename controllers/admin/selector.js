@@ -1,4 +1,3 @@
-const eventproxy = require('eventproxy')
 const SelectorProxy = require('../../proxy').Selector
 
 exports.getKeyAdd = function (req, res, next) {
@@ -22,40 +21,26 @@ exports.postKeyAdd = function (req, res, next) {
   const params = {
     title, alias, cid, isVisible, sort, values
   }
-  const ep = new eventproxy()
-  ep.all('key', function (key) {
+
+  SelectorProxy.create(params).then(function (model) {
     req.flash('info', {message: '添加成功'})
     res.redirect('/admin/selector_key_list/' + cid)
-  })
-
-  SelectorProxy.create(params, ep.done('key'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getKeyEdit = function (req, res, next) {
   const _id = req.params._id
   const cid = req.params.cid
-
-  const ep = new eventproxy()
-  ep.all('key', function (key) {
+  SelectorProxy.getById_Admin(_id).then(function (model) {
     res.render('admin/selector_key_edit', {
       cid: cid,
-      model: key,
+      model: model,
       layout: 'admin'
     })
-  })
-
-  SelectorProxy.getById_Admin(_id, ep.done('key'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -69,46 +54,36 @@ exports.postKeyEdit = function (req, res, next) {
   const params = {
     _id, title, alias, sort, isVisible
   }
-  const ep = new eventproxy()
-  ep.all('selector', function (selector) {
+  SelectorProxy.update(params).then(function (model) {
     req.flash('info', {message: '修改成功'})
     res.redirect('/admin/selector_key_list/' + cid)
-  })
-
-  SelectorProxy.update(params, ep.done('selector'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getKeyList = function (req, res, next) {
   let cid = req.params.cid || 1
-  const ep = new eventproxy()
-  ep.all('list', function (list) {
+  SelectorProxy.getByCid_Admin(cid, {}).then(function (list) {
     res.render('admin/selector_key_list', {
       cid: cid,
       list: list,
       layout: 'admin'
     })
-  })
-  SelectorProxy.getByCid_Admin(cid, {}, ep.done('list'))
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getKeyRemove = function (req, res, next) {
   const _id = req.params._id
-  SelectorProxy.removeKey(_id, function (model) {
+  SelectorProxy.removeKey(_id).then(function (model) {
     req.flash('info', {
       message: '删除成功'
     })
     res.redirect('back')
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -132,18 +107,11 @@ exports.postValueAdd = function (req, res, next) {
     title: title,
     alias: alias
   }
-  const ep = new eventproxy()
-  ep.all('key', function (key) {
+  SelectorProxy.updateValues(_id, value).then(function (model) {
     req.flash('info', {message: '添加成功'})
     res.redirect('/admin/selector_value_list/' + _id)
-  })
-
-  SelectorProxy.updateValues(_id, value, ep.done('key'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -151,24 +119,18 @@ exports.getValueEdit = function (req, res, next) {
   const _id = req.params._id
   const _sid = req.params._sid
 
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+  SelectorProxy.getById_Admin(_id).then(function (model) {
     var m = model.values.filter((x) => {
       return x._id.toString() === _sid
     })
     res.render('admin/selector_value_edit', {
       _id: _id,
+      _sid: _sid,
       model: m,
       layout: 'admin'
     })
-  })
-
-  SelectorProxy.getById_Admin(_id, ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
@@ -182,48 +144,35 @@ exports.postValueEdit = function (req, res, next) {
   const params = {
     _id, _sid, title, alias, sort, isVisible
   }
-  const ep = new eventproxy()
-  ep.all('selector', function (selector) {
+  SelectorProxy.updateValueModel(params).then(function () {
     req.flash('info', {message: '修改成功'})
     res.redirect('/admin/selector_value_list/' + _id)
-  })
-
-  SelectorProxy.updateValueModel(params, ep.done('selector'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getValueList = function (req, res, next) {
   const _id = req.params._id
-
-  const ep = new eventproxy()
-  ep.all('model', function (model) {
+  SelectorProxy.getById_Admin(_id).then(function (model) {
     res.render('admin/selector_value_list', {
       model: model,
       layout: 'admin'
     })
-  })
-
-  SelectorProxy.getById_Admin(_id, ep.done('model'))
-
-  ep.fail(function (err) {
-    if (err) {
-      return next(err)
-    }
+  }).catch(function (err) {
+    return next(err)
   })
 }
 
 exports.getValueRemove = function (req, res, next) {
   const _id = req.params._id
   const _sid = req.params._sid
-  SelectorProxy.removeValue(_id, _sid, function (model) {
+  SelectorProxy.removeValue(_id, _sid).then(function (model) {
     req.flash('info', {
       message: '删除成功'
     })
     res.redirect('back')
+  }).catch(function (err) {
+    return next(err)
   })
 }

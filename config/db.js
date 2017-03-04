@@ -47,36 +47,42 @@ module.exports = {
     'sort': 2,
     'title': '空间',
     'values': [{
+      '_id': ObjectId('586c5ac48fc4b61b113393df'),
       'sort': 6,
       'isVisible': 1,
       'title': '全部',
       'alias': 'all'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b123393df'),
       'sort': 5,
       'isVisible': 1,
       'title': '卧房',
       'alias': 'wf'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b133393df'),
       'sort': 4,
       'isVisible': 1,
       'title': '客厅',
       'alias': 'kt'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b143393df'),
       'sort': 3,
       'isVisible': 1,
       'title': '餐厅',
       'alias': 'ct'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b153393df'),
       'sort': 2,
       'isVisible': 1,
       'title': '书房',
       'alias': 'sf'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b163393df'),
       'sort': 1,
       'isVisible': 1,
       'title': '儿童房',
@@ -94,36 +100,42 @@ module.exports = {
     'sort': 1,
     'title': '风格',
     'values': [{
+      '_id': ObjectId('586c5ac48fc4b61b113311df'),
       'sort': 6,
       'isVisible': 1,
       'title': '全部',
       'alias': 'all'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113312df'),
       'sort': 5,
       'isVisible': 1,
       'title': '简欧风格',
       'alias': 'jo'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113313df'),
       'sort': 4,
       'isVisible': 1,
       'title': '欧式风格',
       'alias': 'os'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113314df'),
       'sort': 3,
       'isVisible': 1,
       'title': '都市时尚风格',
       'alias': 'ss'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113315df'),
       'sort': 2,
       'isVisible': 1,
       'title': '现代简约风格',
       'alias': 'jy'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113316df'),
       'sort': 1,
       'isVisible': 1,
       'title': '新中式风格',
@@ -141,30 +153,35 @@ module.exports = {
     'sort': 1,
     'title': '空间',
     'values': [{
+      '_id': ObjectId('586c5ac48fc4b61b113317df'),
       'sort': 5,
       'isVisible': 1,
       'title': '全部',
       'alias': 'all'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113318df'),
       'sort': 4,
       'isVisible': 1,
       'title': '定制卧房',
       'alias': 'wf'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113319df'),
       'sort': 3,
       'isVisible': 1,
       'title': '定制书房',
       'alias': 'sf'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113320df'),
       'sort': 2,
       'isVisible': 1,
       'title': '定制儿童房',
       'alias': 'etf'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113321df'),
       'sort': 1,
       'isVisible': 1,
       'title': '定制客餐厅',
@@ -182,60 +199,70 @@ module.exports = {
     'sort': 1,
     'title': '家具',
     'values': [{
+      '_id': ObjectId('586c5ac48fc4b61b113322df'),
       'sort': 10,
       'isVisible': 1,
       'title': '全部',
       'alias': 'all'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113323df'),
       'sort': 9,
       'isVisible': 1,
       'title': '软床类',
       'alias': 'rc'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113324df'),
       'sort': 8,
       'isVisible': 1,
       'title': '床垫类',
       'alias': 'cd'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113325df'),
       'sort': 7,
       'isVisible': 1,
       'title': '沙发类',
       'alias': 'sf'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113326df'),
       'sort': 6,
       'isVisible': 1,
       'title': '茶几',
       'alias': 'cj'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113327df'),
       'sort': 5,
       'isVisible': 1,
       'title': '边几',
       'alias': 'bj'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113331df'),
       'sort': 4,
       'isVisible': 1,
       'title': '餐桌椅',
       'alias': 'czy'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113332df'),
       'sort': 3,
       'isVisible': 1,
       'title': '单椅',
       'alias': 'dy'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113333df'),
       'sort': 2,
       'isVisible': 1,
       'title': '枕头',
       'alias': 'zt'
     },
     {
+      '_id': ObjectId('586c5ac48fc4b61b113334df'),
       'sort': 1,
       'isVisible': 1,
       'title': '单品',
