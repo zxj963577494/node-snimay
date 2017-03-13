@@ -1,4 +1,7 @@
 const path = require('path')
+const uuid = require('node-uuid')
+const jwt = require('jsonwebtoken')
+const config = require('config-lite')
 const UserProxy = require('../../proxy').User
 const tools = require('../../util/tools')
 const CategoryModel = require('../../models').Category
@@ -35,12 +38,16 @@ exports.post = function (req, res, next) {
   const password = req.body.password
   const email = req.body.email
   const isEnable = 1
+  const userid = uuid.v4()
+  const token = jwt.sign({'userid': userid}, config.JWT_SECRET)
 
   const params = {
     name,
     password,
     email,
-    isEnable
+    isEnable,
+    userid,
+    token
   }
 
   tools.bhash(password).then(function (passhash) {

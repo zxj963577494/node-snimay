@@ -21,7 +21,7 @@ exports.getByCid_Admin = function (cid, options) {
 }
 
 exports.getById_Admin = function (_id) {
-  return SelectorModel.findOne({ _id: _id }, '_id title values sort alias isVisible', { 'values.sort': ['-sort'] }).exec()
+  return SelectorModel.findOne({ _id: _id }, '', { 'values.sort': ['-sort'] }).exec()
 }
 
 exports.update = function (params) {

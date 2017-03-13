@@ -8,10 +8,10 @@ const path = require('path')
 const flash = require('connect-flash')
 const config = require('config-lite')
 const routes = require('./routes')
+const apiRoutes = require('./routes/api')
 const pkg = require('./package')
 const bodyParser = require('body-parser')
 const moment = require('moment')
-const csrf = require('csurf')
 const upload = require('./util/multerUtil')
 const helpers = require('./helpers')
 /*
@@ -54,6 +54,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(cookieParser(config.session.secret))
 
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST')
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization')
+  next()
+})
+
 // session 中间件
 app.use(session({
   name: config.session.key, // 设置 cookie 中保存 session id 的字段名称
@@ -70,10 +77,11 @@ app.use(session({
 
 app.use(upload.single('files'))
 
-app.use(csrf())
-
 // flash 中间件，用来显示通知
 app.use(flash())
+
+// 路由
+app.use('/api/v1', apiRoutes)
 
 // 路由
 app.use('/', routes)

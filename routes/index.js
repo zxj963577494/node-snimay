@@ -12,8 +12,11 @@ const result = require('../controllers/result')
 const about = require('../controllers/about')
 const contact = require('../controllers/contact')
 const activities = require('../controllers/activities')
+const csurf = require('csurf')
 
 const router = express.Router()
+
+router.use(csurf())
 
 router.use(global.init)
 router.use(flash.init)

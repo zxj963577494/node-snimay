@@ -13,7 +13,7 @@ exports.getNotReadCount = function () {
   return ConsultModel.count({ isRead: 0 }).exec()
 }
 
-exports.getBy_Id = function (_id) {
+exports.getById = function (_id) {
   return ConsultModel.findOne({
     _id: _id
   }).exec()

@@ -16,7 +16,7 @@ exports.update = function (params) {
     category.isVisible = params.isVisible
     category.lastModifyTime = new Date()
     return category.save()
-  }).then(function (err) {
+  }).catch(function (err) {
     Promise.reject(err)
   })
 }
@@ -29,4 +29,10 @@ exports.create = function (params) {
   category.sort = params.sort
 
   return category.save()
+}
+
+exports.remove = function (_id) {
+  return CategoryModel.remove({
+    _id: _id
+  })
 }

@@ -1,5 +1,6 @@
 module.exports = {
   port: 4000,
+  JWT_SECRET: 'snimay-secret',
   session: {
     secret: 'snimay',
     key: 'snimay',

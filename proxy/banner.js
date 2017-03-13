@@ -10,6 +10,10 @@ exports.get_Admin = function () {
   return BannerModel.find({}, '_id title startTime endTime sort isVisible', { sort: ['-lastModifyTime'] }).exec()
 }
 
+exports.getAll = function () {
+  return BannerModel.find({}, '', { sort: ['-lastModifyTime'] }).exec()
+}
+
 exports.getBy_Id = function (_id) {
   return BannerModel.findOne({
     _id: _id

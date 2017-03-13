@@ -163,6 +163,12 @@ exports.getById_Admin = function (_id) {
   }).exec()
 }
 
+exports.getById_API = function (_id) {
+  return ProductModel.find({
+    _id: _id
+  }).exec()
+}
+
 exports.update = function (params) {
   return ProductModel.findOne({
     _id: params._id
