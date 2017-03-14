@@ -4,6 +4,8 @@
 
 [http://120.132.14.20:8080/](http://120.132.14.20:8080/)
 
+[API Documentation](https://documenter.getpostman.com/view/1480578/snimay/6YtzwXQ)
+
 ## Quick Start Install
 
 you’ll need **Node.js v6 LTS**
