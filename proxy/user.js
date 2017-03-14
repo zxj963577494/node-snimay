@@ -2,7 +2,7 @@ const models = require('../models')
 const UserModel = models.User
 
 exports.getOne = function (options) {
-  return UserModel.findOne(options, 'userid _id name isEnable password', { sort: ['-createTime'] }).exec()
+  return UserModel.findOne(options, 'userid _id name isEnable password token', { sort: ['-createTime'] }).exec()
 }
 
 exports.get = function (options) {
@@ -19,6 +19,16 @@ exports.getByUserId = function (userid) {
   return UserModel.findOne({
     userid: userid
   }, 'name').exec()
+}
+
+exports.API_Get = function (select, options) {
+  return UserModel.find(Object.assign({}, options), select).exec()
+}
+
+exports.API_GetById = function (_id) {
+  return UserModel.findOne({
+    _id: _id
+  }).exec()
 }
 
 exports.update = function (params) {

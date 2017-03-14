@@ -25,8 +25,8 @@ exports.HeadAdd = function (req, res, next) {
 }
 
 exports.HeadModel = function (req, res, next) {
-  const _id = req.params.id
-  SelectorProxy.getById_Admin(_id).then(function (model) {
+  const _id = req.params._id
+  SelectorProxy.API_GetHeadById(_id).then(function (model) {
     res.status(200).json(model)
   }).catch(function (err) {
     return next(err)
@@ -34,7 +34,7 @@ exports.HeadModel = function (req, res, next) {
 }
 
 exports.HeadEdit = function (req, res, next) {
-  const _id = req.body.id
+  const _id = req.body._id
   const title = req.body.title
   const alias = req.body.alias
   const sort = req.body.sort
@@ -51,7 +51,7 @@ exports.HeadEdit = function (req, res, next) {
 
 exports.HeadList = function (req, res, next) {
   let cid = req.params.cid || 1
-  SelectorProxy.getByCid_Admin(cid, {}).then(function (list) {
+  SelectorProxy.API_GetHeadByCid(cid, {}).then(function (list) {
     res.status(200).json(list)
   }).catch(function (err) {
     return next(err)
@@ -59,7 +59,7 @@ exports.HeadList = function (req, res, next) {
 }
 
 exports.HeadDelete = function (req, res, next) {
-  const _id = req.params.id
+  const _id = req.params._id
   SelectorProxy.removeKey(_id).then(function (model) {
     res.status(200).json(model)
   }).catch(function (err) {
@@ -68,7 +68,7 @@ exports.HeadDelete = function (req, res, next) {
 }
 
 exports.BodyAdd = function (req, res, next) {
-  const _id = req.params.id
+  const _id = req.params._id
   const title = req.body.title
   const alias = req.body.alias
   const sort = req.body.sort
@@ -88,10 +88,10 @@ exports.BodyAdd = function (req, res, next) {
 }
 
 exports.BodyModel = function (req, res, next) {
-  const _id = req.params.id
-  const _sid = req.params.sid
+  const _id = req.params._id
+  const _sid = req.params._sid
 
-  SelectorProxy.getById_Admin(_id).then(function (model) {
+  SelectorProxy.API_GetHeadById(_id).then(function (model) {
     let m = model.values.filter((x) => {
       return x._id.toString() === _sid
     })
@@ -102,7 +102,7 @@ exports.BodyModel = function (req, res, next) {
 }
 
 exports.BodyEdit = function (req, res, next) {
-  const _id = req.params.id
+  const _id = req.params._id
   const _sid = req.params.sid
   const title = req.body.title
   const alias = req.body.alias
@@ -119,17 +119,17 @@ exports.BodyEdit = function (req, res, next) {
 }
 
 exports.BodyList = function (req, res, next) {
-  const _id = req.params.id
-  SelectorProxy.getById_Admin(_id).then(function (model) {
-    res.status(200).json(model)
+  const _id = req.params._id
+  SelectorProxy.API_GetHeadById(_id).then(function (model) {
+    res.status(200).json(model.values)
   }).catch(function (err) {
     return next(err)
   })
 }
 
 exports.BodyDelete = function (req, res, next) {
-  const _id = req.params.id
-  const _sid = req.params.sid
+  const _id = req.params._id
+  const _sid = req.params._sid
   SelectorProxy.removeValue(_id, _sid).then(function (model) {
     res.status(200).json(model)
   }).catch(function (err) {

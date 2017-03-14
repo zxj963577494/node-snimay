@@ -163,10 +163,15 @@ exports.getById_Admin = function (_id) {
   }).exec()
 }
 
-exports.getById_API = function (_id) {
-  return ProductModel.find({
+exports.API_GetById = function (_id) {
+  return ProductModel.findOne({
     _id: _id
   }).exec()
+}
+
+exports.API_GetByPage = function (select, options, query) {
+  let numToSkip = (query.pageIndex - 1) * query.pageSize
+  return ProductModel.find(Object.assign({}, options), select).sort(query.sort).skip(numToSkip).limit(query.pageSize).exec()
 }
 
 exports.update = function (params) {

@@ -24,6 +24,14 @@ exports.getById_Admin = function (_id) {
   return SelectorModel.findOne({ _id: _id }, '', { 'values.sort': ['-sort'] }).exec()
 }
 
+exports.API_GetHeadById = function (_id) {
+  return SelectorModel.findOne({ _id: _id }, '', { 'values.sort': ['-sort'] }).exec()
+}
+
+exports.API_GetHeadByCid = function (cid, options) {
+  return SelectorModel.find(Object.assign({ cid: cid }, options), '', { sort: ['-sort'] }).exec()
+}
+
 exports.update = function (params) {
   return SelectorModel.findOne({ _id: params._id }).then(function (selector) {
     selector.title = params.title

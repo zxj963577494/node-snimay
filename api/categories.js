@@ -1,7 +1,7 @@
 const CategoryProxy = require('../proxy').Category
 
 exports.List = function (req, res, next) { 
-  CategoryProxy.get('', {}).then(function (category) {
+  CategoryProxy.API_Get('', {}).then(function (category) {
     res.status(200).json(category)
   }).catch(function (err) {
     return next(err)
@@ -9,8 +9,8 @@ exports.List = function (req, res, next) {
 }
 
 exports.Model = function (req, res, next) {
-  const _id = req.params.id
-  CategoryProxy.getBy_Id(_id).then(function (model) {
+  const _id = req.params._id
+  CategoryProxy.API_GetById(_id).then(function (model) {
     res.status(200).json(model)
   }).catch(function (err) {
     return next(err)
@@ -18,7 +18,7 @@ exports.Model = function (req, res, next) {
 }
 
 exports.Edit = function (req, res, next) {
-  const _id = req.params.id
+  const _id = req.params._id
   const title = req.body.title
   const sort = req.body.sort
   const isVisible = req.body.isVisible
@@ -49,7 +49,7 @@ exports.Add = function (req, res, next) {
 }
 
 exports.Delete = function (req, res, next) {
-  const _id = req.params.id
+  const _id = req.params._id
   CategoryProxy.remove(_id).then(function (model) {
     res.status(200).json(model)
   }).catch(function (err) {

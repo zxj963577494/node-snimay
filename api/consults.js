@@ -1,5 +1,24 @@
 const ConsultProxy = require('../proxy').Consult
 
+exports.List = function (req, res, next) {
+  let sortby = req.query.sortby || 'createTime'
+  let order = req.query.order === 'asc' ? 1 : req.query.order === 'desc' ? -1 : -1
+  let pageIndex = parseInt(req.query.pageIndex) || 1
+  let pageSize = parseInt(req.query.pageSize) || 12
+  let query = {
+    sort: {
+      [sortby]: order
+    },
+    pageIndex: pageIndex,
+    pageSize: pageSize
+  }
+  ConsultProxy.API_GetByPage('', {}, query).then(function (list) {
+    res.status(200).json(list)
+  }).catch(function (err) {
+    return next(err)
+  })
+}
+
 exports.Add = function (req, res, next) {
   const name = req.body.name
   const tel = req.body.tel
@@ -17,18 +36,9 @@ exports.Add = function (req, res, next) {
   })
 }
 
-
-exports.List = function (req, res, next) {
-  ConsultProxy.get('', {}).then(function (list) {
-    res.status(200).json(list)
-  }).catch(function (err) {
-    return next(err)
-  })
-}
-
 exports.Model = function (req, res, next) {
-  const id = req.params.id
-  ConsultProxy.getById(id).then(function (model) {
+  const id = req.params._id
+  ConsultProxy.API_GetById(id).then(function (model) {
     res.status(200).json(model)
   }).catch(function (err) {
     return next(err)
@@ -36,7 +46,7 @@ exports.Model = function (req, res, next) {
 }
 
 exports.Edit = function (req, res, next) {
-  const _id = req.params.id
+  const _id = req.params._id
   const name = req.body.name
   const tel = req.body.tel
   const isRead = req.body.isRead
@@ -53,7 +63,7 @@ exports.Edit = function (req, res, next) {
 }
 
 exports.Delete = function (req, res, next) {
-  const _id = req.params.id
+  const _id = req.params._id
   ConsultProxy.remove(_id).then(function (model) {
     res.status(200).json(model)
   }).catch(function (err) {

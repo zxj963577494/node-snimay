@@ -19,6 +19,17 @@ exports.getById = function (_id) {
   }).exec()
 }
 
+exports.API_GetByPage = function (select, options, query) {
+  let numToSkip = (query.pageIndex - 1) * query.pageSize
+  return ConsultModel.find(Object.assign({}, options), select).sort(query.sort).skip(numToSkip).limit(query.pageSize).exec()
+}
+
+exports.API_GetById = function (_id) {
+  return ConsultModel.findOne({
+    _id: _id
+  }).exec()
+}
+
 exports.update = function (params) {
   return ConsultModel.findOne({ _id: params._id }).then(function (consult) {
     consult.name = params.name

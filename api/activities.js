@@ -1,7 +1,18 @@
 const ActivityProxy = require('../proxy').Activity
 
 exports.List = function (req, res, next) {
-  ActivityProxy.get({}, '').then(function (list) {
+  let sortby = req.query.sortby || 'createTime'
+  let order = req.query.order === 'asc' ? 1 : req.query.order === 'desc' ? -1 : -1
+  let pageIndex = parseInt(req.query.pageIndex) || 1
+  let pageSize = parseInt(req.query.pageSize) || 12
+  let query = {
+    sort: {
+      [sortby]: order
+    },
+    pageIndex: pageIndex,
+    pageSize: pageSize
+  }
+  ActivityProxy.API_GetByPage('', {}, query).then(function (list) {
     res.status(200).json(list)
   }).catch(function (err) {
     return next(err)
@@ -35,9 +46,8 @@ exports.Add = function (req, res, next) {
 }
 
 exports.Model = function (req, res, next) {
-  const _id = req.params.id
-
-  ActivityProxy.getBy_Id(_id).then(function (model) {
+  const _id = req.params._id
+  ActivityProxy.API_GetById(_id).then(function (model) {
     res.status(200).json(model)
   }).catch(function (err) {
     return next(err)
@@ -45,7 +55,7 @@ exports.Model = function (req, res, next) {
 }
 
 exports.Edit = function (req, res, next) {
-  const _id = req.params.id
+  const _id = req.params._id
   const title = req.body.title
   const isVisible = req.body.isVisible
   const endTime = new Date(req.body.endTime)
@@ -73,7 +83,7 @@ exports.Edit = function (req, res, next) {
 }
 
 exports.Delete = function (req, res, next) {
-  const _id = req.params.id
+  const _id = req.params._id
   ActivityProxy.remove(_id).then(function (model) {
     res.status(200).json(model)
   })

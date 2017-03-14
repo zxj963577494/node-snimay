@@ -20,6 +20,17 @@ exports.getBy_Id = function (_id) {
   }).exec()
 }
 
+exports.API_GetByPage = function (select, options, query) {
+  let numToSkip = (query.pageIndex - 1) * query.pageSize
+  return BannerModel.find(Object.assign({}, options), select).sort(query.sort).skip(numToSkip).limit(query.pageSize).exec()
+}
+
+exports.API_GetById = function (_id) {
+  return BannerModel.findOne({
+    _id: _id
+  }).exec()
+}
+
 exports.update = function (params) {
   return BannerModel.findOne({
     _id: params._id
@@ -39,7 +50,6 @@ exports.update = function (params) {
     Promise.reject(err)
   })
 }
-
 
 exports.create = function (params) {
   var banner = new BannerModel()

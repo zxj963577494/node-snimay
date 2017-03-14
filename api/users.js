@@ -2,14 +2,14 @@ const UserProxy = require('../proxy').User
 const tools = require('../util/tools')
 
 exports.List = function (req, res, next) {
-  UserProxy.get().then(function (list) {
+  UserProxy.API_Get('', {}).then(function (list) {
     res.status(200).json(list)
   })
 }
 
 exports.Model = function (req, res, next) {
-  const id = req.params.id
-  UserProxy.getById(id).then(function (model) {
+  const id = req.params._id
+  UserProxy.API_GetById(id).then(function (model) {
     res.status(200).json(model)
   }).catch(function (err) {
     return next(err)
@@ -45,7 +45,7 @@ exports.Add = function (req, res, next) {
 }
 
 exports.Edit = function (req, res, next) {
-  const _id = req.params.id || req.body._id
+  const _id = req.params._id
   const name = req.body.name
   const email = req.body.email
   const isEnable = req.body.isEnable
@@ -74,7 +74,7 @@ exports.Edit = function (req, res, next) {
 }
 
 exports.Delete = function (req, res, next) {
-  const _id = req.params.id
+  const _id = req.params._id
   UserProxy.remove(_id).then(function (model) {
     res.status(200).json(model)
   }).catch(function (err) {

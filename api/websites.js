@@ -10,7 +10,7 @@ exports.Model = function (req, res, next) {
 
 
 exports.Edit = function (req, res, next) {
-  const _id = req.params.id || req.body._id
+  const _id = req.params._id
   const host = req.body.host
   const title = req.body.title
   const keywords = req.body.keywords
