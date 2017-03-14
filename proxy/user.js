@@ -41,8 +41,6 @@ exports.update = function (params) {
     };
     user.lastModifyTime = new Date()
     return user.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
 

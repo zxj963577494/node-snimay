@@ -21,8 +21,6 @@ exports.update = function (params) {
     website.email = params.email
     website.lastModifyTime = new Date()
     return website.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
 

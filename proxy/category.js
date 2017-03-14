@@ -26,8 +26,6 @@ exports.update = function (params) {
     category.isVisible = params.isVisible
     category.lastModifyTime = new Date()
     return category.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
 

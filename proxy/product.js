@@ -196,8 +196,6 @@ exports.update = function (params) {
     product.isIndex = params.isIndex
     product.lastModifyTime = new Date()
     return product.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
 

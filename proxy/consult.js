@@ -38,8 +38,6 @@ exports.update = function (params) {
     consult.remark = params.remark
     consult.lastModifyTime = new Date()
     return consult.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
 

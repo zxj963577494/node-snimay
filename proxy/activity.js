@@ -54,8 +54,6 @@ exports.update = function (params) {
     model.isVisible = params.isVisible
     model.lastModifyTime = new Date()
     return model.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
 

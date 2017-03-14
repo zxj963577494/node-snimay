@@ -46,8 +46,6 @@ exports.update = function (params) {
     banner.sort = params.sort
     banner.lastModifyTime = new Date()
     return banner.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
 

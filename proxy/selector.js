@@ -40,8 +40,6 @@ exports.update = function (params) {
     selector.isVisible = params.isVisible
     selector.lastModifyTime = new Date()
     return selector.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
 
@@ -50,8 +48,6 @@ exports.updateValues = function (_id, value) {
     selector.values.push(value)
     selector.lastModifyTime = new Date()
     return selector.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
 
@@ -67,8 +63,6 @@ exports.updateValueModel = function (params) {
     })
     selector.lastModifyTime = new Date()
     return selector.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
 
@@ -95,7 +89,5 @@ exports.removeValue = function (_id, _sid) {
     selector.values.id(_sid).remove()
     selector.lastModifyTime = new Date()
     return selector.save()
-  }).catch(function (err) {
-    Promise.reject(err)
   })
 }
