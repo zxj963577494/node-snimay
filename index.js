@@ -14,15 +14,6 @@ const bodyParser = require('body-parser')
 const moment = require('moment')
 const upload = require('./util/multerUtil')
 const helpers = require('./helpers')
-/*
- * 分词
- * https://github.com/yanyiwu/nodejieba
- */
-const nodejieba = require('nodejieba')
-
-nodejieba.load({
-  userDict: path.join(__dirname, 'dict', 'userdict.utf8')
-})
 
 const app = express()
 
