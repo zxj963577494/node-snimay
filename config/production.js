@@ -20,5 +20,5 @@ module.exports = {
     mapText: '诗尼曼家具店',                    // 地图文字显示内容
     mapMouseoverTxt: '诗尼曼家具店'             // 当鼠标悬浮时，地图文字显示内容
   },
-  mongodb: 'mongodb://zhengxujiang:zxj123456@ds159978.mlab.com:59978/snimay'
+  mongodb: 'mongodb://zhengxujiang:zxj123456@ds131340.mlab.com:31340/snimay'
 }
