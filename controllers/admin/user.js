@@ -1,3 +1,6 @@
+const uuid = require('node-uuid')
+const jwt = require('jsonwebtoken')
+const config = require('config-lite')
 const UserProxy = require('../../proxy').User
 const tools = require('../../util/tools')
 
@@ -23,15 +26,20 @@ exports.postAdd = function (req, res, next) {
   const password = req.body.password
   const email = req.body.email
   const isEnable = req.body.isEnable
+  const userid = uuid.v4()
+  const token = jwt.sign({'userid': userid}, config.JWT_SECRET)
 
   const params = {
     name,
     password,
     email,
-    isEnable
+    isEnable,
+    userid,
+    token
   }
 
   tools.bhash(password).then(function (passhash) {
+    params.password = passhash
     UserProxy.create(params).then(function (model) {
       req.flash('info', {
         message: '添加成功'
