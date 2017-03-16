@@ -8,6 +8,7 @@ exports.HeadAdd = function (req, res, next) {
   const sort = req.body.sort
   const isVisible = req.body.isVisible
   const values = new Array({
+    _id: mongoose.Types.ObjectId(),
     sort: 99,
     isVisible: 1,
     title: '全部',
@@ -34,7 +35,7 @@ exports.HeadModel = function (req, res, next) {
 }
 
 exports.HeadEdit = function (req, res, next) {
-  const _id = req.body._id
+  const _id = req.params._id
   const title = req.body.title
   const alias = req.body.alias
   const sort = req.body.sort
@@ -81,7 +82,7 @@ exports.BodyAdd = function (req, res, next) {
     alias: alias
   }
   SelectorProxy.updateValues(_id, value).then(function (model) {
-    res.status(200).json(model)
+    res.status(200).json(value)
   }).catch(function (err) {
     return next(err)
   })

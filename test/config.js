@@ -70,5 +70,17 @@ module.exports = {
     qq: '963577494',
     weibo: '关键字',
     email: '963577494@qq.com'
+  },
+  SelectorsHeadsBody: {
+    title: '定制书房',
+    sort: 1,
+    alias: 'ddsf',
+    isVisible: 1
+  },
+  SelectorsBodysBody: {
+    title: '书柜组合',
+    sort: 1,
+    alias: 'sgzh',
+    isVisible: 1
   }
 }

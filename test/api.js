@@ -882,4 +882,202 @@ describe('API', function () {
         })
     })
   })
+  describe('Selectors', function () {
+    let globalId = ''
+    let _id = ''
+    let token = 'Bearer '
+    before(function (done) {
+      request.post('/api/v1/signin')
+      .send(config.user)
+      .expect(200)
+      .end(function (err, res) {
+        if (err) {
+          return done(err)
+        }
+        token += res.body.token
+        done()
+      })
+    })
+    beforeEach(function (done) {
+      request.post('/api/v1/selectors/heads/2')
+        .set('Authorization', token)
+        .send(config.SelectorsHeadsBody)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          globalId = res.body._id
+          done()
+        })
+    })
+    afterEach(function (done) {
+      request.del('/api/v1/selectors/heads/' + globalId)
+        .set('Authorization', token)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          globalId = res.body._id
+          done()
+        })
+    })
+    it('GET /selectors/heads/2', function (done) {
+      request.get('/api/v1/selectors/heads/2')
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          done()
+        })
+    })
+    it('GET /selectors/heads/2/:_id', function (done) {
+      request.get('/api/v1/selectors/heads/2/' + globalId)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          done()
+        })
+    })
+    it('POST /selectors/heads/2', function (done) {
+      request.post('/api/v1/selectors/heads/2')
+        .set('Authorization', token)
+        .send(config.SelectorsHeadsBody)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          _id = res.body._id
+          done()
+        })
+    })
+    it('PUT /selectors/heads/:_id', function (done) {
+      request.put('/api/v1/selectors/heads/' + globalId)
+        .set('Authorization', token)
+        .send(config.SelectorsHeadsBody)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          done()
+        })
+    })
+    it('Delete /selectors/heads/:_id', function (done) {
+      request.del('/api/v1/selectors/heads/' + _id)
+        .set('Authorization', token)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          done()
+        })
+    })
+  })
+  describe('Selectors', function () {
+    let globalId = ''
+    let _id = ''
+    let _sid = ''
+    let token = 'Bearer '
+    before(function (done) {
+      request.post('/api/v1/signin')
+      .send(config.user)
+      .expect(200)
+      .end(function (err, res) {
+        if (err) {
+          return done(err)
+        }
+        token += res.body.token
+        done()
+      })
+    })
+    before(function (done) {
+      request.post('/api/v1/selectors/heads/2')
+        .set('Authorization', token)
+        .send(config.SelectorsHeadsBody)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          globalId = res.body._id
+          done()
+        })
+    })
+    after(function (done) {
+      request.del('/api/v1/selectors/heads/' + globalId)
+        .set('Authorization', token)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          globalId = res.body._id
+          done()
+        })
+    })
+    it('GET /selectors/bodys/:_id', function (done) {
+      request.get('/api/v1/selectors/bodys/' + globalId)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          done()
+        })
+    })
+    it('POST /selectors/bodys/:_id', function (done) {
+      request.post('/api/v1/selectors/bodys/' + globalId)
+        .set('Authorization', token)
+        .send(config.SelectorsBodysBody)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          _id = globalId
+          _sid = res.body._id
+          done()
+        })
+    })
+    it('PUT /selectors/bodys/:_id/:_sid', function (done) {
+      request.put('/api/v1/selectors/bodys/' + _id + '/' + _sid)
+        .set('Authorization', token)
+        .send(config.SelectorsBodysBody)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          done()
+        })
+    })
+    it('GET /selectors/bodys/:_id/:_sid', function (done) {
+      request.get('/api/v1/selectors/bodys/' + _id + '/' + _sid)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          done()
+        })
+    })
+    it('Delete /selectors/bodys/:_id/:_sid', function (done) {
+      request.del('/api/v1/selectors/bodys/' + _id + '/' + _sid)
+        .set('Authorization', token)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            return done(err)
+          }
+          done()
+        })
+    })
+  })
 })
