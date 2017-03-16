@@ -1,4 +1,5 @@
 language: node_js
+repo_token: 9snq0KJS8XuQ3sG3R68SNreouETROhWAa
 node_js:
   - "6.10.0"
 services: 
