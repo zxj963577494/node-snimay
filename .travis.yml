@@ -9,8 +9,6 @@ cache:
     - node_modules
 before_install:
   - npm install
-before_script: 
-  - mongo snimay
 script:
   - npm test
 after_script:
