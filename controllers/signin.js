@@ -24,6 +24,12 @@ exports.login = function (req, res, next) {
       error.is = false
       error.message = '账户已禁用'
     }
+    if (!error.is) {
+      req.flash('error', {
+        message: error.message
+      })
+      return res.redirect('signin')
+    }
     const passhash = user.password
     tools.bcompare(password, passhash).then(function (bool) {
       if (bool) {
@@ -36,12 +42,6 @@ exports.login = function (req, res, next) {
         res.redirect('signin')
       }
     })
-    if (!error.is) {
-      req.flash('error', {
-        message: error.message
-      })
-      res.redirect('signin')
-    }
   }).catch(function (err) {
     return next(err)
   })

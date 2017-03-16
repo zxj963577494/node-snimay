@@ -4,6 +4,19 @@ const request = supertest(app)
 const config = require('./config')
 
 describe('API', function () {
+  let userid = ''
+  before(function (done) {
+    request.post('/api/v1/users/admin')
+    .send(config.user)
+      .expect(200)
+      .end(function (err, res) {
+        if (err) {
+          return done(err)
+        }
+        userid = res.body._id
+        done()
+      })
+  })
   describe('Activities', function () {
     let globalId = ''
     let _id = ''
@@ -1078,6 +1091,16 @@ describe('API', function () {
           }
           done()
         })
+    })
+  })
+  after(function (done) {
+    request.del('/api/v1/users/admin/' + userid)
+    .expect(200)
+    .end(function (err, res) {
+      if (err) {
+        return done(err)
+      }
+      done()
     })
   })
 })

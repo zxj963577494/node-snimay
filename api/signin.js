@@ -17,6 +17,11 @@ exports.login = function (req, res, next) {
       error.is = false
       error.message = '账户已禁用'
     }
+    if (!error.is) {
+      return res.status(401).json({
+        message: error.message
+      })
+    }
     const passhash = user.password
     tools.bcompare(password, passhash).then(function (bool) {
       if (bool) {
@@ -29,11 +34,6 @@ exports.login = function (req, res, next) {
         })
       }
     })
-    if (!error.is) {
-      res.status(401).json({
-        message: error.message
-      })
-    }
   }).catch(function (err) {
     return next(err)
   })

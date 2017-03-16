@@ -2,8 +2,9 @@ const moment = require('moment')
 
 module.exports = {
   user: {
-    name: 'admin666',
-    password: '123456'
+    name: 'test',
+    password: '123456',
+    isEnable: 1
   },
   ActivitiesBody: {
     title: '诗尼曼全屋定制315家装节',
