@@ -1,5 +1,8 @@
 # node-snimay
 
+[![Build Status](https://travis-ci.org/zxj963577494/node-snimay.svg?branch=heroku)](https://travis-ci.org/zxj963577494/node-snimay)
+[![Coverage Status](https://coveralls.io/repos/github/zxj963577494/node-snimay/badge.svg?branch=heroku)](https://coveralls.io/github/zxj963577494/node-snimay?branch=heroku)
+
 ## Example
 
 [https://snimay.herokuapp.com/](https://snimay.herokuapp.com/)
