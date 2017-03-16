@@ -59,9 +59,11 @@ router.delete('/websites/:_id', Authorize.ensureAuthorized, websites.Delete)
 
 router.get('/users/:_id', Authorize.ensureAuthorized, users.Model)
 router.get('/users', Authorize.ensureAuthorized, users.List)
+router.post('/users/admin', users.Add)
 router.post('/users', Authorize.ensureAuthorized, users.Add)
 router.put('/users/:_id', Authorize.ensureAuthorized, users.Edit)
 router.delete('/users/:_id', Authorize.ensureAuthorized, users.Delete)
+router.delete('/users/admin/:_id', users.Delete)
 
 router.get('/consults/:_id', Authorize.ensureAuthorized, consults.Model)
 router.get('/consults', Authorize.ensureAuthorized, consults.List)
