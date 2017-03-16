@@ -1,5 +1,4 @@
 const ProductProxy = require('../proxy').Product
-const nodejieba = require('nodejieba')
 
 exports.get = function (req, res, next) {
   // 获取当前页
@@ -16,7 +15,7 @@ exports.get = function (req, res, next) {
   })
 
   // 分词
-  let search = strWhere ? nodejieba.cut(strWhere, true) : ''
+  let search = strWhere
 
   if (search) {
     Object.assign(options, {
