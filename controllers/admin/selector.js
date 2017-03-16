@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const SelectorProxy = require('../../proxy').Selector
 
 exports.getKeyAdd = function (req, res, next) {
@@ -13,6 +14,7 @@ exports.postKeyAdd = function (req, res, next) {
   const sort = req.body.sort
   const isVisible = req.body.isVisible
   const values = new Array({
+    _id: mongoose.Types.ObjectId(),
     sort: 99,
     isVisible: 1,
     title: '全部',
@@ -102,6 +104,7 @@ exports.postValueAdd = function (req, res, next) {
   const sort = req.body.sort
   const isVisible = req.body.isVisible
   const value = {
+    _id: mongoose.Types.ObjectId(),
     sort: sort,
     isVisible: isVisible,
     title: title,

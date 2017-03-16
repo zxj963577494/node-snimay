@@ -77,6 +77,8 @@ app.use('/api/v1', apiRoutes)
 // 路由
 app.use('/', routes)
 
+module.exports = app
+
 app.listen(process.env.PORT || config.port, function (req, res) {
   console.log(`${pkg.name} started on http://localhost:${config.port} press Ctrl + C  to terminate.`)
 })

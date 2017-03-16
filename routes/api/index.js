@@ -53,7 +53,9 @@ router.put('/modes/:_id', Authorize.ensureAuthorized, modes.Edit)
 router.delete('/modes/:_id', Authorize.ensureAuthorized, modes.Delete)
 
 router.get('/websites', websites.Model)
-router.put('/websites/:_id', websites.Edit)
+router.put('/websites/:_id', Authorize.ensureAuthorized, websites.Edit)
+router.post('/websites', Authorize.ensureAuthorized, websites.Add)
+router.delete('/websites/:_id', Authorize.ensureAuthorized, websites.Delete)
 
 router.get('/users/:_id', Authorize.ensureAuthorized, users.Model)
 router.get('/users', Authorize.ensureAuthorized, users.List)
