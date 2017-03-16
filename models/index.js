@@ -10,6 +10,7 @@ const connection = mongoose.connect(config.mongodb, {
   }
 }, function (err) {
   if (err) {
+    console.log('[mongoose log] Error connecting to: ' + config.mongodb + '. ' + err)
     process.exit(1)
   }
 })
