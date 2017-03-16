@@ -1,13 +1,16 @@
 language: node_js
 node_js:
   - "6.10.0"
-services: mongodb
+services: 
+  - mongodb
 cache:
   yarn: true
   directories:
     - node_modules
 before_install:
   - npm install
+before_script: 
+  - mongo snimay
 script:
   - npm test
 after_script:
