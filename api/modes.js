@@ -4,7 +4,7 @@ const _ = require('lodash')
 exports.List = function (req, res, next) {
   let sortby = req.query.sortby || 'createTime'
   let order = req.query.order === 'asc' ? 1 : req.query.order === 'desc' ? -1 : -1
-  let pageIndex = parseInt(req.query.page, 10) || 1
+  let pageIndex = parseInt(req.query.pageindex, 10) || 1
   let pageSize = parseInt(req.query.pagesize, 10) || 12
 
   // 构建产品查询条件
