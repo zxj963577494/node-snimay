@@ -3,8 +3,8 @@ const ActivityProxy = require('../proxy').Activity
 exports.List = function (req, res, next) {
   let sortby = req.query.sortby || 'createTime'
   let order = req.query.order === 'asc' ? 1 : req.query.order === 'desc' ? -1 : -1
-  let pageIndex = parseInt(req.query.pageIndex) || 1
-  let pageSize = parseInt(req.query.pageSize) || 12
+  let pageIndex = parseInt(req.query.pageindex) || 1
+  let pageSize = parseInt(req.query.pagesize) || 12
   let query = {
     sort: {
       [sortby]: order
