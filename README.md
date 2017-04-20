@@ -7,7 +7,7 @@
 
 [https://snimay.herokuapp.com/](https://snimay.herokuapp.com/)
 
-[API Documentation](https://documenter.getpostman.com/view/1480578/snimay/6YtzwXQ)
+[API Documentation](https://github.com/zxj963577494/node-snimay/blob/promise/API.md)
 
 ## Quick Start Install
 
