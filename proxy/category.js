@@ -1,7 +1,7 @@
 const models = require('../models')
 const CategoryModel = models.Category
 
-exports.get = function (select, options, callback) {
+exports.get = function (select, options) {
   return CategoryModel.find(options, select, { sort: ['-sort'] }).exec()
 }
 
