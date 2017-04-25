@@ -64,7 +64,7 @@ exports.create = function (params) {
   return banner.save()
 }
 
-exports.remove = function (_id, callback) {
+exports.remove = function (_id) {
   return BannerModel.remove({
     _id: _id
   }).exec()
