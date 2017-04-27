@@ -9,7 +9,7 @@ module.exports = {
 
   checkNotLogin: function checkNotLogin (req, res, next) {
     if (req.session.user) {
-      res.redirect('/admin')
+      return res.redirect('/admin')
     }
     next()
   }
