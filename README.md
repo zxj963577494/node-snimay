@@ -7,6 +7,11 @@
 
 [https://snimay.herokuapp.com/](https://snimay.herokuapp.com/)
 
+[https://snimay.herokuapp.com/signin](https://snimay.herokuapp.com/signin) 
+
+user:admin666
+password:123456
+
 [API Documentation](https://github.com/zxj963577494/node-snimay/blob/heroku/API.md)
 
 ## Quick Start Install
