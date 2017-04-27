@@ -7,7 +7,7 @@
 
 [https://snimay.herokuapp.com/](https://snimay.herokuapp.com/)
 
-[https://snimay.herokuapp.com/signin](https://snimay.herokuapp.com/signin) 
+[https://snimay.herokuapp.com/signin](https://snimay.herokuapp.com/signin)
 
 user:admin666
 password:123456
