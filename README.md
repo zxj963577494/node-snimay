@@ -12,7 +12,9 @@
 user:admin666
 password:123456
 
-[API Documentation](https://github.com/zxj963577494/node-snimay/blob/heroku/API.md)
+[API Documentation](http://apizza.cc/console/project/2ad1dd97816daa24d7bc655458a4f0a3/browse)
+or
+[API Documentation](https://github.com/zxj963577494/node-snimay/blob/promise/API.md)
 
 ## Quick Start Install
 
