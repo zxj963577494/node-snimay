@@ -1,9 +1,7 @@
-{{# product}}
-{{#contentFor 'seo'}} 
-<title>{{../product.title}}</title> 
+{{# product}} {{#contentFor 'seo'}}
+<title>{{../product.title}}</title>
 <meta name="description" content="{{../product.description}}" />
-<meta name="keywords" content="{{../product.title}}" />
-{{/contentFor}} 
+<meta name="keywords" content="{{../product.title}}" /> {{/contentFor}}
 <div id="fh5co-product" style="padding:3em 0">
 	<div class="container">
 		<div class="row">
@@ -27,9 +25,8 @@
 						</p>
 						<p>
 							<h3>
-							{{#each tag}}
-								<a style="display: inline-block;" class="label label-gray" href="/result?tag={{this}}">{{this}}</a>
-							{{/each}}
+								{{#each tag}}
+								<a style="display: inline-block;" class="label label-gray" href="/result?tag={{this}}">{{this}}</a> {{/each}}
 							</h3>
 						</p>
 					</div>
@@ -44,7 +41,7 @@
 					</ul>
 
 					<!-- Tabs -->
-					<div class="fh5co-tab-content-wrap"  style="top: 0;" >
+					<div class="fh5co-tab-content-wrap" style="top: 0;">
 
 						<div class="fh5co-tab-content tab-content active" data-tab-content="1">
 							<div class="col-md-10 col-md-offset-1">
@@ -57,22 +54,24 @@
 		</div>
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1 animate-box">
-				<!-- 多说评论框 start -->
-				<div class="ds-thread" data-thread-key="{{id}}" data-title="{{title}}" data-url="{{../website.host}}single/{{id}}"></div>
-				<!-- 多说评论框 end -->
-				<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-				<script type="text/javascript">
-				var duoshuoQuery = {short_name:"zhengxujiang"};
-				(function() {
-					var ds = document.createElement('script');
-					ds.type = 'text/javascript';ds.async = true;
-					ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-					ds.charset = 'UTF-8';
-					(document.getElementsByTagName('head')[0] 
-						|| document.getElementsByTagName('body')[0]).appendChild(ds);
-				})();
-				</script>
-				<!-- 多说公共JS代码 end -->
+				<!-- 来必力City版安装代码 -->
+				<div id="lv-container" data-id="city" data-uid="MTAyMC8yODc4OC81MzU5">
+					<script type="text/javascript">
+						(function (d, s) {
+							var j, e = d.getElementsByTagName(s)[0];
+
+							if (typeof LivereTower === 'function') { return; }
+
+							j = d.createElement(s);
+							j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+							j.async = true;
+
+							e.parentNode.insertBefore(j, e);
+						})(document, 'script');
+					</script>
+					<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+				</div>
+				<!-- City版安装代码已完成 -->
 			</div>
 		</div>
 	</div>
